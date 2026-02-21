@@ -15,7 +15,7 @@
       "hash": "34432703a177c97631a4eb1d908f086037c67969"
     },
     "com.github.homuler.mediapipe": {
-      "version": "file:C:/Users/Harken/Downloads/MediaPipeUnityPlugin-all/Packages/com.github.homuler.mediapipe",
+      "version": "file:../LocalPackages/MediaPipeUnityPlugin-all/Packages/com.github.homuler.mediapipe",
       "depth": 0,
       "source": "local",
       "dependencies": {

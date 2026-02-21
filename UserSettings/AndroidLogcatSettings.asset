@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "10ACAP0TJA001KC",
         "name": "com.unity.template.ar_mobile",
-        "processId": 13498,
+        "processId": 8773,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -72,6 +72,12 @@
             "deviceId": "10ACAP0TJA001KC",
             "name": "com.unity.template.ar_mobile",
             "processId": 13498,
+            "exited": false
+        },
+        {
+            "deviceId": "10ACAP0TJA001KC",
+            "name": "com.unity.template.ar_mobile",
+            "processId": 8773,
             "exited": false
         }
     ],
