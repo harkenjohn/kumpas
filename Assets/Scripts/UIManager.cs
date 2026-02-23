@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     public GameObject convertToSpeechSessionPanel;
     public GameObject cameraInputMethodPanel;
     public GameObject audioInputMethodPanel;
+    public GameObject voiceInputPanel;
 
     // --- NEW TEXT INPUT PANELS ---
     [Header("Text Input Panels")]
@@ -132,6 +133,7 @@ public class UIManager : MonoBehaviour
         textToSignInputPanel?.SetActive(false);
         historyPanel?.SetActive(false);
         conversationViewPanel?.SetActive(false);
+        voiceInputPanel?.SetActive(false);
 
         // Always disable MediaPipe and camera feed when hiding all panels
         if (mediaPipeSolution != null) mediaPipeSolution.SetActive(false);
@@ -260,6 +262,15 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         if (conversationViewPanel != null) conversationViewPanel.SetActive(true);
+    }
+
+    public void ShowVoiceInputPanel()
+    {
+        HideAllPanels();
+        if (voiceInputPanel != null)
+            voiceInputPanel.SetActive(true);
+
+        Debug.Log("[UIManager] Voice Input Panel shown");
     }
 
 
@@ -603,6 +614,11 @@ public class UIManager : MonoBehaviour
         Debug.Log("[UIManager] Sent TEXT_TO_SIGN message - Camera should trigger for partner");
     }
 
+    public void OnShowVoiceInputButton()
+    {
+        if (appManager == null) return;
+        appManager.ChangeState(AppManager.AppState.VoiceInput);
+    }
 
     // HomePanel: Profile Button (Switches panels)
     public void OnShowProfilePanelButton()

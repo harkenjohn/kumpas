@@ -45,6 +45,7 @@ public class AppManager : MonoBehaviour
         AudioInput,
         TextToSpeechInput,
         TextToSignInput,
+        VoiceInput,
         History,         // The list of past sessions
         ConversationView   // The panel showing messages inside a chat
     }
@@ -128,6 +129,9 @@ public class AppManager : MonoBehaviour
             case AppState.ConversationView:
                 ChangeState(AppState.History);
                 break;
+            case AppState.VoiceInput:
+                ChangeState(AppState.AudioInput);
+                break;
             case AppState.Home:
             case AppState.Login:
                 Debug.Log("[AppManager] Already at root panel, back button ignored.");
@@ -176,6 +180,9 @@ public class AppManager : MonoBehaviour
                 break;
             case AppState.History:
                 if (uiManager != null) uiManager.ShowHistoryPanel();
+                break;
+            case AppState.VoiceInput:
+                if (uiManager != null) uiManager.ShowVoiceInputPanel();
                 break;
             case AppState.ConversationView:
                 if (uiManager != null) uiManager.ShowConversationViewPanel();
