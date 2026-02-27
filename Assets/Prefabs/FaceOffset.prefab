@@ -191,8 +191,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6693384774136192701}
   m_SourcePrefab: {fileID: 100100000, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
+--- !u!1 &5990928635171610562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
+  m_PrefabInstance: {fileID: 6910039205201814163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6693384774136192701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5990928635171610562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988e73b1b7eafe7438e6d1dd469bfad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ASLRealtimeSentencePlayer
+  handAnimator: {fileID: 0}
+  messageDisplayText: {fileID: 0}
+  countdownText: {fileID: 0}
+  delayBeforeStart: 2
+  letterDelay: 0.7
 --- !u!4 &6372555499525555576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
