@@ -70,7 +70,7 @@ public class AppManager : MonoBehaviour
             triggerOpenCamera = false;
             isCameraFullscreen = true;
             Debug.Log($"[AppManager] UPDATE: triggerOpenCamera caught! Opening camera. Text: {receivedTextToSign}");
-            if (uiManager != null) uiManager.ShowCameraFullscreen();
+            if (uiManager != null) uiManager.ShowCameraFullscreen(receivedTextToSign);
         }
 
         // Native Android back button support

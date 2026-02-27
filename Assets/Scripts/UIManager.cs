@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using Kumpas.Models;
 using System.Collections.Generic;
+using System.Collections;
 
 /*
  * UI MANAGER (VIEW) - CONNECTED
@@ -141,7 +142,7 @@ public class UIManager : MonoBehaviour
     }
 
     // --- HELPER: SHOWS CAMERA FULLSCREEN (hides all app UI) ---
-    public void ShowCameraFullscreen()
+    public void ShowCameraFullscreen(string messageToSign = "")
     {
         // Hide the entire app UI
         if (uiRoot != null) uiRoot.SetActive(false);
@@ -151,6 +152,34 @@ public class UIManager : MonoBehaviour
         if (mediaPipeSolution != null) mediaPipeSolution.SetActive(true);
 
         Debug.Log("[UIManager] Camera fullscreen shown - all UI hidden, MediaPipe enabled");
+
+        // Start coroutine to wait for ASLRealtimeSentencePlayer to be ready
+        if (!string.IsNullOrEmpty(messageToSign))
+        {
+            StartCoroutine(WaitAndPlay(messageToSign));
+        }
+    }
+
+    IEnumerator WaitAndPlay(string messageToSign)
+    {
+        float timeout = 15f;
+        float elapsed = 0f;
+
+        Debug.Log("[UIManager] Waiting for ASLRealtimeSentencePlayer instance...");
+
+        while (ASLRealtimeSentencePlayer.Instance == null)
+        {
+            elapsed += Time.deltaTime;
+            if (elapsed >= timeout)
+            {
+                Debug.LogError("[UIManager] Timed out waiting for ASLRealtimeSentencePlayer!");
+                yield break;
+            }
+            yield return null;
+        }
+
+        Debug.Log("[UIManager] ASLRealtimeSentencePlayer found! Playing sentence...");
+        ASLRealtimeSentencePlayer.Instance.PlaySentence(messageToSign);
     }
 
     // --- HELPER: HIDES CAMERA, RESTORES APP UI ---
