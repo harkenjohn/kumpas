@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right IrisLandmarkList Annotation
       objectReference: {fileID: 0}
+    - target: {fileID: 4920882846540405593, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4920882846540405596, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
       propertyPath: _circleAnnotation
       value: 
@@ -147,6 +151,10 @@ PrefabInstance:
       propertyPath: _color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8525746990267349119, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8525746990267350913, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
       propertyPath: radius
       value: 10
@@ -161,6 +169,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8525746990267350913, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
       propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8822049734746532433, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -214,6 +226,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7477175687846711450}
     m_Modifications:
+    - target: {fileID: 1007056309493662028, guid: 16074ce928b0558829296ab0d9ccadf3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452028741229710237, guid: 16074ce928b0558829296ab0d9ccadf3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2452028741229710435, guid: 16074ce928b0558829296ab0d9ccadf3, type: 3}
       propertyPath: radius
       value: 10
@@ -269,6 +289,10 @@ PrefabInstance:
     - target: {fileID: 7273100862690186831, guid: 16074ce928b0558829296ab0d9ccadf3, type: 3}
       propertyPath: m_Name
       value: FaceLandmarkList Annotation
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273100862690186831, guid: 16074ce928b0558829296ab0d9ccadf3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -427,6 +451,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FaceOffset
       objectReference: {fileID: 0}
+    - target: {fileID: 2869973119584184055, guid: 52800933b0710bc4085a80419f8cf0d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3140548213624589976, guid: 52800933b0710bc4085a80419f8cf0d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000000042491597
@@ -522,6 +550,10 @@ PrefabInstance:
     - target: {fileID: 6372555499525555576, guid: 52800933b0710bc4085a80419f8cf0d5, type: 3}
       propertyPath: m_LocalPosition.z
       value: -155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693384774136192701, guid: 52800933b0710bc4085a80419f8cf0d5, type: 3}
+      propertyPath: letterDelay
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6865702250497070921, guid: 52800933b0710bc4085a80419f8cf0d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -659,6 +691,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left IrisLandmarkList Annotation
       objectReference: {fileID: 0}
+    - target: {fileID: 4920882846540405593, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4920882846540405596, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
       propertyPath: _circleAnnotation
       value: 
@@ -731,6 +767,10 @@ PrefabInstance:
       propertyPath: _color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8525746990267349119, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8525746990267350913, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
       propertyPath: radius
       value: 10
@@ -749,6 +789,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8525746990267350913, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
       propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8822049734746532433, guid: f0ce15b9d7f5f910fa2e3ddc2ea6d890, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
