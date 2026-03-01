@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Postgrest.Responses;
 using System.Linq;
 using System;
-// Fixes Namespace collision
 using Supabase.Realtime;
 using Supabase.Realtime.PostgresChanges;
 
@@ -21,18 +20,24 @@ public class AppManager : MonoBehaviour
     private Session currentSession;
     private Profile currentUserProfile;
     private ChatSession currentChatSession;
-    private ChatSession currentHistorySession; // To hold the session being reviewed
-    private string currentPartnerDisplayName = "Partner"; // Stores the partner's name for UI use
+    private ChatSession currentHistorySession;
+    private string currentPartnerDisplayName = "Partner";
 
     // --- Realtime Trigger Flags ---
     private bool triggerOpenCamera = false;
-    private bool isCameraFullscreen = false; // Tracks if camera is currently fullscreen
+    private bool isCameraFullscreen = false;
     private string receivedTextToSign = "";
 
-    // FIX: Use the specific class 'RealtimeChannel' because 'Supabase.Realtime.Channel' is a namespace
+    // --- TTS Trigger Flags ---
+    private bool triggerTTS = false;
+    private string receivedTTSText = "";
+
+    // --- Android TTS ---
+    private AndroidJavaObject _tts;
+    private bool _ttsReady = false;
+
     private Supabase.Realtime.RealtimeChannel realtimeChannel;
 
-    // --- UPDATED AppState with all necessary states ---
     public enum AppState
     {
         Login,
@@ -46,20 +51,15 @@ public class AppManager : MonoBehaviour
         TextToSpeechInput,
         TextToSignInput,
         VoiceInput,
-        History,         // The list of past sessions
-        ConversationView   // The panel showing messages inside a chat
+        History,
+        ConversationView
     }
     private AppState currentState;
 
     void Start()
     {
         if (uiManager != null) uiManager.Initialize(this);
-
-        // --- NEW TTS INITIALIZATION ---
-        // This MUST be called on startup for native Android TTS to work.
-        //ChatManager.InitializeNativeTTS();
-        // ------------------------------
-
+        InitTTS();
         ChangeState(AppState.Login);
     }
 
@@ -73,18 +73,64 @@ public class AppManager : MonoBehaviour
             if (uiManager != null) uiManager.ShowCameraFullscreen(receivedTextToSign);
         }
 
-        // Native Android back button support
+        if (triggerTTS)
+        {
+            triggerTTS = false;
+            Debug.Log($"[AppManager] UPDATE: triggerTTS caught! Speaking: {receivedTTSText}");
+            SpeakText(receivedTTSText);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             HandleBackButton();
         }
     }
 
+    // -------------------------------------------------------------------------
+    // --- ANDROID TTS ---------------------------------------------------------
+    // -------------------------------------------------------------------------
+
+    void InitTTS()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            AndroidJavaClass  unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject activity    = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaProxy  listener    = new AppTTSInitListener(() => { _ttsReady = true; });
+            _tts = new AndroidJavaObject("android.speech.tts.TextToSpeech", activity, listener);
+            Debug.Log("[AppManager] TTS initialized");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[AppManager] TTS init failed: {e.Message}");
+        }
+#else
+        _ttsReady = true;
+#endif
+    }
+
+    public void SpeakText(string text)
+    {
+        // Convert to lowercase so Android TTS reads it as words, not letters
+        string spokenText = text.ToLower();
+        Debug.Log($"[AppManager] SpeakText: '{spokenText}'");
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (_ttsReady && _tts != null)
+            _tts.Call<int>("speak", spokenText, 0, null, null);
+#else
+        Debug.Log($"[AppManager] Editor TTS: '{spokenText}'");
+#endif
+    }
+
+    // -------------------------------------------------------------------------
+    // --- BACK BUTTON ---------------------------------------------------------
+    // -------------------------------------------------------------------------
+
     private void HandleBackButton()
     {
         Debug.Log($"[AppManager] Back button pressed. CurrentState: {currentState}, isCameraFullscreen: {isCameraFullscreen}");
 
-        // If camera is fullscreen, always close it first regardless of state
         if (isCameraFullscreen)
         {
             isCameraFullscreen = false;
@@ -139,13 +185,15 @@ public class AppManager : MonoBehaviour
         }
     }
 
-    // --- State Management ---
+    // -------------------------------------------------------------------------
+    // --- STATE MANAGEMENT ----------------------------------------------------
+    // -------------------------------------------------------------------------
+
     public void ChangeState(AppState newState)
     {
         Debug.Log($"[AppManager] ChangeState called: {currentState} -> {newState}");
         currentState = newState;
 
-        // Update UI based on the new state
         switch (currentState)
         {
             case AppState.Login:
@@ -191,12 +239,11 @@ public class AppManager : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // --- REALTIME SUBSCRIPTION LOGIC -----------------------------------------
+    // --- REALTIME SUBSCRIPTION -----------------------------------------------
     // -------------------------------------------------------------------------
 
     private async void SubscribeToSessionMessages(string sessionId)
     {
-        // Unsubscribe from any previous channels just in case
         if (realtimeChannel != null)
         {
             try
@@ -204,12 +251,11 @@ public class AppManager : MonoBehaviour
                 realtimeChannel.Unsubscribe();
                 Debug.Log("[Realtime] Unsubscribed from previous channel");
             }
-            catch { /* Ignore if already closed */ }
+            catch { }
         }
 
         try
         {
-            // FIXED: Use the correct wildcard channel format for Supabase Realtime
             realtimeChannel = SupabaseManager.Instance.Realtime.Channel("realtime", "public", "chat_messages");
 
             realtimeChannel.AddPostgresChangeHandler(
@@ -259,9 +305,15 @@ public class AppManager : MonoBehaviour
                                 triggerOpenCamera = true;
                                 Debug.Log("[Realtime] *** CAMERA TRIGGER SET! ***");
                             }
+                            else if (message.MessageType == "TEXT_TO_SPEECH")
+                            {
+                                receivedTTSText = message.MessageContent;
+                                triggerTTS = true;
+                                Debug.Log($"[Realtime] *** TTS TRIGGER SET: '{message.MessageContent}' ***");
+                            }
                             else
                             {
-                                Debug.Log($"[Realtime] Message type '{message.MessageType}' does not trigger camera.");
+                                Debug.Log($"[Realtime] Message type '{message.MessageType}' not handled.");
                             }
                         }
                         else
@@ -286,20 +338,18 @@ public class AppManager : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // --- UTILITY GETTER ------------------------------------------------
+    // --- UTILITY -------------------------------------------------------------
     // -------------------------------------------------------------------------
 
-    // Allows UIManager to get the partner's display name without complex logic
     public string GetCurrentPartnerName()
     {
         return currentPartnerDisplayName;
     }
 
     // -------------------------------------------------------------------------
-    // --- HISTORY / CONVERSATION VIEW FUNCTIONS -------------------------------
+    // --- HISTORY / CONVERSATION VIEW -----------------------------------------
     // -------------------------------------------------------------------------
 
-    // 1. Triggered by the "History" button. Loads the list of sessions.
     public async void LoadChatHistory()
     {
         if (currentUserProfile == null || chatManager == null || uiManager == null) return;
@@ -324,30 +374,19 @@ public class AppManager : MonoBehaviour
 
         foreach (var session in sessions)
         {
-            // 1. FILTER: Must have User 2 assigned (chat started)
-            if (string.IsNullOrEmpty(session.User2Id))
-            {
-                continue;
-            }
+            if (string.IsNullOrEmpty(session.User2Id)) continue;
 
-            // 2. SOFT DELETE FILTER: Hide if current user has deleted it.
             bool isUser1 = session.User1Id == myUserId;
-            if ((isUser1 && session.User1Deleted) || (!isUser1 && session.User2Deleted))
-            {
-                continue;
-            }
+            if ((isUser1 && session.User1Deleted) || (!isUser1 && session.User2Deleted)) continue;
 
             string partnerId = isUser1 ? session.User2Id : session.User1Id;
             string partnerName = "";
 
             if (!string.IsNullOrEmpty(partnerId))
             {
-                // Fetch the partner's profile to get their name
                 Profile partnerProfile = await chatManager.GetUserProfile(partnerId);
                 if (partnerProfile != null)
-                {
                     partnerName = $"{partnerProfile.FirstName} {partnerProfile.LastName}";
-                }
             }
 
             uiManager.CreateConversationCard(session, partnerName, myUserId);
@@ -355,47 +394,34 @@ public class AppManager : MonoBehaviour
         }
 
         if (renderedCount == 0)
-        {
             uiManager.SetHistoryStatus("No completed conversations found.");
-        }
     }
 
-    // 2. Triggered by clicking a ConversationCard. Loads the messages.
     public async void ViewChatHistory(ChatSession session)
     {
         if (currentUserProfile == null || chatManager == null || uiManager == null) return;
 
-        // Set the session data globally for the conversation view panel to use
         currentHistorySession = session;
-
-        // Load the messages and transition the state
         await LoadMessagesForSession(session);
-
         ChangeState(AppState.ConversationView);
     }
 
-    // Handles fetching messages, populating the UI, and setting the header
     public async Task LoadMessagesForSession(ChatSession session)
     {
         if (currentUserProfile == null || chatManager == null || uiManager == null) return;
 
         string myUserId = currentUserProfile.Id;
         string partnerId = session.User1Id == myUserId ? session.User2Id : session.User1Id;
-        string partnerName = "Partner"; // Default name
+        string partnerName = "Partner";
 
-        // 1. Fetch Partner Name for the Header and store it
         Profile partnerProfile = await chatManager.GetUserProfile(partnerId);
         if (partnerProfile != null)
-        {
             partnerName = $"{partnerProfile.FirstName} {partnerProfile.LastName}";
-        }
-        currentPartnerDisplayName = partnerName; // Store name for UIManager use
 
-        // 2. Update UI Header and clear old messages
+        currentPartnerDisplayName = partnerName;
         uiManager.SetConversationPartnerName(partnerName);
         uiManager.ClearMessageBubbles();
 
-        // 3. Fetch Messages for this Session
         List<ChatMessage> messages = await chatManager.GetChatMessages(session.Id);
 
         if (messages == null || messages.Count == 0)
@@ -404,14 +430,10 @@ public class AppManager : MonoBehaviour
             return;
         }
 
-        // 4. Instantiate Message Bubbles
         foreach (var message in messages)
-        {
             uiManager.CreateMessageBubble(message, myUserId);
-        }
     }
 
-    // 3. Triggered by the Delete button on the ConversationCard
     public async void DeleteChatSession(ChatSession sessionToDelete)
     {
         if (chatManager == null || sessionToDelete == null || currentUserProfile == null) return;
@@ -423,22 +445,13 @@ public class AppManager : MonoBehaviour
 
         try
         {
-            // Set the appropriate soft-delete flag
             if (isUser1)
-            {
                 sessionToDelete.User1Deleted = true;
-            }
             else
-            {
                 sessionToDelete.User2Deleted = true;
-            }
 
-            // Update the record in the database
             await sessionToDelete.Update<ChatSession>();
-
             Debug.Log("[AppManager] Session marked as deleted for user. Reloading history...");
-
-            // Reload the history list to remove the deleted card instantly
             LoadChatHistory();
         }
         catch (Exception ex)
@@ -449,7 +462,7 @@ public class AppManager : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // --- CHAT SESSION / AUTHENTICATION MANAGEMENT ----------------------------
+    // --- CHAT SESSION MANAGEMENT ---------------------------------------------
     // -------------------------------------------------------------------------
 
     public async void JoinChatSession(string roomCode)
@@ -470,18 +483,16 @@ public class AppManager : MonoBehaviour
 
         try
         {
-            // 1. Search for sessions matching the room code.
             var baseQuery = SupabaseManager.Instance
                 .From<ChatSession>()
                 .Where(s => s.RoomCode == roomCode);
 
-            // 2. Apply OR conditions using the EXPLICIT Interface List syntax.
             var existingSessions = await baseQuery
                 .Or(new List<Postgrest.Interfaces.IPostgrestQueryFilter>
                 {
-                    new Postgrest.QueryFilter("user_1_id", Postgrest.Constants.Operator.Equals, myUserId), // Case A.1
-                    new Postgrest.QueryFilter("user_2_id", Postgrest.Constants.Operator.Equals, myUserId), // Case A.2
-                    new Postgrest.QueryFilter("user_2_id", Postgrest.Constants.Operator.Is, "null")        // Case B
+                    new Postgrest.QueryFilter("user_1_id", Postgrest.Constants.Operator.Equals, myUserId),
+                    new Postgrest.QueryFilter("user_2_id", Postgrest.Constants.Operator.Equals, myUserId),
+                    new Postgrest.QueryFilter("user_2_id", Postgrest.Constants.Operator.Is, "null")
                 })
                 .Get();
 
@@ -496,18 +507,14 @@ public class AppManager : MonoBehaviour
 
             Debug.Log($"[AppManager] Found Session: {sessionToJoin.Id}. User1: {sessionToJoin.User1Id}, User2: {sessionToJoin.User2Id}");
 
-            // 2. CHECK: If I am already in this session (User1 or User2)
             if (sessionToJoin.User1Id == myUserId || sessionToJoin.User2Id == myUserId)
             {
-                Debug.Log("[AppManager] User is already a participant in this session. Rejoining with current flow choice.");
+                Debug.Log("[AppManager] User is already a participant in this session. Rejoining.");
 
                 currentChatSession = sessionToJoin;
                 SubscribeToSessionMessages(currentChatSession.Id);
                 uiManager.ShowRoomCode(sessionToJoin.RoomCode);
 
-                // Navigate to correct input panel based on chosen flow
-                // CameraInput = Sign to Speech (shows camera/text/quickchat buttons)
-                // AudioInput = Speech to Sign (shows audio/text/quickchat buttons)
                 AppState nextState = currentState == AppState.SignSession
                     ? AppState.CameraInput
                     : AppState.AudioInput;
@@ -517,7 +524,6 @@ public class AppManager : MonoBehaviour
                 return;
             }
 
-            // 3. CHECK: Safety check, ensures User2 is truly empty before joining.
             if (!string.IsNullOrEmpty(sessionToJoin.User2Id))
             {
                 Debug.LogError("[AppManager] Found room, but User 2 is occupied by another ID.");
@@ -525,7 +531,6 @@ public class AppManager : MonoBehaviour
                 return;
             }
 
-            // 4. Join as User 2 - This is the successful first-time join path
             sessionToJoin.User2Id = myUserId;
             Debug.Log("[AppManager] Sending Update to Supabase to take User 2 seat...");
 
@@ -540,7 +545,6 @@ public class AppManager : MonoBehaviour
                 SubscribeToSessionMessages(currentChatSession.Id);
                 uiManager.ShowRoomCode(joinedSession.RoomCode);
 
-                // Navigate to correct input panel based on chosen flow
                 AppState nextState = currentState == AppState.SignSession
                     ? AppState.CameraInput
                     : AppState.AudioInput;
@@ -566,13 +570,10 @@ public class AppManager : MonoBehaviour
         if (uiManager == null || currentUserProfile == null) return;
 
         string myUserId = currentUserProfile.Id;
-
-        // ADD THIS DEBUG LOG
         Debug.Log($"[CreateChatSession] Current State: {currentState}");
 
         try
         {
-            // 1. Generate a unique 6-digit code
             string newCode = "";
             bool codeIsUnique = false;
             System.Random rand = new System.Random();
@@ -586,12 +587,9 @@ public class AppManager : MonoBehaviour
                     .Get();
 
                 if (existing.Models.Count == 0)
-                {
                     codeIsUnique = true;
-                }
             }
 
-            // 2. Create the new session in the database
             var newSession = new ChatSession
             {
                 User1Id = myUserId,
@@ -599,7 +597,7 @@ public class AppManager : MonoBehaviour
                 RoomCode = newCode,
                 User1Deleted = false,
                 User2Deleted = false,
-                CreatedAt = DateTime.UtcNow // FIX: Explicitly set time to avoid sending null and triggering DB constraint error
+                CreatedAt = DateTime.UtcNow
             };
 
             var response = await SupabaseManager.Instance.From<ChatSession>().Insert(newSession);
@@ -611,14 +609,12 @@ public class AppManager : MonoBehaviour
                 return;
             }
 
-            // 3. We have a session! Store it and show the code.
             Debug.Log($"Session created: {createdSession.Id} with Code: {createdSession.RoomCode}");
             currentChatSession = createdSession;
 
             SubscribeToSessionMessages(currentChatSession.Id);
             uiManager.ShowRoomCode(createdSession.RoomCode);
 
-            // Navigate to correct input panel based on chosen flow
             AppState nextState = currentState == AppState.SignSession
                 ? AppState.CameraInput
                 : AppState.AudioInput;
@@ -633,8 +629,6 @@ public class AppManager : MonoBehaviour
         }
     }
 
-    // --- SEND MESSAGE ---
-    // UPDATED: Now accepts string messageType instead of bool
     public void SendTextMessage(string content, string messageType)
     {
         if (currentChatSession != null && currentUserProfile != null)
@@ -648,7 +642,6 @@ public class AppManager : MonoBehaviour
         }
     }
 
-    // Called when Sign user closes the camera (e.g. Back button on Main Canvas)
     public void CloseCamera()
     {
         isCameraFullscreen = false;
@@ -658,7 +651,7 @@ public class AppManager : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------
-    // --- AUTHENTICATION FUNCTIONS --------------------------------------------
+    // --- AUTHENTICATION ------------------------------------------------------
     // -------------------------------------------------------------------------
 
     public async void Login(string email, string password)
@@ -668,14 +661,10 @@ public class AppManager : MonoBehaviour
         uiManager.ShowStatus("Logging in...", "login");
         try
         {
-            // 1. Sign in the user
             currentSession = await SupabaseManager.Instance.Auth.SignIn(email, password);
             if (currentSession == null || currentSession.User == null)
-            {
                 throw new System.Exception("Invalid login credentials.");
-            }
 
-            // 2. Fetch the user's profile
             var profileResponse = await SupabaseManager.Instance
                 .From<Profile>()
                 .Where(p => p.Id == currentSession.User.Id)
@@ -684,11 +673,8 @@ public class AppManager : MonoBehaviour
             currentUserProfile = profileResponse;
 
             if (currentUserProfile == null)
-            {
                 throw new System.Exception("Profile not found for this user.");
-            }
 
-            // 3. CHECK IF USER IS ACTIVE
             if (currentUserProfile.IsActive == false)
             {
                 Debug.LogWarning("User is deactivated. Logging out.");
@@ -699,7 +685,6 @@ public class AppManager : MonoBehaviour
                 return;
             }
 
-            // 4. Success!
             Debug.Log("Login Successful! User ID: " + currentSession.User.Id);
             uiManager.ShowStatus("", "login");
             uiManager.SetProfileName(currentUserProfile.FirstName, currentUserProfile.LastName);
@@ -748,19 +733,21 @@ public class AppManager : MonoBehaviour
         Debug.Log("Logging out...");
         try
         {
-            // Clean up subscriptions on logout
             if (realtimeChannel != null)
             {
                 try { realtimeChannel.Unsubscribe(); } catch { }
+            }
+
+            if (_tts != null)
+            {
+                try { _tts.Call("shutdown"); } catch { }
             }
 
             await SupabaseManager.Instance.Auth.SignOut();
             currentSession = null;
             currentUserProfile = null;
             if (uiManager != null)
-            {
                 uiManager.ClearPasswordFields();
-            }
         }
         catch (System.Exception ex)
         {
@@ -811,3 +798,20 @@ public class AppManager : MonoBehaviour
         }
     }
 }
+
+// ============================================================
+// Android TTS Listener for AppManager
+// ============================================================
+#if UNITY_ANDROID && !UNITY_EDITOR
+public class AppTTSInitListener : AndroidJavaProxy
+{
+    private System.Action _onReady;
+    public AppTTSInitListener(System.Action onReady)
+        : base("android.speech.tts.TextToSpeech$OnInitListener") { _onReady = onReady; }
+    public void onInit(int status)
+    {
+        if (status == 0) _onReady?.Invoke();
+        else UnityEngine.Debug.LogError("[AppManager] TTS init failed: " + status);
+    }
+}
+#endif

@@ -105,6 +105,12 @@ public class UIManager : MonoBehaviour
     public GameObject mediaPipeSolution;  // The 'Solution' GameObject
     public GameObject cameraFeedContainer; // The 'Container Panel' inside Main Canvas
 
+    [Header("ASL Camera Feed")]
+    public GameObject aslCameraFeed;  // The ASLCameraFeed RawImage GameObject (child of UI root)
+    public ASLManager aslManager;     // The ASLManager script on the ASLManager GameObject
+    public GameObject handLandmarkCanvas;  // HandLandmark Canvas for MediaPipe hand detection
+    public GameObject handSolution;        // HandSolution GameObject (HandLandmarkerRunner)
+
     // This function will be called by AppManager to connect them
     public void Initialize(AppManager am)
     {
@@ -139,6 +145,8 @@ public class UIManager : MonoBehaviour
         // Always disable MediaPipe and camera feed when hiding all panels
         if (mediaPipeSolution != null) mediaPipeSolution.SetActive(false);
         if (cameraFeedContainer != null) cameraFeedContainer.SetActive(false);
+        if (handLandmarkCanvas != null) handLandmarkCanvas.SetActive(false);
+        if (handSolution != null) handSolution.SetActive(false);
     }
 
     // --- HELPER: SHOWS CAMERA FULLSCREEN (hides all app UI) ---
@@ -254,6 +262,39 @@ public class UIManager : MonoBehaviour
         HideAllPanels();
         if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(true);
         Debug.Log("[UIManager] Camera Input Method Panel shown - waiting for Realtime trigger to open camera");
+    }
+
+    // Called by the Camera button inside CameraInputMethodPanel
+    // Opens the ASL fullscreen camera feed and starts the ASL session
+    public void OnOpenASLCameraButton()
+    {
+        if (aslManager == null)
+        {
+            Debug.LogError("[UIManager] ASLManager reference not set!");
+            return;
+        }
+
+        // Hide the panel, activate MediaPipe hand detection
+        if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(false);
+        // Activate MediaPipe hand detection
+        if (handLandmarkCanvas != null) handLandmarkCanvas.SetActive(true);
+        if (handSolution != null) handSolution.SetActive(true);
+
+        // Start the ASL session (camera is handled by HandLandmarkCanvas)
+        aslManager.StartSession();
+
+        Debug.Log("[UIManager] ASL Camera opened");
+    }
+
+    // Called by ASLManager when the session ends (3s timeout)
+    // Hides the camera feed and returns to the CameraInputMethodPanel
+    public void OnASLSessionEnded()
+    {
+        if (handLandmarkCanvas != null) handLandmarkCanvas.SetActive(false);
+        if (handSolution != null) handSolution.SetActive(false);
+        if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(true);
+
+        Debug.Log("[UIManager] ASL session ended - returned to CameraInputMethodPanel");
     }
 
     public void ShowAudioInputMethodPanel()

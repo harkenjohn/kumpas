@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|c:\\users\\harken\\desktop\\kumpas\\kumpas\\assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|c:\\users\\harken\\desktop\\kumpas\\kumpas\\assets\\scripts\\aslmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\aslmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\handlandmarkbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\handlandmarkbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEBB6F1D-8A10-9CEA-5CA6-EC4851EC78A8}|Mediapipe.Unity.Sample.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\mediapipeunity\\samples\\scenes\\hand landmark detection\\handlandmarkerrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEBB6F1D-8A10-9CEA-5CA6-EC4851EC78A8}|Mediapipe.Unity.Sample.csproj|solutionrelative:assets\\mediapipeunity\\samples\\scenes\\hand landmark detection\\handlandmarkerrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\facedetectionbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\facedetectionbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\supabasemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\supabasemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\chatmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\chatmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\messagecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\messagecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\conversationcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\conversationcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,27 +46,53 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ConversationCard.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ConversationCard.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\ConversationCard.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ConversationCard.cs",
-              "RelativeToolTip": "Assets\\Scripts\\ConversationCard.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAUwFEAAAABAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "HandLandmarkBridge.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\HandLandmarkBridge.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HandLandmarkBridge.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\HandLandmarkBridge.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HandLandmarkBridge.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAkwEoAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T15:06:50.7Z"
+              "WhenOpened": "2026-03-01T01:01:19.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HandLandmarkerRunner.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "RelativeDocumentMoniker": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "RelativeToolTip": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAAwKAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T14:25:27.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FaceDetectionBridge.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\FaceDetectionBridge.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\FaceDetectionBridge.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\FaceDetectionBridge.cs",
+              "RelativeToolTip": "Assets\\Scripts\\FaceDetectionBridge.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T14:17:37.771Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ChatManager.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ChatManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\ChatManager.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ChatManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\ChatManager.cs",
-              "ViewState": "AgIAAIYAAAAAAAAAAAAIwKQAAAABAAAAAAAAAA==",
+              "Title": "UIManager.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\UIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UIManager.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\UIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UIManager.cs",
+              "ViewState": "AgIAAFUDAAAAAAAAAAAowGMDAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T00:04:39.761Z"
+              "WhenOpened": "2026-02-28T12:53:12.887Z"
             },
             {
               "$type": "Document",
@@ -76,58 +102,35 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\AppManager.cs",
               "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\AppManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\AppManager.cs",
-              "ViewState": "AgIAAAUDAAAAAAAAAAAgwBQDAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABQDAAAAAAAAAAAmwDADAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T12:56:09.858Z",
+              "WhenOpened": "2026-02-28T07:25:37.735Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UIManager.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\UIManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UIManager.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\UIManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UIManager.cs",
-              "ViewState": "AgIAAPgCAAAAAAAAAAAkwAcDAAApAAAAAAAAAA==",
+              "Title": "ASLManager.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ASLManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ASLManager.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ASLManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ASLManager.cs",
+              "ViewState": "AgIAALcBAAAAAAAAAAAgwM8BAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T13:47:31.335Z"
+              "WhenOpened": "2026-02-28T07:24:42.455Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MessageCard.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\MessageCard.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MessageCard.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\MessageCard.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MessageCard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-19T19:21:16.402Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Models.cs",
               "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\Models.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models.cs",
               "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\Models.cs",
               "RelativeToolTip": "Assets\\Scripts\\Models.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAqwFcAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAgwEkAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-09T09:02:52.676Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SupabaseManager.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\SupabaseManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\SupabaseManager.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\SupabaseManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\SupabaseManager.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAgwDwAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T08:50:04.468Z"
             }
           ]
         }
