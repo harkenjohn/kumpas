@@ -25,7 +25,7 @@ public class SupabaseManager : MonoBehaviour
     private string supabaseUrl = "https://tzeudbyojqpzfkbbwwcs.supabase.co";
 
     [SerializeField]
-    private string supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6ZXVkYnlvanFwemZrYmJ3d2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1MjA1NTIsImV4cCI6MjA3ODA5NjU1Mn0.R36M9ayKwPtIXN8u4-efTtLxA3Q-0WuGwtR_C7RI8Ow";
+    private string supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6ZXVkYnlvanFwemZrYmJ3d2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzcwNDgsImV4cCI6MjA4OTgzNzA0OH0.iFwDnWKaYD31cHu06egAzL8YMoG4EIanPrHXYh6gqlI";
 
     void Awake()
     {

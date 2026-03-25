@@ -39240,7 +39240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SupabaseManager
   supabaseUrl: https://tzeudbyojqpzfkbbwwcs.supabase.co
-  supabaseAnonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6ZXVkYnlvanFwemZrYmJ3d2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1MjA1NTIsImV4cCI6MjA3ODA5NjU1Mn0.R36M9ayKwPtIXN8u4-efTtLxA3Q-0WuGwtR_C7RI8Ow
+  supabaseAnonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6ZXVkYnlvanFwemZrYmJ3d2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzcwNDgsImV4cCI6MjA4OTgzNzA0OH0.iFwDnWKaYD31cHu06egAzL8YMoG4EIanPrHXYh6gqlI
 --- !u!224 &2046269756
 RectTransform:
   m_ObjectHideFlags: 0
