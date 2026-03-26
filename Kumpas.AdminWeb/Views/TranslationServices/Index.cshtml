@@ -1,0 +1,46 @@
+@model TranslationServicesViewModel
+@{
+    ViewData["Title"] = "Translation Services";
+    ViewData["Section"] = "Monitoring";
+}
+
+<section class="soft-card">
+    <form method="get" class="filter-grid">
+        <div><label class="form-label">From</label><input type="date" name="fromDate" value="@Model.FromDate?.ToString("yyyy-MM-dd")" class="form-control" /></div>
+        <div><label class="form-label">To</label><input type="date" name="toDate" value="@Model.ToDate?.ToString("yyyy-MM-dd")" class="form-control" /></div>
+        <div><button class="btn btn-primary w-100" type="submit">Refresh Metrics</button></div>
+    </form>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card"><span class="stat-label">Sessions</span><span class="stat-value">@Model.TotalSessions</span></article>
+    <article class="stat-card"><span class="stat-label">Messages</span><span class="stat-value">@Model.TotalMessages</span></article>
+    <article class="stat-card"><span class="stat-label">Gesture Library</span><span class="stat-value">@Model.TotalGestureLibraryItems</span></article>
+    <article class="stat-card"><span class="stat-label">AR Models</span><span class="stat-value">@Model.TotalArModels</span></article>
+    <article class="stat-card"><span class="stat-label">Recognition Records</span><span class="stat-value">@Model.TotalRecognitionRecords</span></article>
+    <article class="stat-card"><span class="stat-label">Average Messages / Session</span><span class="stat-value">@Model.AverageMessagesPerSession</span></article>
+</section>
+
+<section class="soft-card">
+    <div class="soft-card-header">
+        <div>
+            <h3>System Logs</h3>
+            <p class="table-muted mb-0">Errors and operational events from the existing <code>system_logs</code> table.</p>
+        </div>
+        <span class="badge-soft error">@Model.TotalErrorLogs logs</span>
+    </div>
+    <div class="message-list">
+    @foreach (var log in Model.Logs)
+    {
+        <article class="message-item">
+            <div class="message-meta mb-2">
+                <span class="badge-soft @(log.Level.ToLower().Contains("error") ? "error" : log.Level.ToLower().Contains("warn") ? "warn" : "info")">@log.Level</span>
+                <span class="table-muted">@log.Source</span>
+                <span class="table-muted">@log.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+            </div>
+            <strong>@log.Message</strong>
+            <div class="table-muted mt-1">By @log.UserName</div>
+        </article>
+    }
+    </div>
+</section>

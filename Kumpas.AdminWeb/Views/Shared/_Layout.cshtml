@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KUMPAS Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+@{
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+}
+@if (!isAuthenticated)
+{
+    <main class="auth-shell">
+        @RenderBody()
+    </main>
+}
+else
+{
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <span class="brand-kicker">KUMPAS</span>
+                <h1>Admin System</h1>
+                <p>Bidirectional sign and speech management.</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a asp-controller="Dashboard" asp-action="Index" class="nav-chip @(currentController == "Dashboard" ? "active" : "")">Dashboard</a>
+                <a asp-controller="Accounts" asp-action="Index" class="nav-chip @(currentController == "Accounts" ? "active" : "")">Manage Accounts</a>
+                <a asp-controller="Conversations" asp-action="Index" class="nav-chip @(currentController == "Conversations" ? "active" : "")">Conversation History</a>
+                <a asp-controller="Reports" asp-action="Index" class="nav-chip @(currentController == "Reports" ? "active" : "")">Reports</a>
+            </nav>
+        </aside>
+
+        <div class="main-shell">
+            <header class="topbar">
+                <div>
+                    <span class="page-overline">@ViewData["Section"]</span>
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="admin-pill">
+                        <span class="admin-name">@User.Identity?.Name</span>
+                        <span class="admin-role">Administrator</span>
+                    </div>
+
+                    <form asp-controller="Auth" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Logout</button>
+                    </form>
+                </div>
+            </header>
+
+            <main class="content-shell">
+                @if (TempData["StatusMessage"] is string statusMessage)
+                {
+                    <div class="alert alert-success soft-alert">@statusMessage</div>
+                }
+
+                @if (TempData["ErrorMessage"] is string errorMessage)
+                {
+                    <div class="alert alert-danger soft-alert">@errorMessage</div>
+                }
+
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

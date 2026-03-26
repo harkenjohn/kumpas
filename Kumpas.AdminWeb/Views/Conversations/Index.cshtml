@@ -1,0 +1,67 @@
+@model Kumpas.AdminWeb.ViewModels.ConversationHistoryViewModel
+@{
+    ViewData["Title"] = "Conversation History";
+    ViewData["Section"] = "History";
+}
+
+<section class="soft-card">
+    <form method="get" class="filter-grid">
+        <div>
+            <label class="form-label">Search</label>
+            <input name="search" value="@Model.Search" class="form-control" placeholder="Room or participant" />
+        </div>
+
+        <div>
+            <label class="form-label">From</label>
+            <input type="date" name="fromDate" value="@Model.FromDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+
+        <div>
+            <label class="form-label">To</label>
+            <input type="date" name="toDate" value="@Model.ToDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+
+        <div>
+            <button class="btn btn-primary w-100" type="submit">Search Sessions</button>
+        </div>
+    </form>
+</section>
+
+<section class="soft-card">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Room</th>
+                <th>Participants</th>
+                <th>Messages</th>
+                <th>Started</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var session in Model.Sessions)
+        {
+            <tr>
+                <td><strong>@session.RoomCode</strong></td>
+                <td>@session.ParticipantOne / @session.ParticipantTwo</td>
+                <td>@session.MessageCount</td>
+                <td>
+                    @session.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")<br />
+                    <span class="table-muted">Last: @session.LastMessageAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+                </td>
+                <td>
+                    <div class="inline-actions">
+                        <a asp-action="Details" asp-route-id="@session.Id" class="btn btn-outline-primary btn-sm">View</a>
+
+                        <form asp-action="Delete" method="post" data-confirm="Delete this entire conversation?">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@session.Id" />
+                            <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,28 @@
+@model ProfileSettingsViewModel
+@{
+    ViewData["Title"] = "Profile / Settings";
+    ViewData["Section"] = "Account";
+}
+
+<section class="soft-card">
+    <div class="soft-card-header">
+        <div>
+            <h3>Administrator Profile</h3>
+            <p class="table-muted mb-0">Update your profile information and change your password securely through Supabase Auth.</p>
+        </div>
+    </div>
+    <form asp-action="Index" method="post" class="settings-grid">
+        @Html.AntiForgeryToken()
+        <input asp-for="UserId" type="hidden" />
+        <div><label asp-for="FirstName" class="form-label"></label><input asp-for="FirstName" class="form-control" /><span asp-validation-for="FirstName" class="text-danger"></span></div>
+        <div><label asp-for="LastName" class="form-label"></label><input asp-for="LastName" class="form-control" /><span asp-validation-for="LastName" class="text-danger"></span></div>
+        <div><label asp-for="Email" class="form-label"></label><input asp-for="Email" class="form-control" readonly /><div class="form-hint mt-1">Email is managed by Supabase Auth and shown here for reference.</div></div>
+        <div><label asp-for="NewPassword" class="form-label"></label><input asp-for="NewPassword" class="form-control" /><span asp-validation-for="NewPassword" class="text-danger"></span></div>
+        <div><label asp-for="ConfirmPassword" class="form-label"></label><input asp-for="ConfirmPassword" class="form-control" /><span asp-validation-for="ConfirmPassword" class="text-danger"></span></div>
+        <div class="d-flex align-items-end"><button type="submit" class="btn btn-primary w-100">Save Settings</button></div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

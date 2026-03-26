@@ -1,0 +1,133 @@
+@model Kumpas.AdminWeb.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["Section"] = "Overview";
+}
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Total Accounts</span>
+        <span class="stat-value">@Model.TotalAccounts</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Active Accounts</span>
+        <span class="stat-value">@Model.ActiveAccounts</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Total Sessions</span>
+        <span class="stat-value">@Model.TotalSessions</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Messages</span>
+        <span class="stat-value">@Model.TotalMessages</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Sessions Today</span>
+        <span class="stat-value">@Model.SessionsToday</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Errors Today</span>
+        <span class="stat-value">@Model.ErrorsToday</span>
+    </article>
+</section>
+
+<section class="split-grid">
+    <div class="soft-card">
+        <div class="soft-card-header">
+            <div>
+                <h3>Recent Accounts</h3>
+                <p class="table-muted mb-0">Latest profiles registered in KUMPAS.</p>
+            </div>
+            <a asp-controller="Accounts" asp-action="Index" class="btn btn-outline-primary btn-sm">Open</a>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var account in Model.RecentAccounts)
+            {
+                <tr>
+                    <td>
+                        <strong>@account.FullName</strong><br />
+                        <span class="table-muted">@account.Email</span>
+                    </td>
+                    <td>@account.UserType</td>
+                    <td>
+                        <span class="badge-soft @(account.IsActive ? "active" : "inactive")">
+                            @(account.IsActive ? "Active" : "Inactive")
+                        </span>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="soft-card">
+        <div class="soft-card-header">
+            <div>
+                <h3>Recent Errors</h3>
+                <p class="table-muted mb-0">Latest system issues from active modules.</p>
+            </div>
+            <a asp-controller="Reports" asp-action="Index" class="btn btn-outline-primary btn-sm">Open</a>
+        </div>
+
+        <div class="message-list">
+        @foreach (var log in Model.RecentErrors)
+        {
+            <article class="message-item">
+                <div class="message-meta mb-2">
+                    <span class="badge-soft error">@log.Level</span>
+                    <span class="table-muted">@log.Source</span>
+                    <span class="table-muted">@log.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+                </div>
+                <strong>@log.Message</strong>
+                <div class="table-muted mt-1">@log.UserName</div>
+            </article>
+        }
+        </div>
+    </div>
+</section>
+
+<section class="soft-card">
+    <div class="soft-card-header">
+        <div>
+            <h3>Recent Conversations</h3>
+            <p class="table-muted mb-0">Latest translation sessions across the platform.</p>
+        </div>
+        <a asp-controller="Conversations" asp-action="Index" class="btn btn-outline-primary btn-sm">Open</a>
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Room</th>
+                <th>Participants</th>
+                <th>Messages</th>
+                <th>Last Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var session in Model.RecentSessions)
+        {
+            <tr>
+                <td><strong>@session.RoomCode</strong></td>
+                <td>@session.ParticipantOne / @session.ParticipantTwo</td>
+                <td>@session.MessageCount</td>
+                <td>@session.LastMessageAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

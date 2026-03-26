@@ -1,0 +1,120 @@
+@model Kumpas.AdminWeb.ViewModels.ReportsViewModel
+@{
+    ViewData["Title"] = "Reports";
+    ViewData["Section"] = "Analytics";
+}
+
+<section class="soft-card">
+    <form method="get" class="filter-grid">
+        <div>
+            <label class="form-label">Search User</label>
+            <input name="search" value="@Model.Search" class="form-control" placeholder="Name or email" />
+        </div>
+
+        <div>
+            <label class="form-label">From</label>
+            <input type="date" name="fromDate" value="@Model.FromDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+
+        <div>
+            <label class="form-label">To</label>
+            <input type="date" name="toDate" value="@Model.ToDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+
+        <div>
+            <button class="btn btn-primary w-100" type="submit">Generate Report</button>
+        </div>
+    </form>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Accounts</span>
+        <span class="stat-value">@Model.TotalAccounts</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Active Accounts</span>
+        <span class="stat-value">@Model.ActiveAccounts</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Sessions</span>
+        <span class="stat-value">@Model.TotalSessions</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Messages</span>
+        <span class="stat-value">@Model.TotalMessages</span>
+    </article>
+</section>
+
+<section class="reports-grid">
+    <article class="soft-card">
+        <h3>Daily Usage</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Sessions</th>
+                    <th>Messages</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.DailyUsage)
+            {
+                <tr>
+                    <td>@row.Day</td>
+                    <td>@row.Sessions</td>
+                    <td>@row.Messages</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </article>
+
+    <article class="soft-card">
+        <h3>Top Users</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Messages</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.TopUsers)
+            {
+                <tr>
+                    <td>
+                        <strong>@row.UserName</strong><br />
+                        <span class="table-muted">@row.Email</span>
+                    </td>
+                    <td>@row.MessageCount</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </article>
+
+    <article class="soft-card">
+        <h3>Message Types</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.MessageTypes)
+            {
+                <tr>
+                    <td>@row.MessageType</td>
+                    <td>@row.Total</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </article>
+</section>

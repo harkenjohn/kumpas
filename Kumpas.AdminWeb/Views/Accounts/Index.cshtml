@@ -1,0 +1,95 @@
+@model Kumpas.AdminWeb.ViewModels.ManageAccountsViewModel
+@{
+    ViewData["Title"] = "Manage Accounts";
+    ViewData["Section"] = "Accounts";
+}
+
+<section class="soft-card">
+    <form method="get" class="filter-grid">
+        <div>
+            <label class="form-label">Search</label>
+            <input name="search" value="@Model.Search" class="form-control" placeholder="Name, email, or role" />
+        </div>
+
+        <div>
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+                <option value="">All</option>
+                <option value="active" selected="@(Model.Status == "active")">Active</option>
+                <option value="inactive" selected="@(Model.Status == "inactive")">Inactive</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="form-label">User Type</label>
+            <select name="userType" class="form-select">
+                <option value="">All</option>
+                <option value="Admin" selected="@(Model.UserType == "Admin")">Admin</option>
+                <option value="User" selected="@(Model.UserType == "User")">User</option>
+            </select>
+        </div>
+
+        <div>
+            <button class="btn btn-primary w-100" type="submit">Apply Filters</button>
+        </div>
+    </form>
+</section>
+
+<section class="soft-card">
+    <div class="soft-card-header">
+        <div>
+            <h3>Profile Accounts</h3>
+            <p class="table-muted mb-0">Manage activation status and account cleanup.</p>
+        </div>
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Account</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var account in Model.Accounts)
+        {
+            <tr>
+                <td>
+                    <strong>@account.FullName</strong><br />
+                    <span class="table-muted">@account.Email</span>
+                </td>
+                <td>@account.UserType</td>
+                <td>
+                    <span class="badge-soft @(account.IsActive ? "active" : "inactive")">
+                        @(account.IsActive ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    @account.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy")
+                </td>
+                <td>
+                    <div class="inline-actions">
+                        <form asp-action="ToggleStatus" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@account.Id" />
+                            <input type="hidden" name="isActive" value="@(!account.IsActive)" />
+                            <button class="btn btn-outline-primary btn-sm" type="submit">
+                                @(account.IsActive ? "Deactivate" : "Activate")
+                            </button>
+                        </form>
+
+                        <form asp-action="Delete" method="post" data-confirm="Delete this account permanently?">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@account.Id" />
+                            <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

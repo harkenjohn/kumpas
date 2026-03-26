@@ -1,0 +1,33 @@
+@model Kumpas.AdminWeb.ViewModels.ConversationDetailsViewModel
+@{
+    ViewData["Title"] = "Conversation Details";
+    ViewData["Section"] = "History";
+}
+
+<section class="soft-card">
+    <div class="soft-card-header">
+        <div>
+            <h3>@Model.RoomCode</h3>
+            <p class="table-muted mb-0">@Model.ParticipantOne / @Model.ParticipantTwo</p>
+        </div>
+        <span class="table-muted">@Model.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+    </div>
+
+    <div class="message-list">
+    @foreach (var message in Model.Messages)
+    {
+        <article class="message-item">
+            <div class="message-meta mb-2">
+                <strong>@message.SenderName</strong>
+                @if (!string.IsNullOrWhiteSpace(message.MessageType))
+                {
+                    <span class="badge-soft info">@message.MessageType</span>
+                }
+                <span class="table-muted">@message.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+            </div>
+
+            <div>@message.MessageContent</div>
+        </article>
+    }
+    </div>
+</section>
