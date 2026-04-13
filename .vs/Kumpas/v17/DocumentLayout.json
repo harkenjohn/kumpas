@@ -3,24 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|c:\\users\\harken\\desktop\\kumpas\\kumpas\\assets\\scripts\\aslmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\aslmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\phrasesmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\phrasesmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\handlandmarkbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\handlandmarkbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{CEBB6F1D-8A10-9CEA-5CA6-EC4851EC78A8}|Mediapipe.Unity.Sample.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\mediapipeunity\\samples\\scenes\\pose landmark detection\\poselandmarkerrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEBB6F1D-8A10-9CEA-5CA6-EC4851EC78A8}|Mediapipe.Unity.Sample.csproj|solutionrelative:assets\\mediapipeunity\\samples\\scenes\\pose landmark detection\\poselandmarkerrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\poselandmarkbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\poselandmarkbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CEBB6F1D-8A10-9CEA-5CA6-EC4851EC78A8}|Mediapipe.Unity.Sample.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\mediapipeunity\\samples\\scenes\\hand landmark detection\\handlandmarkerrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CEBB6F1D-8A10-9CEA-5CA6-EC4851EC78A8}|Mediapipe.Unity.Sample.csproj|solutionrelative:assets\\mediapipeunity\\samples\\scenes\\hand landmark detection\\handlandmarkerrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\appmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B2AB957E-6CD1-650B-A0CC-E7D21FD0CD24}|Assembly-CSharp.csproj|C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\assets\\scripts\\facedetectionbridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,33 +58,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "PoseLandmarkBridge.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\PoseLandmarkBridge.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PoseLandmarkBridge.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\PoseLandmarkBridge.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PoseLandmarkBridge.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAgwFcAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-12T02:12:01.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "HandLandmarkBridge.cs",
               "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\HandLandmarkBridge.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\HandLandmarkBridge.cs",
               "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\HandLandmarkBridge.cs",
               "RelativeToolTip": "Assets\\Scripts\\HandLandmarkBridge.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAkwEoAAABOAAAAAAAAAA==",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAkwKgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-01T01:01:19.104Z",
+              "WhenOpened": "2026-03-01T01:01:19.104Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ASLManager.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ASLManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ASLManager.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ASLManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ASLManager.cs",
+              "ViewState": "AgIAAOABAAAAAAAAAAAAAOkBAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T07:24:42.455Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HandLandmarkerRunner.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
-              "RelativeDocumentMoniker": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
-              "RelativeToolTip": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAwKAAAAABAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "PoseLandmarkerRunner.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Pose Landmark Detection\\PoseLandmarkerRunner.cs",
+              "RelativeDocumentMoniker": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Pose Landmark Detection\\PoseLandmarkerRunner.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Pose Landmark Detection\\PoseLandmarkerRunner.cs",
+              "RelativeToolTip": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Pose Landmark Detection\\PoseLandmarkerRunner.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAgwKkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T14:25:27.512Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-12T03:12:42.52Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "FaceDetectionBridge.cs",
               "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\FaceDetectionBridge.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\FaceDetectionBridge.cs",
@@ -84,19 +119,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "UIManager.cs",
               "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\UIManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UIManager.cs",
               "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\UIManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\UIManager.cs",
-              "ViewState": "AgIAAFUDAAAAAAAAAAAowGMDAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAFoDAAAAAAAAAAAuwGQDAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-28T12:53:12.887Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "PhrasesManager.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\PhrasesManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PhrasesManager.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\PhrasesManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PhrasesManager.cs",
+              "ViewState": "AgIAAI4BAAAAAAAAAAAqwKEBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-12T02:09:02.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HandLandmarkerRunner.cs",
+              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "RelativeDocumentMoniker": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "RelativeToolTip": "Assets\\MediaPipeUnity\\Samples\\Scenes\\Hand Landmark Detection\\HandLandmarkerRunner.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAcwKAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T14:25:27.512Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "AppManager.cs",
               "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\AppManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\AppManager.cs",
@@ -104,25 +163,11 @@
               "RelativeToolTip": "Assets\\Scripts\\AppManager.cs",
               "ViewState": "AgIAABQDAAAAAAAAAAAmwDADAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T07:25:37.735Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-28T07:25:37.735Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ASLManager.cs",
-              "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ASLManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\ASLManager.cs",
-              "ToolTip": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\ASLManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\ASLManager.cs",
-              "ViewState": "AgIAALcBAAAAAAAAAAAgwM8BAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T07:24:42.455Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Models.cs",
               "DocumentMoniker": "C:\\Users\\Harken\\Desktop\\Kumpas\\Kumpas\\Assets\\Scripts\\Models.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models.cs",
