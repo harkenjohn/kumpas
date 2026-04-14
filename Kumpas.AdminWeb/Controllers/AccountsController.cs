@@ -17,9 +17,9 @@ public class AccountsController : Controller
         _supabaseAuthService = supabaseAuthService;
     }
 
-    public async Task<IActionResult> Index(string? search, string? status, string? userType, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(string? search, string? status, string? userType, int page = 1, CancellationToken cancellationToken = default)
     {
-        var model = await _accountService.GetAccountsAsync(search, status, userType, cancellationToken);
+        var model = await _accountService.GetAccountsAsync(search, status, userType, page, cancellationToken: cancellationToken);
         return View(model);
     }
 

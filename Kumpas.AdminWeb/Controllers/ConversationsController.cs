@@ -14,9 +14,9 @@ public class ConversationsController : Controller
         _conversationService = conversationService;
     }
 
-    public async Task<IActionResult> Index(string? search, DateTime? fromDate, DateTime? toDate, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(string? search, DateTime? fromDate, DateTime? toDate, int page = 1, CancellationToken cancellationToken = default)
     {
-        var model = await _conversationService.GetSessionsAsync(search, fromDate, toDate, cancellationToken);
+        var model = await _conversationService.GetSessionsAsync(search, fromDate, toDate, page, cancellationToken: cancellationToken);
         return View(model);
     }
 

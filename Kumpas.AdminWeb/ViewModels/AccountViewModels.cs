@@ -7,6 +7,7 @@ public class ManageAccountsViewModel
     public string? Search { get; set; }
     public string? Status { get; set; }
     public string? UserType { get; set; }
+    public PaginationViewModel Pagination { get; set; } = new();
     public IReadOnlyList<AccountRowViewModel> Accounts { get; set; } = [];
 }
 

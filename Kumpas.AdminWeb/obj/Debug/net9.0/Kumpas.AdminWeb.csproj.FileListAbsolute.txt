@@ -45,7 +45,6 @@ C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\refint\Kumpas
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\Kumpas.AdminWeb.pdb
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\Kumpas.AdminWeb.genruntimeconfig.cache
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\ref\Kumpas.AdminWeb.dll
-C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\4xpt1x3zco-{0}-x2czwzaneq-x2czwzaneq.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\5806uqw4o3-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\sy7fis1byf-{0}-n9kx7vyulz-n9kx7vyulz.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\f7719n062n-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -108,3 +107,4 @@ C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\ep
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\9kufxbfqee-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\3ek0kyqvwd-{0}-mlv21k5csn-mlv21k5csn.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\swae.build.ex.cache
+C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\4xpt1x3zco-{0}-dvu72knjjo-dvu72knjjo.gz

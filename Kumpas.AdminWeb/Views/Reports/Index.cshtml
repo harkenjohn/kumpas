@@ -74,7 +74,13 @@
     </article>
 
     <article class="soft-card">
-        <h3>Top Users</h3>
+        <div class="soft-card-header">
+            <div>
+                <h3>Top Users</h3>
+                <p class="table-muted mb-0">Most active users in the selected period.</p>
+            </div>
+        </div>
+
         <table class="data-table">
             <thead>
                 <tr>
@@ -93,8 +99,11 @@
                     <td>@row.MessageCount</td>
                 </tr>
             }
+
             </tbody>
         </table>
+
+        <partial name="_Pagination" model="Model.TopUsersPagination" />
     </article>
 
     <article class="soft-card">
