@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2000
+      value: 1999.9998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2000
+      value: 1999.9998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -213,11 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988e73b1b7eafe7438e6d1dd469bfad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ASLRealtimeSentencePlayer
-  handAnimator: {fileID: 0}
-  messageDisplayText: {fileID: 0}
-  countdownText: {fileID: 0}
   delayBeforeStart: 2
-  letterDelay: 0.7
+  letterDelay: 1.5
 --- !u!4 &6372555499525555576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
