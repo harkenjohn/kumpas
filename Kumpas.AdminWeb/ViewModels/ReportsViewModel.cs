@@ -12,6 +12,7 @@ public class ReportsViewModel
     public IReadOnlyList<DailyUsageRowViewModel> DailyUsage { get; set; } = [];
     public IReadOnlyList<TopUserRowViewModel> TopUsers { get; set; } = [];
     public IReadOnlyList<MessageTypeRowViewModel> MessageTypes { get; set; } = [];
+    public PaginationViewModel TopUsersPagination { get; set; } = new();
 }
 
 public class DailyUsageRowViewModel

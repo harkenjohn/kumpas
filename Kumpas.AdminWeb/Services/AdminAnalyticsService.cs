@@ -26,7 +26,7 @@ public class AdminAnalyticsService(KumpasDbContext dbContext, IConfiguration con
             TotalMessages = await dbContext.ChatMessages.CountAsync(cancellationToken),
             ErrorsToday = await GetSystemLogCountAsync(todayStart, todayEnd, "error", cancellationToken),
             RecentAccounts = (await GetRecentAccountsAsync(cancellationToken)).Take(5).ToList(),
-            RecentSessions = (await conversationService.GetSessionsAsync(null, null, null, cancellationToken)).Sessions.Take(5).ToList(),
+            RecentSessions = (await conversationService.GetSessionsAsync(null, null, null, 1, 5, cancellationToken)).Sessions,
             RecentErrors = (await GetSystemLogsAsync(todayStart, todayEnd, "error", cancellationToken)).Take(5).ToList()
         };
     }

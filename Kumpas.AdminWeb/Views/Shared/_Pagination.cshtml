@@ -1,0 +1,44 @@
+@model Kumpas.AdminWeb.ViewModels.PaginationViewModel
+
+@if (Model.TotalCount > 0)
+{
+    <div class="pagination-bar">
+        <div class="pagination-summary">@Model.SummaryText</div>
+
+        @if (Model.TotalPages > 1)
+        {
+            <nav class="pagination-nav" aria-label="Pagination">
+                <a asp-action="@Model.Action"
+                   asp-controller="@Model.Controller"
+                   asp-all-route-data="@Model.BuildRouteValues(Model.PageNumber - 1)"
+                   class="pagination-button pagination-button-nav @(Model.HasPreviousPage ? string.Empty : "disabled")"
+                   tabindex="@(Model.HasPreviousPage ? "0" : "-1")"
+                   aria-disabled="@(!Model.HasPreviousPage)">
+                    Previous
+                </a>
+
+                <div class="pagination-pages">
+                    @foreach (var pageNumber in Model.VisiblePages)
+                    {
+                        <a asp-action="@Model.Action"
+                           asp-controller="@Model.Controller"
+                           asp-all-route-data="@Model.BuildRouteValues(pageNumber)"
+                           class="pagination-button @(pageNumber == Model.PageNumber ? "active" : string.Empty)"
+                           aria-current="@(pageNumber == Model.PageNumber ? "page" : null)">
+                            @pageNumber
+                        </a>
+                    }
+                </div>
+
+                <a asp-action="@Model.Action"
+                   asp-controller="@Model.Controller"
+                   asp-all-route-data="@Model.BuildRouteValues(Model.PageNumber + 1)"
+                   class="pagination-button pagination-button-nav @(Model.HasNextPage ? string.Empty : "disabled")"
+                   tabindex="@(Model.HasNextPage ? "0" : "-1")"
+                   aria-disabled="@(!Model.HasNextPage)">
+                    Next
+                </a>
+            </nav>
+        }
+    </div>
+}

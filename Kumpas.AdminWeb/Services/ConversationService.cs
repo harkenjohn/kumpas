@@ -6,8 +6,11 @@ namespace Kumpas.AdminWeb.Services;
 
 public class ConversationService(KumpasDbContext dbContext)
 {
-    public async Task<ConversationHistoryViewModel> GetSessionsAsync(string? search, DateTime? fromDate, DateTime? toDate, CancellationToken cancellationToken = default)
+    public async Task<ConversationHistoryViewModel> GetSessionsAsync(string? search, DateTime? fromDate, DateTime? toDate, int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
+        pageNumber = Math.Max(pageNumber, 1);
+        pageSize = 10;
+
         var query = dbContext.ChatSessions
             .AsNoTracking()
             .Include(x => x.User1)
@@ -17,13 +20,13 @@ public class ConversationService(KumpasDbContext dbContext)
 
         if (fromDate.HasValue)
         {
-            var from = fromDate.Value.Date;
+            var from = new DateTimeOffset(DateTime.SpecifyKind(fromDate.Value.Date, DateTimeKind.Utc));
             query = query.Where(x => x.CreatedAt >= from);
         }
 
         if (toDate.HasValue)
         {
-            var to = toDate.Value.Date.AddDays(1).AddTicks(-1);
+            var to = new DateTimeOffset(DateTime.SpecifyKind(toDate.Value.Date.AddDays(1), DateTimeKind.Utc));
             query = query.Where(x => x.CreatedAt <= to);
         }
 
@@ -36,8 +39,11 @@ public class ConversationService(KumpasDbContext dbContext)
                 ((((x.User2!.FirstName ?? string.Empty) + " " + (x.User2.LastName ?? string.Empty)).Trim()).ToLower().Contains(term)));
         }
 
+        var totalCount = await query.CountAsync(cancellationToken);
         var sessions = await query
             .OrderByDescending(x => x.CreatedAt)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .Select(x => new ConversationSessionRowViewModel
             {
                 Id = x.Id,
@@ -55,6 +61,21 @@ public class ConversationService(KumpasDbContext dbContext)
             Search = search,
             FromDate = fromDate,
             ToDate = toDate,
+            Pagination = new PaginationViewModel
+            {
+                Action = "Index",
+                Controller = "Conversations",
+                ItemLabel = "sessions",
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                RouteValues = new Dictionary<string, string>
+                {
+                    ["search"] = search ?? string.Empty,
+                    ["fromDate"] = fromDate?.ToString("yyyy-MM-dd") ?? string.Empty,
+                    ["toDate"] = toDate?.ToString("yyyy-MM-dd") ?? string.Empty
+                }
+            },
             Sessions = sessions
         };
     }

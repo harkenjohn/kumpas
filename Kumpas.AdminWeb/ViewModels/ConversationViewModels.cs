@@ -5,6 +5,7 @@ public class ConversationHistoryViewModel
     public string? Search { get; set; }
     public DateTime? FromDate { get; set; }
     public DateTime? ToDate { get; set; }
+    public PaginationViewModel Pagination { get; set; } = new();
     public IReadOnlyList<ConversationSessionRowViewModel> Sessions { get; set; } = [];
 }
 

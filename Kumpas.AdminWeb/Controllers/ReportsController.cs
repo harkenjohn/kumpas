@@ -17,30 +17,36 @@ public class ReportsController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(DateTime? fromDate, DateTime? toDate, string? search)
+    public async Task<IActionResult> Index(DateTime? fromDate, DateTime? toDate, string? search, int page = 1)
     {
-        var fromUtc = fromDate?.Date ?? DateTime.UtcNow.Date.AddDays(-30);
-        var toUtc = toDate?.Date.AddDays(1).AddTicks(-1) ?? DateTime.UtcNow;
+        page = Math.Max(page, 1);
+        const int pageSize = 10;
+        var fromUtc = fromDate.HasValue
+            ? new DateTimeOffset(DateTime.SpecifyKind(fromDate.Value.Date, DateTimeKind.Utc))
+            : new DateTimeOffset(DateTime.UtcNow.Date.AddDays(-30), TimeSpan.Zero);
+        var toUtc = toDate.HasValue
+            ? new DateTimeOffset(DateTime.SpecifyKind(toDate.Value.Date.AddDays(1), DateTimeKind.Utc))
+            : new DateTimeOffset(DateTime.UtcNow, TimeSpan.Zero);
 
         var totalAccounts = await _dbContext.Profiles.CountAsync();
         var activeAccounts = await _dbContext.Profiles.CountAsync(x => x.IsActive);
 
         var totalSessions = await _dbContext.ChatSessions.CountAsync(x =>
             x.CreatedAt.HasValue &&
-            x.CreatedAt.Value.UtcDateTime >= fromUtc &&
-            x.CreatedAt.Value.UtcDateTime <= toUtc);
+            x.CreatedAt.Value >= fromUtc &&
+            x.CreatedAt.Value < toUtc);
 
         var totalMessages = await _dbContext.ChatMessages.CountAsync(x =>
             x.CreatedAt.HasValue &&
-            x.CreatedAt.Value.UtcDateTime >= fromUtc &&
-            x.CreatedAt.Value.UtcDateTime <= toUtc);
+            x.CreatedAt.Value >= fromUtc &&
+            x.CreatedAt.Value < toUtc);
 
         var sessionGroups = await _dbContext.ChatSessions
             .AsNoTracking()
             .Where(x =>
                 x.CreatedAt.HasValue &&
-                x.CreatedAt.Value.UtcDateTime >= fromUtc &&
-                x.CreatedAt.Value.UtcDateTime <= toUtc)
+                x.CreatedAt.Value >= fromUtc &&
+                x.CreatedAt.Value < toUtc)
             .GroupBy(x => DateOnly.FromDateTime(x.CreatedAt!.Value.UtcDateTime))
             .Select(x => new
             {
@@ -53,8 +59,8 @@ public class ReportsController : Controller
             .AsNoTracking()
             .Where(x =>
                 x.CreatedAt.HasValue &&
-                x.CreatedAt.Value.UtcDateTime >= fromUtc &&
-                x.CreatedAt.Value.UtcDateTime <= toUtc)
+                x.CreatedAt.Value >= fromUtc &&
+                x.CreatedAt.Value < toUtc)
             .GroupBy(x => DateOnly.FromDateTime(x.CreatedAt!.Value.UtcDateTime))
             .Select(x => new
             {
@@ -83,8 +89,8 @@ public class ReportsController : Controller
             join authUser in _dbContext.AuthUsers.AsNoTracking() on profile.Id equals authUser.Id into authJoin
             from authUser in authJoin.DefaultIfEmpty()
             where message.CreatedAt.HasValue &&
-                  message.CreatedAt.Value.UtcDateTime >= fromUtc &&
-                  message.CreatedAt.Value.UtcDateTime <= toUtc
+                  message.CreatedAt.Value >= fromUtc &&
+                  message.CreatedAt.Value < toUtc
             group new { profile, authUser } by new
             {
                 profile.FirstName,
@@ -107,17 +113,20 @@ public class ReportsController : Controller
                 x.Email.ToLower().Contains(term));
         }
 
+        var topUsersCount = await topUsersQuery.CountAsync();
+
         var topUsers = await topUsersQuery
             .OrderByDescending(x => x.MessageCount)
-            .Take(10)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         var messageTypes = await _dbContext.ChatMessages
             .AsNoTracking()
             .Where(x =>
                 x.CreatedAt.HasValue &&
-                x.CreatedAt.Value.UtcDateTime >= fromUtc &&
-                x.CreatedAt.Value.UtcDateTime <= toUtc)
+                x.CreatedAt.Value >= fromUtc &&
+                x.CreatedAt.Value < toUtc)
             .GroupBy(x => x.GestureId.HasValue ? "Gesture" : "Text")
             .Select(x => new MessageTypeRowViewModel
             {
@@ -138,7 +147,22 @@ public class ReportsController : Controller
             TotalMessages = totalMessages,
             DailyUsage = dailyUsage,
             TopUsers = topUsers,
-            MessageTypes = messageTypes
+            MessageTypes = messageTypes,
+            TopUsersPagination = new PaginationViewModel
+            {
+                Action = "Index",
+                Controller = "Reports",
+                ItemLabel = "records",
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalCount = topUsersCount,
+                RouteValues = new Dictionary<string, string>
+                {
+                    ["search"] = search ?? string.Empty,
+                    ["fromDate"] = fromDate?.ToString("yyyy-MM-dd") ?? string.Empty,
+                    ["toDate"] = toDate?.ToString("yyyy-MM-dd") ?? string.Empty
+                }
+            }
         };
 
         return View(model);

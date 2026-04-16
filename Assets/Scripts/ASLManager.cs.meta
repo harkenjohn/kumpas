@@ -1,2 +1,20 @@
 fileFormatVersion: 2
 guid: 9af30ac459000c9409a947af342793cf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - modelAsset: {instanceID: 0}
+  - predictionText: {instanceID: 0}
+  - sentenceText: {instanceID: 0}
+  - confidenceText: {instanceID: 0}
+  - statusText: {instanceID: 0}
+  - appManager: {instanceID: 0}
+  - uiManager: {instanceID: 0}
+  - handLandmarkBridge: {instanceID: 0}
+  - phrasesManager: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

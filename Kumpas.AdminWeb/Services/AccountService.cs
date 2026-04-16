@@ -7,8 +7,11 @@ namespace Kumpas.AdminWeb.Services;
 
 public class AccountService(KumpasDbContext dbContext)
 {
-    public async Task<ManageAccountsViewModel> GetAccountsAsync(string? search, string? status, string? userType, CancellationToken cancellationToken = default)
+    public async Task<ManageAccountsViewModel> GetAccountsAsync(string? search, string? status, string? userType, int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
     {
+        pageNumber = Math.Max(pageNumber, 1);
+        pageSize = 10;
+
         var query =
             from profile in dbContext.Profiles.AsNoTracking()
             join authUser in dbContext.AuthUsers.AsNoTracking() on profile.Id equals authUser.Id into authGroup
@@ -47,12 +50,33 @@ public class AccountService(KumpasDbContext dbContext)
             query = query.Where(x => x.UserType == userType);
         }
 
+        var totalCount = await query.CountAsync(cancellationToken);
+
         return new ManageAccountsViewModel
         {
             Search = search,
             Status = status,
             UserType = userType,
-            Accounts = await query.OrderByDescending(x => x.CreatedAt).ToListAsync(cancellationToken)
+            Pagination = new PaginationViewModel
+            {
+                Action = "Index",
+                Controller = "Accounts",
+                ItemLabel = "records",
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                RouteValues = new Dictionary<string, string>
+                {
+                    ["search"] = search ?? string.Empty,
+                    ["status"] = status ?? string.Empty,
+                    ["userType"] = userType ?? string.Empty
+                }
+            },
+            Accounts = await query
+                .OrderByDescending(x => x.CreatedAt)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken)
         };
     }
 

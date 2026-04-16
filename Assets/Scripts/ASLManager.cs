@@ -1,5 +1,15 @@
 // ============================================================
-// ASLManager.cs — Unity 6 + Inference Engine 2.3.0
+// ASLManager.cs — API-based ASL Recognition
+// ============================================================
+// Flow:
+//   1. Record 2 seconds → collect frames
+//   2. Downsample to 60 frames
+//   3. Send all 60 frames to /predict/auto
+//   4. Server runs CNN majority vote → if ≥75% → letter
+//   5. Else server runs LSTM → phrase
+//   6. Commit result to sentence
+//   7. 1 second gap → repeat
+//   8. Hand gone 5s → end session
 // ============================================================
 
 using System.Collections;
@@ -7,14 +17,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.InferenceEngine;
+using System;
+using UnityEngine.Networking;
 
 public class ASLManager : MonoBehaviour
 {
-    // ── Inspector Fields ──────────────────────────────────────
-    [Header("Inference Engine Model")]
-    [Tooltip("Drag asl_model.onnx here from your Assets folder")]
-    public ModelAsset modelAsset;
+    [Header("API")]
+    [Tooltip("Your Hugging Face Space URL, no trailing slash")]
+    public string apiBaseUrl = "https://kennn14-sign-language-recognition-api.hf.space";
+
+    [Header("Camera")]
+    [Tooltip("The WebCamTexture feeding the camera canvas")]
+    public WebCamTexture webCamTexture;
 
     [Header("UI")]
     public TMP_Text predictionText;
@@ -25,47 +39,46 @@ public class ASLManager : MonoBehaviour
     [Header("Manager References")]
     public AppManager appManager;
     public UIManager uiManager;
-    public HandLandmarkBridge handLandmarkBridge;
 
-    // ── Timing constants ──────────────────────────────────────
-    private const float LETTER_HOLD_TIME = 1.5f;
-    private const float SPACE_THRESHOLD = 1.5f;
-    private const float SESSION_END_TIME = 3.0f;
+    // ── Timing ────────────────────────────────────────────────
+    private const float RECORD_DURATION = 2.0f;
+    private const float GAP_DURATION = 1.0f;
+    private const float SESSION_END_TIME = 5.0f;
 
-    // ── Class names ───────────────────────────────────────────
-    private readonly string[] CLASS_NAMES =
-    {
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "K",
-        "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-        "V", "W", "X", "Y"
-    };
+    // ── Frame capture ─────────────────────────────────────────
+    [Header("Frame Capture")]
+    public int sendWidth = 320;
+    public int sendHeight = 240;
+    private const int TARGET_FRAMES = 60;
 
-    private const int IMG_SIZE = 64;
-    private const int BUFFER_SIZE = 15;
+    // ── Hand presence ─────────────────────────────────────────
+    [Header("Motion Detection")]
+    [Range(0f, 0.1f)]
+    public float handPresenceThreshold = 0.005f;
 
-    // ── Inference Engine ──────────────────────────────────────
-    private Model _runtimeModel;
-    private Worker _worker;
-
-    // ── Prediction state ──────────────────────────────────────
-    private string _stableLetter = "";
-    private float _stableConf = 0f;
-    private Queue<string> _predBuffer = new Queue<string>();
-
-    // ── Timing state ──────────────────────────────────────────
-    private string _currentHeldLetter = "";
-    private float _letterHoldTimer = 0f;
-    private bool _letterCommittedThisHold = false;
-    private float _noDetectionTimer = 0f;
-    private bool _spaceInserted = false;
+    // ── State machine ─────────────────────────────────────────
+    private enum State { Recording, Gap, Classifying, SessionEnd }
+    private State _state = State.Recording;
 
     // ── Sentence ──────────────────────────────────────────────
     private string _sentence = "";
 
     // ── Session ───────────────────────────────────────────────
     private bool _sessionActive = false;
-    private bool _waitingForCamera = false;
-    private float _cameraWaitTimer = 0f;
+    private bool _waitingForCam = false;
+    private float _camWaitTimer = 0f;
+
+    // ── Recording ─────────────────────────────────────────────
+    private List<byte[]> _recordedFrames = new List<byte[]>();
+    private float _recordTimer = 0f;
+    private float _gapTimer = 0f;
+    private float _handGoneTimer = 0f;
+    private bool _handPresent = false;
+
+    // ── Frame capture helpers ──────────────────────────────────
+    private Texture2D _prevFrame = null;
+    private Texture2D _currFrame = null;
+    private int _frameCounter = 0;
 
     // ── Android TTS ───────────────────────────────────────────
     private AndroidJavaObject _tts;
@@ -76,45 +89,44 @@ public class ASLManager : MonoBehaviour
     // =========================================================
     void Start()
     {
-        InitInferenceEngine();
         InitTTS();
         SetStatus("Ready");
     }
 
     void Update()
     {
-        if (_waitingForCamera)
+        if (_waitingForCam)
         {
-            _cameraWaitTimer += Time.deltaTime;
-            if (_cameraWaitTimer >= 3.0f)
+            _camWaitTimer += Time.deltaTime;
+            if (_camWaitTimer >= 2.0f)
                 BeginSession();
             else
                 return;
         }
 
-        if (_sessionActive)
-            RunPipeline();
+        if (!_sessionActive) return;
+        if (_state == State.Classifying || _state == State.SessionEnd) return;
 
-        if (_sessionActive)
-            UpdateTimers();
+        _frameCounter++;
+        if (_frameCounter % 2 == 0)
+            CaptureCurrentFrame();
+
+        UpdateHandPresence();
+
+        switch (_state)
+        {
+            case State.Recording: RunRecording(); break;
+            case State.Gap: RunGap(); break;
+        }
 
         UpdateUI();
     }
 
     void OnDestroy()
     {
-        _worker?.Dispose();
         _tts?.Call("shutdown");
-    }
-
-    // =========================================================
-    // Inference Engine Init
-    // =========================================================
-    void InitInferenceEngine()
-    {
-        _runtimeModel = ModelLoader.Load(modelAsset);
-        _worker = new Worker(_runtimeModel, BackendType.GPUCompute);
-        Debug.Log("[ASL] Model loaded");
+        if (_prevFrame != null) Destroy(_prevFrame);
+        if (_currFrame != null) Destroy(_currFrame);
     }
 
     // =========================================================
@@ -123,23 +135,44 @@ public class ASLManager : MonoBehaviour
     public void StartSession()
     {
         _sentence = "";
-        _currentHeldLetter = "";
-        _letterHoldTimer = 0f;
-        _letterCommittedThisHold = false;
-        _noDetectionTimer = 0f;
-        _spaceInserted = false;
+        _state = State.Recording;
         _sessionActive = false;
-        _waitingForCamera = true;
-        _cameraWaitTimer = 0f;
+        _waitingForCam = true;
+        _camWaitTimer = 0f;
+        _recordTimer = 0f;
+        _gapTimer = 0f;
+        _handGoneTimer = 0f;
+        _handPresent = false;
+        _frameCounter = 0;
+        _recordedFrames.Clear();
+
+        if (_prevFrame != null) { Destroy(_prevFrame); _prevFrame = null; }
+        if (_currFrame != null) { Destroy(_currFrame); _currFrame = null; }
+
+        if (webCamTexture == null)
+        {
+            RawImage[] rawImages = FindObjectsOfType<RawImage>();
+            foreach (var ri in rawImages)
+            {
+                if (ri.texture is WebCamTexture wct)
+                {
+                    webCamTexture = wct;
+                    Debug.Log($"[ASL] Found WebCamTexture on {ri.gameObject.name}");
+                    break;
+                }
+            }
+        }
+
         SetStatus("Waiting for camera…");
-        Debug.Log("[ASL] Waiting for MediaPipe camera to start...");
+        Debug.Log("[ASL] Session starting...");
     }
 
     void BeginSession()
     {
-        _waitingForCamera = false;
+        _waitingForCam = false;
         _sessionActive = true;
-        SetStatus("Scanning…");
+        _state = State.Recording;
+        SetStatus("Recording…");
         Debug.Log("[ASL] Session started");
     }
 
@@ -147,6 +180,9 @@ public class ASLManager : MonoBehaviour
     {
         _sessionActive = false;
         _sentence = _sentence.Trim();
+        _recordedFrames.Clear();
+        _state = State.SessionEnd;
+
         Debug.Log($"[ASL] Session ended. Sentence: '{_sentence}'");
 
         if (!string.IsNullOrEmpty(_sentence))
@@ -160,236 +196,196 @@ public class ASLManager : MonoBehaviour
     }
 
     // =========================================================
-    // Timer Logic
+    // Frame Capture
     // =========================================================
-    void UpdateTimers()
+    void CaptureCurrentFrame()
     {
-        bool signDetected = !string.IsNullOrEmpty(_stableLetter);
+        if (webCamTexture == null || !webCamTexture.isPlaying) return;
 
-        if (signDetected)
+        if (_prevFrame != null) Destroy(_prevFrame);
+        _prevFrame = _currFrame;
+
+        var fullTex = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.RGB24, false);
+        fullTex.SetPixels(webCamTexture.GetPixels());
+        fullTex.Apply();
+
+        var rt = RenderTexture.GetTemporary(sendWidth, sendHeight, 0, RenderTextureFormat.ARGB32);
+        Graphics.Blit(fullTex, rt);
+        RenderTexture.active = rt;
+
+        _currFrame = new Texture2D(sendWidth, sendHeight, TextureFormat.RGB24, false);
+        _currFrame.ReadPixels(new Rect(0, 0, sendWidth, sendHeight), 0, 0);
+        _currFrame.Apply();
+
+        RenderTexture.active = null;
+        RenderTexture.ReleaseTemporary(rt);
+        Destroy(fullTex);
+    }
+
+    void UpdateHandPresence()
+    {
+        if (_prevFrame == null || _currFrame == null) return;
+
+        Color32[] prev = _prevFrame.GetPixels32();
+        Color32[] curr = _currFrame.GetPixels32();
+        int total = prev.Length;
+        int changed = 0;
+
+        for (int i = 0; i < total; i++)
         {
-            _noDetectionTimer = 0f;
-            _spaceInserted = false;
+            float dr = Mathf.Abs(curr[i].r - prev[i].r) / 255f;
+            float dg = Mathf.Abs(curr[i].g - prev[i].g) / 255f;
+            float db = Mathf.Abs(curr[i].b - prev[i].b) / 255f;
+            if ((dr + dg + db) / 3f > 0.08f) changed++;
+        }
 
-            if (_stableLetter == _currentHeldLetter)
+        _handPresent = ((float)changed / total) > handPresenceThreshold;
+
+        if (_handPresent)
+            _handGoneTimer = 0f;
+        else
+            _handGoneTimer += Time.deltaTime;
+
+        if (_handGoneTimer >= SESSION_END_TIME)
+        {
+            Debug.Log("[ASL] Hand gone 5s → end session");
+            EndSession();
+        }
+    }
+
+    // =========================================================
+    // State: Recording
+    // =========================================================
+    void RunRecording()
+    {
+        _recordTimer += Time.deltaTime;
+
+        if (_currFrame != null)
+            _recordedFrames.Add(_currFrame.EncodeToJPG(60));
+
+        SetStatus($"Recording… {_recordTimer:F1}s");
+
+        if (_recordTimer >= RECORD_DURATION)
+        {
+            Debug.Log($"[ASL] 2s recorded. {_recordedFrames.Count} raw frames → processing");
+            _recordTimer = 0f;
+            _state = State.Classifying;
+            StartCoroutine(ProcessRecording(_recordedFrames));
+            _recordedFrames = new List<byte[]>();
+        }
+    }
+
+    // =========================================================
+    // State: Gap
+    // =========================================================
+    void RunGap()
+    {
+        _gapTimer += Time.deltaTime;
+        SetStatus($"Gap… {_gapTimer:F1}s");
+
+        if (_gapTimer >= GAP_DURATION)
+        {
+            _gapTimer = 0f;
+            _state = State.Recording;
+            SetStatus("Recording…");
+            Debug.Log("[ASL] Gap done → Recording");
+        }
+    }
+
+    // =========================================================
+    // Processing Pipeline
+    // =========================================================
+    IEnumerator ProcessRecording(List<byte[]> rawFrames)
+    {
+        // Downsample to 60 frames evenly
+        List<byte[]> frames60 = SampleFrames(rawFrames, TARGET_FRAMES);
+        Debug.Log($"[ASL] Downsampled to {frames60.Count} frames → sending to /predict/auto");
+
+        SetStatus("Classifying…");
+        yield return StartCoroutine(SendAutoFrames(frames60));
+
+        // Go to gap after classification
+        _state = State.Gap;
+        _gapTimer = 0f;
+    }
+
+    // =========================================================
+    // Frame Sampling
+    // =========================================================
+    List<byte[]> SampleFrames(List<byte[]> frames, int targetCount)
+    {
+        if (frames.Count == 0) return new List<byte[]>();
+        if (frames.Count <= targetCount) return new List<byte[]>(frames);
+
+        var sampled = new List<byte[]>();
+        for (int i = 0; i < targetCount; i++)
+        {
+            int idx = Mathf.RoundToInt(i * (frames.Count - 1) / (float)(targetCount - 1));
+            sampled.Add(frames[Mathf.Clamp(idx, 0, frames.Count - 1)]);
+        }
+        return sampled;
+    }
+
+    // =========================================================
+    // API Call — /predict/auto
+    // =========================================================
+    IEnumerator SendAutoFrames(List<byte[]> frames)
+    {
+        if (frames.Count == 0)
+        {
+            Debug.Log("[ASL] No frames to send — skipping");
+            yield break;
+        }
+
+        WWWForm form = new WWWForm();
+        for (int i = 0; i < frames.Count; i++)
+            form.AddBinaryData("files", frames[i], $"frame_{i:D4}.jpg", "image/jpeg");
+
+        using var req = UnityWebRequest.Post($"{apiBaseUrl}/predict/auto", form);
+        req.timeout = 60;
+        yield return req.SendWebRequest();
+
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError($"[ASL] Auto API error: {req.error}");
+            SetStatus("API error — check connection");
+        }
+        else
+        {
+            var response = JsonUtility.FromJson<AutoResponse>(req.downloadHandler.text);
+
+            if (response.detected && !string.IsNullOrEmpty(response.result))
             {
-                _letterHoldTimer += Time.deltaTime;
+                AppendToSentence(response.result);
 
-                if (_letterHoldTimer >= LETTER_HOLD_TIME && !_letterCommittedThisHold)
+                if (response.result_type == "letter")
                 {
-                    _sentence += _stableLetter;
-                    _letterCommittedThisHold = true;
-                    Debug.Log($"[ASL] Letter: '{_stableLetter}' → '{_sentence}'");
-                    SetStatus($"Letter: {_stableLetter}");
+                    SetStatus($"Letter: {response.result} ({response.vote_ratio * 100f:F0}% vote)");
+                    Debug.Log($"[ASL] ✓ Letter: {response.result} ({response.vote_ratio * 100f:F0}%)");
+                }
+                else
+                {
+                    SetStatus($"Phrase: {response.result} ({response.confidence * 100f:F0}%)");
+                    Debug.Log($"[ASL] ✓ Phrase: {response.result} ({response.confidence * 100f:F0}%)");
                 }
             }
             else
             {
-                _currentHeldLetter = _stableLetter;
-                _letterHoldTimer = 0f;
-                _letterCommittedThisHold = false;
+                SetStatus("Not recognized");
+                Debug.Log("[ASL] Nothing recognized this window");
             }
         }
-        else
-        {
-            _currentHeldLetter = "";
-            _letterHoldTimer = 0f;
-            _letterCommittedThisHold = false;
-            _noDetectionTimer += Time.deltaTime;
-
-            if (_noDetectionTimer >= SPACE_THRESHOLD && !_spaceInserted)
-            {
-                if (_sentence.Length > 0 && !_sentence.EndsWith(" "))
-                {
-                    _sentence += " ";
-                    _spaceInserted = true;
-                    Debug.Log($"[ASL] Space → '{_sentence}'");
-                    SetStatus("Pause — space added");
-                }
-            }
-
-            if (_noDetectionTimer >= SESSION_END_TIME)
-                EndSession();
-        }
     }
 
     // =========================================================
-    // Main Pipeline
+    // Sentence
     // =========================================================
-    void RunPipeline()
+    void AppendToSentence(string word)
     {
-        Vector2[] landmarks = GetHandLandmarks();
-
-        if (landmarks == null || landmarks.Length < 21)
-        {
-            _stableLetter = "";
-            _stableConf = 0f;
-            return;
-        }
-
-        Texture2D skeleton = RenderSkeleton(landmarks, IMG_SIZE);
-        (string letter, float conf) = Predict(skeleton);
-        Destroy(skeleton);
-
-        _predBuffer.Enqueue(letter);
-        if (_predBuffer.Count > BUFFER_SIZE) _predBuffer.Dequeue();
-
-        var votes = new Dictionary<string, int>();
-        foreach (string p in _predBuffer)
-        {
-            if (!votes.ContainsKey(p)) votes[p] = 0;
-            votes[p]++;
-        }
-
-        string bestLetter = letter;
-        int bestVotes = 0;
-        foreach (var kv in votes)
-        {
-            if (kv.Value > bestVotes) { bestVotes = kv.Value; bestLetter = kv.Key; }
-        }
-
-        _stableLetter = bestLetter;
-        _stableConf = conf;
-    }
-
-    // =========================================================
-    // CNN Inference — Inference Engine 2.3.0
-    // =========================================================
-    (string letter, float conf) Predict(Texture2D skeleton)
-    {
-        Color[] pixels = skeleton.GetPixels();
-        float[] data = new float[3 * IMG_SIZE * IMG_SIZE];
-
-        for (int y = 0; y < IMG_SIZE; y++)
-            for (int x = 0; x < IMG_SIZE; x++)
-            {
-                Color c = pixels[y * IMG_SIZE + x];
-                int idx = y * IMG_SIZE + x;
-                data[0 * IMG_SIZE * IMG_SIZE + idx] = c.r * 2f - 1f;
-                data[1 * IMG_SIZE * IMG_SIZE + idx] = c.g * 2f - 1f;
-                data[2 * IMG_SIZE * IMG_SIZE + idx] = c.b * 2f - 1f;
-            }
-
-        using Tensor<float> inputTensor = new Tensor<float>(new TensorShape(1, 3, IMG_SIZE, IMG_SIZE), data);
-        _worker.Schedule(inputTensor);
-
-        Tensor<float> outputTensor = _worker.PeekOutput() as Tensor<float>;
-        float[] logits = outputTensor.DownloadToArray();
-
-        // Softmax
-        float maxVal = float.MinValue;
-        foreach (float v in logits) if (v > maxVal) maxVal = v;
-
-        float sum = 0f;
-        float[] probs = new float[CLASS_NAMES.Length];
-        for (int i = 0; i < CLASS_NAMES.Length; i++)
-        {
-            probs[i] = Mathf.Exp(logits[i] - maxVal);
-            sum += probs[i];
-        }
-        for (int i = 0; i < probs.Length; i++) probs[i] /= sum;
-
-        int bestIdx = 0;
-        float bestProb = 0f;
-        for (int i = 0; i < probs.Length; i++)
-        {
-            if (probs[i] > bestProb) { bestProb = probs[i]; bestIdx = i; }
-        }
-
-        return (CLASS_NAMES[bestIdx], bestProb);
-    }
-
-    // =========================================================
-    // Skeleton Renderer
-    // =========================================================
-    private readonly (int, int)[] HAND_CONNECTIONS =
-    {
-        (0,1),(1,2),(2,3),(3,4),
-        (0,5),(5,6),(6,7),(7,8),
-        (5,9),(9,10),(10,11),(11,12),
-        (9,13),(13,14),(14,15),(15,16),
-        (13,17),(0,17),(17,18),(18,19),(19,20)
-    };
-
-    Texture2D RenderSkeleton(Vector2[] landmarks, int size)
-    {
-        Texture2D canvas = new Texture2D(size, size, TextureFormat.RGB24, false);
-        Color[] pixels = new Color[size * size];
-        for (int i = 0; i < pixels.Length; i++) pixels[i] = Color.black;
-        canvas.SetPixels(pixels);
-
-        float minX = float.MaxValue, minY = float.MaxValue;
-        float maxX = float.MinValue, maxY = float.MinValue;
-        foreach (Vector2 lm in landmarks)
-        {
-            minX = Mathf.Min(minX, lm.x); minY = Mathf.Min(minY, lm.y);
-            maxX = Mathf.Max(maxX, lm.x); maxY = Mathf.Max(maxY, lm.y);
-        }
-
-        float pad = 0.15f;
-        minX = Mathf.Max(0f, minX - pad); minY = Mathf.Max(0f, minY - pad);
-        maxX = Mathf.Min(1f, maxX + pad); maxY = Mathf.Min(1f, maxY + pad);
-        float rx = (maxX > minX) ? maxX - minX : 1f;
-        float ry = (maxY > minY) ? maxY - minY : 1f;
-
-        Vector2Int ToPx(Vector2 lm)
-        {
-            int cx = Mathf.Clamp((int)(((lm.x - minX) / rx) * (size - 1)), 0, size - 1);
-            int cy = Mathf.Clamp((int)(((lm.y - minY) / ry) * (size - 1)), 0, size - 1);
-            return new Vector2Int(cx, cy);
-        }
-
-        Color boneColor = new Color(200f / 255f, 200f / 255f, 200f / 255f);
-        Color tipColor = Color.white;
-        Color jointColor = new Color(180f / 255f, 180f / 255f, 180f / 255f);
-        HashSet<int> tips = new HashSet<int> { 4, 8, 12, 16, 20 };
-
-        foreach (var (p1, p2) in HAND_CONNECTIONS)
-            DrawLine(canvas, ToPx(landmarks[p1]), ToPx(landmarks[p2]), boneColor, 2);
-
-        for (int i = 0; i < landmarks.Length; i++)
-            DrawCircle(canvas, ToPx(landmarks[i]), tips.Contains(i) ? 4 : 3, tips.Contains(i) ? tipColor : jointColor);
-
-        canvas.Apply();
-        return canvas;
-    }
-
-    void DrawLine(Texture2D tex, Vector2Int a, Vector2Int b, Color color, int thickness)
-    {
-        int x0 = a.x, y0 = a.y, x1 = b.x, y1 = b.y;
-        int dx = Mathf.Abs(x1 - x0), dy = Mathf.Abs(y1 - y0);
-        int sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
-        int err = dx - dy;
-        while (true)
-        {
-            for (int tx = -thickness / 2; tx <= thickness / 2; tx++)
-                for (int ty = -thickness / 2; ty <= thickness / 2; ty++)
-                    tex.SetPixel(Mathf.Clamp(x0 + tx, 0, tex.width - 1), Mathf.Clamp(y0 + ty, 0, tex.height - 1), color);
-            if (x0 == x1 && y0 == y1) break;
-            int e2 = 2 * err;
-            if (e2 > -dy) { err -= dy; x0 += sx; }
-            if (e2 < dx) { err += dx; y0 += sy; }
-        }
-    }
-
-    void DrawCircle(Texture2D tex, Vector2Int center, int radius, Color color)
-    {
-        for (int x = -radius; x <= radius; x++)
-            for (int y = -radius; y <= radius; y++)
-            {
-                if (x * x + y * y <= radius * radius)
-                    tex.SetPixel(Mathf.Clamp(center.x + x, 0, tex.width - 1), Mathf.Clamp(center.y + y, 0, tex.height - 1), color);
-            }
-    }
-
-    // =========================================================
-    // MediaPipe
-    // =========================================================
-    Vector2[] GetHandLandmarks()
-    {
-        if (handLandmarkBridge != null)
-            return handLandmarkBridge.GetLandmarks();
-        return null;
+        if (_sentence.Length > 0 && !_sentence.EndsWith(" "))
+            _sentence += " ";
+        _sentence += word;
+        Debug.Log($"[ASL] Sentence so far: '{_sentence}'");
     }
 
     // =========================================================
@@ -405,7 +401,7 @@ public class ASLManager : MonoBehaviour
             AndroidJavaProxy  listener    = new TTSInitListener(() => { _ttsReady = true; });
             _tts = new AndroidJavaObject("android.speech.tts.TextToSpeech", activity, listener);
         }
-        catch (System.Exception e) { Debug.LogError($"[ASL] TTS init failed: {e.Message}"); }
+        catch (Exception e) { Debug.LogError($"[ASL] TTS init failed: {e.Message}"); }
 #else
         _ttsReady = true;
 #endif
@@ -413,7 +409,6 @@ public class ASLManager : MonoBehaviour
 
     void SpeakSentence(string sentence)
     {
-        // Convert to lowercase so Android TTS reads it as words, not letters
         string spokenText = sentence.ToLower();
         Debug.Log($"[ASL] Speaking: '{spokenText}'");
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -429,12 +424,6 @@ public class ASLManager : MonoBehaviour
     // =========================================================
     void UpdateUI()
     {
-        if (predictionText != null)
-            predictionText.text = string.IsNullOrEmpty(_stableLetter) ? "—" : _stableLetter;
-
-        if (confidenceText != null)
-            confidenceText.text = _stableConf > 0 ? $"{_stableConf * 100f:F0}%" : "";
-
         if (sentenceText != null)
             sentenceText.text = string.IsNullOrEmpty(_sentence) ? "_" : _sentence;
     }
@@ -444,6 +433,43 @@ public class ASLManager : MonoBehaviour
         if (statusText != null) statusText.text = msg;
         Debug.Log($"[ASL] {msg}");
     }
+}
+
+// ============================================================
+// API Response Models
+// ============================================================
+[Serializable]
+public class AutoResponse
+{
+    public string result;
+    public string result_type;
+    public float confidence;
+    public float vote_ratio;
+    public bool detected;
+}
+
+[Serializable]
+public class AlphabetResponse
+{
+    public string letter;
+    public float confidence;
+    public bool detected;
+}
+
+[Serializable]
+public class PhraseResponse
+{
+    public string phrase;
+    public float confidence;
+    public bool detected;
+}
+
+[Serializable]
+public class BatchAlphabetResponse
+{
+    public string letter;
+    public float vote_ratio;
+    public bool detected;
 }
 
 // ============================================================
