@@ -694,7 +694,7 @@ public class AppManager : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError("Login Failed: " + ex.Message);
-            uiManager.ShowStatus("Login Failed: " + ex.Message, "login");
+            uiManager.ShowStatus("Invalid email or password.", "login");
         }
     }
 
