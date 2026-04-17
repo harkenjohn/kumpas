@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="16" result="Passed" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.7190385">
+  <test-suite type="TestSuite" id="1026" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.719039" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1018" name="Assembly-CSharp.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Assembly-CSharp.dll" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.700009" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29492" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1019" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.690611" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1020" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.681009" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1021" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.671557" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1022" name="Login" fullname="Kumpas.Tests.EditMode.Login" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.662215" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1001" name="LoginTests" fullname="Kumpas.Tests.EditMode.Login.LoginTests" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.649183" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Login" />
+                </properties>
+                <test-case id="1003" name="TC001_ValidEmailAndPassword_NavigateToHomeIsTrue" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC001_ValidEmailAndPassword_NavigateToHomeIsTrue" methodname="TC001_ValidEmailAndPassword_NavigateToHomeIsTrue" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1272089749" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.192240" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-001 — Successful login raises the NavigateToHome flag" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1004" name="TC001_ValidEmailAndPassword_ProfileIsPopulated" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC001_ValidEmailAndPassword_ProfileIsPopulated" methodname="TC001_ValidEmailAndPassword_ProfileIsPopulated" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1063310122" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.044865" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-001 — Successful login returns the correct user profile" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1002" name="TC001_ValidEmailAndPassword_ReturnsSuccess" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC001_ValidEmailAndPassword_ReturnsSuccess" methodname="TC001_ValidEmailAndPassword_ReturnsSuccess" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="298740808" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.030328" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-001 — Valid email and correct password redirects user to Home" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1007" name="TC002_IncorrectEmail_DoesNotNavigateToHome" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC002_IncorrectEmail_DoesNotNavigateToHome" methodname="TC002_IncorrectEmail_DoesNotNavigateToHome" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="705230207" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.028220" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-002 — Incorrect email does not navigate to Home" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1006" name="TC002_IncorrectEmail_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC002_IncorrectEmail_ErrorMessageIsDisplayed" methodname="TC002_IncorrectEmail_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1676156626" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.027560" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-002 — Incorrect email produces a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1005" name="TC002_IncorrectEmail_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC002_IncorrectEmail_ReturnsFailedResult" methodname="TC002_IncorrectEmail_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="103916630" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.025013" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-002 — Incorrect email returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="TC003_IncorrectPassword_DoesNotNavigateToHome" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC003_IncorrectPassword_DoesNotNavigateToHome" methodname="TC003_IncorrectPassword_DoesNotNavigateToHome" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1628961479" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.023764" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-003 — Incorrect password does not navigate to Home" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="TC003_IncorrectPassword_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC003_IncorrectPassword_ErrorMessageIsDisplayed" methodname="TC003_IncorrectPassword_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1087184387" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.021990" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-003 — Incorrect password produces a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="TC003_IncorrectPassword_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC003_IncorrectPassword_ReturnsFailedResult" methodname="TC003_IncorrectPassword_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1211362904" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.026357" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-003 — Incorrect password returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="TC004_BothFieldsEmpty_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_BothFieldsEmpty_ReturnsFailedResult" methodname="TC004_BothFieldsEmpty_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="990872546" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.024427" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004c — Both fields empty returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="TC004_EmptyEmail_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_EmptyEmail_ErrorMessageIsDisplayed" methodname="TC004_EmptyEmail_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="248753776" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.024353" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004d — Empty email produces a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="TC004_EmptyEmail_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_EmptyEmail_ReturnsFailedResult" methodname="TC004_EmptyEmail_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="1784605237" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.024547" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004a — Empty email field returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1017" name="TC004_EmptyFields_DoesNotNavigateToHome" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_EmptyFields_DoesNotNavigateToHome" methodname="TC004_EmptyFields_DoesNotNavigateToHome" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="592411670" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:28Z" duration="0.022084" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004g — Empty fields do not navigate to Home" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1016" name="TC004_EmptyFields_SignInIsNeverCalled" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_EmptyFields_SignInIsNeverCalled" methodname="TC004_EmptyFields_SignInIsNeverCalled" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="893236349" result="Passed" start-time="2026-04-17 07:01:28Z" end-time="2026-04-17 07:01:29Z" duration="0.026588" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004f — Empty fields do not trigger a Supabase SignIn call" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="TC004_EmptyPassword_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_EmptyPassword_ErrorMessageIsDisplayed" methodname="TC004_EmptyPassword_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="768657883" result="Passed" start-time="2026-04-17 07:01:29Z" end-time="2026-04-17 07:01:29Z" duration="0.028340" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004e — Empty password produces a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="TC004_EmptyPassword_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.Login.LoginTests.TC004_EmptyPassword_ReturnsFailedResult" methodname="TC004_EmptyPassword_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.Login.LoginTests" runstate="Runnable" seed="99151693" result="Passed" start-time="2026-04-17 07:01:29Z" end-time="2026-04-17 07:01:29Z" duration="0.047509" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-004b — Empty password field returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

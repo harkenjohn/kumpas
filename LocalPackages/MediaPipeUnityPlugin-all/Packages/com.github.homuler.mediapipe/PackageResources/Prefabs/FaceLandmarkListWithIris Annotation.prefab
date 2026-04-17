@@ -587,6 +587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player hand
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5734141b8b218fb48a245b41708505d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

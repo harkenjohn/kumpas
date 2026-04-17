@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.8893982">
+  <test-suite type="TestSuite" id="1045" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.889398" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1037" name="Assembly-CSharp.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Assembly-CSharp.dll" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.829148" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29492" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1038" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.804082" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1039" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.783629" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1040" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.763819" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1041" name="Login" fullname="Kumpas.Tests.EditMode.Login" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.742213" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1026" name="LoginTests_TC003" fullname="Kumpas.Tests.EditMode.Login.LoginTests_TC003" classname="Kumpas.Tests.EditMode.Login.LoginTests_TC003" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.715627" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1029" name="TC003_DoesNotNavigate" fullname="Kumpas.Tests.EditMode.Login.LoginTests_TC003.TC003_DoesNotNavigate" methodname="TC003_DoesNotNavigate" classname="Kumpas.Tests.EditMode.Login.LoginTests_TC003" runstate="Runnable" seed="1954528271" result="Passed" start-time="2026-04-17 07:44:57Z" end-time="2026-04-17 07:44:58Z" duration="0.469402" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1028" name="TC003_ErrorMessageShown" fullname="Kumpas.Tests.EditMode.Login.LoginTests_TC003.TC003_ErrorMessageShown" methodname="TC003_ErrorMessageShown" classname="Kumpas.Tests.EditMode.Login.LoginTests_TC003" runstate="Runnable" seed="447127978" result="Passed" start-time="2026-04-17 07:44:58Z" end-time="2026-04-17 07:44:58Z" duration="0.104831" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1027" name="TC003_ReturnsFailed" fullname="Kumpas.Tests.EditMode.Login.LoginTests_TC003.TC003_ReturnsFailed" methodname="TC003_ReturnsFailed" classname="Kumpas.Tests.EditMode.Login.LoginTests_TC003" runstate="Runnable" seed="289179244" result="Passed" start-time="2026-04-17 07:44:58Z" end-time="2026-04-17 07:44:58Z" duration="0.073616" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
