@@ -75,4 +75,11 @@ Unity Logs
 *BackUpThisFolder*
 *[Bb]urst[Dd]ebug[Ii]nformation*
 *.apk
-*.aab
+*.aab# Visual Studio Cache
+.vs/
+
+# Unity Temporary Build Data
+.utmp/
+
+# Unity Personal Layouts and Settings
+UserSettings/

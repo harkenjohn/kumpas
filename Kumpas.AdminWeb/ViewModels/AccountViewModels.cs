@@ -22,6 +22,22 @@ public class AccountRowViewModel
     public DateTimeOffset? LastSignInAt { get; set; }
 }
 
+public class AccountDetailsViewModel
+{
+    public Guid Id { get; set; }
+    public string FullName { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Email { get; set; } = "No email";
+    public string UserType { get; set; } = string.Empty;
+    public bool IsActive { get; set; }
+    public DateTimeOffset? CreatedAt { get; set; }
+    public int TotalConversations { get; set; }
+    public int TotalMessages { get; set; }
+    public DateTimeOffset? LastConversationAt { get; set; }
+    public IReadOnlyList<ConversationSessionRowViewModel> RecentConversations { get; set; } = [];
+}
+
 public class UpdateUserPasswordViewModel
 {
     [Required]

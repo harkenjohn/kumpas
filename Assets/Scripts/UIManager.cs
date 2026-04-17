@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     public GameObject cameraInputMethodPanel;
     public GameObject audioInputMethodPanel;
     public GameObject voiceInputPanel;
+    public GameObject toSpeechQuickChatPanel; // ADDED THIS
 
     // --- NEW TEXT INPUT PANELS ---
     [Header("Text Input Panels")]
@@ -142,6 +143,7 @@ public class UIManager : MonoBehaviour
         historyPanel?.SetActive(false);
         conversationViewPanel?.SetActive(false);
         voiceInputPanel?.SetActive(false);
+        toSpeechQuickChatPanel?.SetActive(false); // ADDED THIS
 
         // Disable the visual canvas but leave handSolution running —
         // disabling a MediaPipe Async runner breaks it permanently.
@@ -263,6 +265,13 @@ public class UIManager : MonoBehaviour
         HideAllPanels();
         if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(true);
         Debug.Log("[UIManager] Camera Input Method Panel shown - waiting for Realtime trigger to open camera");
+    }
+
+    // ADDED THIS FUNCTION
+    public void ShowToSpeechQuickChatPanel()
+    {
+        HideAllPanels();
+        if (toSpeechQuickChatPanel != null) toSpeechQuickChatPanel.SetActive(true);
     }
 
     // Called by the Camera button inside CameraInputMethodPanel
@@ -517,14 +526,28 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        // 3. Check if passwords match
+        // 3. Validate email format
+        if (!IsEmailValid(email))
+        {
+            ShowStatus("Please enter a valid email address.", "register");
+            return;
+        }
+
+        // 4. Validate password strength
+        if (!IsPasswordValid(password))
+        {
+            ShowStatus("Must be 8+ chars, with uppercase, lowercase, number & symbol.", "register");
+            return;
+        }
+
+        // 5. Check if passwords match
         if (password != confirmPassword)
         {
             ShowStatus("Passwords do not match!", "register");
-            return; // Stop the function here
+            return;
         }
 
-        // 4. Pass the data to the AppManager to handle
+        // 6. Pass the data to the AppManager to handle
         appManager.Register(email, password, firstName, lastName);
     }
 
@@ -636,6 +659,14 @@ public class UIManager : MonoBehaviour
         appManager.ChangeState(AppManager.AppState.TextToSpeechInput);
     }
 
+    // CameraInputMethodPanel: Quick Chat Button
+    // ADDED THIS FUNCTION
+    public void OnShowToSpeechQuickChatButton()
+    {
+        if (appManager == null) return;
+        appManager.ChangeState(AppManager.AppState.ToSpeechQuickChat);
+    }
+
     // AudioInputMethodPanel: Text Input Button (Speech User) -> Text to Sign Panel
     public void OnShowTextToSignInputButton()
     {
@@ -734,6 +765,13 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        // Validate password strength
+        if (!IsPasswordValid(newPassword))
+        {
+            ShowPasswordError("Must be 8+ chars, with uppercase, lowercase, number & symbol.");
+            return;
+        }
+
         if (newPassword != confirmNewPassword)
         {
             ShowPasswordError("Passwords do not match.");
@@ -765,6 +803,78 @@ public class UIManager : MonoBehaviour
 
 
     // --- 4. HELPER FUNCTIONS ---
+
+    // Validates email format:
+    // - Must contain exactly one @
+    // - Local part cannot start or end with a dot, or have consecutive dots
+    // - Domain must contain a dot
+    // - TLD must be at least 2 characters
+    // - Only allows valid characters in local part and domain
+    private bool IsEmailValid(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email)) return false;
+
+        int atIndex = email.IndexOf('@');
+
+        // Must have exactly one @, and it cannot be the first character
+        if (atIndex <= 0) return false;
+        if (email.IndexOf('@', atIndex + 1) >= 0) return false;
+
+        string local = email.Substring(0, atIndex);
+        string domain = email.Substring(atIndex + 1);
+
+        // Local part: no leading/trailing dot, no consecutive dots
+        if (local.StartsWith(".") || local.EndsWith(".")) return false;
+        if (local.Contains("..")) return false;
+
+        // Domain: must contain a dot, and TLD must be at least 2 characters
+        int dotIndex = domain.LastIndexOf('.');
+        if (dotIndex <= 0) return false;
+        string tld = domain.Substring(dotIndex + 1);
+        if (tld.Length < 2) return false;
+
+        // Only allow valid characters in the local part
+        foreach (char c in local)
+        {
+            if (!char.IsLetterOrDigit(c) && c != '.' && c != '_' && c != '-' && c != '+')
+                return false;
+        }
+
+        // Only allow valid characters in the domain
+        foreach (char c in domain)
+        {
+            if (!char.IsLetterOrDigit(c) && c != '.' && c != '-')
+                return false;
+        }
+
+        return true;
+    }
+
+    // Validates password meets minimum requirements:
+    // - At least 8 characters
+    // - At least 1 uppercase letter
+    // - At least 1 lowercase letter
+    // - At least 1 digit
+    // - At least 1 special character
+    private bool IsPasswordValid(string password)
+    {
+        if (password.Length < 8) return false;
+
+        bool hasUpper = false;
+        bool hasLower = false;
+        bool hasDigit = false;
+        bool hasSpecial = false;
+
+        foreach (char c in password)
+        {
+            if (char.IsUpper(c)) hasUpper = true;
+            else if (char.IsLower(c)) hasLower = true;
+            else if (char.IsDigit(c)) hasDigit = true;
+            else if (!char.IsLetterOrDigit(c)) hasSpecial = true;
+        }
+
+        return hasUpper && hasLower && hasDigit && hasSpecial;
+    }
 
     // A generic function to set the status on the currently active panel
     public void SetSessionStatus(string message)

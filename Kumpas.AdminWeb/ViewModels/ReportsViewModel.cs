@@ -7,8 +7,18 @@ public class ReportsViewModel
     public string? Search { get; set; }
     public int TotalAccounts { get; set; }
     public int ActiveAccounts { get; set; }
+    public int InactiveAccounts { get; set; }
     public int TotalSessions { get; set; }
     public int TotalMessages { get; set; }
+    public int TotalArModels { get; set; }
+    public string ModelStatus { get; set; } = "Operational";
+    public string ModelProvider { get; set; } = "Not configured";
+    public string? ModelUrl { get; set; }
+    public int ErrorLogsThisYear { get; set; }
+    public int ErrorLogsThisMonth { get; set; }
+    public int ErrorLogsToday { get; set; }
+    public string GeneratedBy { get; set; } = "Administrator";
+    public DateTimeOffset GeneratedAt { get; set; }
     public IReadOnlyList<DailyUsageRowViewModel> DailyUsage { get; set; } = [];
     public IReadOnlyList<TopUserRowViewModel> TopUsers { get; set; } = [];
     public IReadOnlyList<MessageTypeRowViewModel> MessageTypes { get; set; } = [];

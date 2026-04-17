@@ -52,7 +52,8 @@ public class AppManager : MonoBehaviour
         TextToSignInput,
         VoiceInput,
         History,
-        ConversationView
+        ConversationView,
+        ToSpeechQuickChat // Added this state
     }
     private AppState currentState;
 
@@ -178,6 +179,9 @@ public class AppManager : MonoBehaviour
             case AppState.VoiceInput:
                 ChangeState(AppState.AudioInput);
                 break;
+            case AppState.ToSpeechQuickChat: // Returns to Camera Input when pressing back
+                ChangeState(AppState.CameraInput);
+                break;
             case AppState.Home:
             case AppState.Login:
                 Debug.Log("[AppManager] Already at root panel, back button ignored.");
@@ -234,6 +238,9 @@ public class AppManager : MonoBehaviour
                 break;
             case AppState.ConversationView:
                 if (uiManager != null) uiManager.ShowConversationViewPanel();
+                break;
+            case AppState.ToSpeechQuickChat: // Routes to the Quick Chat Panel
+                if (uiManager != null) uiManager.ShowToSpeechQuickChatPanel();
                 break;
         }
     }
@@ -694,7 +701,7 @@ public class AppManager : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError("Login Failed: " + ex.Message);
-            uiManager.ShowStatus("Login Failed: " + ex.Message, "login");
+            uiManager.ShowStatus("Invalid email or password.", "login");
         }
     }
 
