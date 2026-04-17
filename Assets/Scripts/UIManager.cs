@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     public GameObject cameraInputMethodPanel;
     public GameObject audioInputMethodPanel;
     public GameObject voiceInputPanel;
+    public GameObject toSpeechQuickChatPanel; // ADDED THIS
 
     // --- NEW TEXT INPUT PANELS ---
     [Header("Text Input Panels")]
@@ -142,6 +143,7 @@ public class UIManager : MonoBehaviour
         historyPanel?.SetActive(false);
         conversationViewPanel?.SetActive(false);
         voiceInputPanel?.SetActive(false);
+        toSpeechQuickChatPanel?.SetActive(false); // ADDED THIS
 
         // Disable the visual canvas but leave handSolution running —
         // disabling a MediaPipe Async runner breaks it permanently.
@@ -263,6 +265,13 @@ public class UIManager : MonoBehaviour
         HideAllPanels();
         if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(true);
         Debug.Log("[UIManager] Camera Input Method Panel shown - waiting for Realtime trigger to open camera");
+    }
+
+    // ADDED THIS FUNCTION
+    public void ShowToSpeechQuickChatPanel()
+    {
+        HideAllPanels();
+        if (toSpeechQuickChatPanel != null) toSpeechQuickChatPanel.SetActive(true);
     }
 
     // Called by the Camera button inside CameraInputMethodPanel
@@ -648,6 +657,14 @@ public class UIManager : MonoBehaviour
     {
         if (appManager == null) return;
         appManager.ChangeState(AppManager.AppState.TextToSpeechInput);
+    }
+
+    // CameraInputMethodPanel: Quick Chat Button
+    // ADDED THIS FUNCTION
+    public void OnShowToSpeechQuickChatButton()
+    {
+        if (appManager == null) return;
+        appManager.ChangeState(AppManager.AppState.ToSpeechQuickChat);
     }
 
     // AudioInputMethodPanel: Text Input Button (Speech User) -> Text to Sign Panel
