@@ -23,6 +23,18 @@ public class AccountsController : Controller
         return View(model);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await _accountService.GetAccountDetailsAsync(id, cancellationToken);
+        if (model is null)
+        {
+            return NotFound();
+        }
+
+        return View(model);
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ToggleStatus(Guid id, bool isActive, CancellationToken cancellationToken)
@@ -37,6 +49,22 @@ public class AccountsController : Controller
         }
 
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ToggleStatusFromDetails(Guid id, bool isActive, CancellationToken cancellationToken)
+    {
+        if (await _accountService.SetActiveStatusAsync(id, isActive, cancellationToken))
+        {
+            TempData["StatusMessage"] = $"Account has been {(isActive ? "activated" : "deactivated")}.";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "Account was not found.";
+        }
+
+        return RedirectToAction(nameof(Details), new { id });
     }
 
     [HttpPost]
@@ -61,6 +89,30 @@ public class AccountsController : Controller
             result.Succeeded ? "Password updated successfully." : result.ErrorMessage ?? "Password update failed.";
 
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdatePasswordFromDetails(UpdateUserPasswordViewModel model, CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData["ErrorMessage"] = "Password update failed. Check the minimum password length and confirmation.";
+            return RedirectToAction(nameof(Details), new { id = model.UserId });
+        }
+
+        var profile = await _accountService.GetProfileAsync(model.UserId, cancellationToken);
+        if (profile is null)
+        {
+            TempData["ErrorMessage"] = "Account was not found.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var result = await _supabaseAuthService.UpdatePasswordAsync(model.UserId, model.NewPassword, cancellationToken);
+        TempData[result.Succeeded ? "StatusMessage" : "ErrorMessage"] =
+            result.Succeeded ? "Password updated successfully." : result.ErrorMessage ?? "Password update failed.";
+
+        return RedirectToAction(nameof(Details), new { id = model.UserId });
     }
 
     [HttpPost]

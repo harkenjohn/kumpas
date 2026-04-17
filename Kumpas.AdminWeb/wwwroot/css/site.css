@@ -215,6 +215,78 @@ a {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.account-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.report-meta-grid,
+.print-report-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.report-meta-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-bottom: 1rem;
+}
+
+.print-report-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.report-summary-card {
+    background: rgba(248, 250, 252, 0.95);
+    border: 1px solid var(--kumpas-border);
+    border-radius: 18px;
+    padding: 1rem;
+}
+
+.report-summary-card strong {
+    display: block;
+    font-size: 1.35rem;
+    color: var(--kumpas-blue);
+    margin-bottom: 0.35rem;
+}
+
+.print-only {
+    display: none;
+}
+
+.account-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.profile-info-card {
+    background: rgba(248, 250, 252, 0.95);
+    border: 1px solid var(--kumpas-border);
+    border-radius: 18px;
+    padding: 1rem;
+}
+
+.account-actions-card {
+    background: rgba(248, 250, 252, 0.95);
+    border: 1px solid var(--kumpas-border);
+    border-radius: 20px;
+    padding: 1.25rem;
+}
+
+.account-action-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.detail-label {
+    display: block;
+    color: var(--kumpas-muted);
+    font-size: 0.86rem;
+    margin-bottom: 0.35rem;
+}
+
 .stat-card {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 252, 1));
     border: 1px solid var(--kumpas-border);
@@ -231,6 +303,10 @@ a {
 .stat-value {
     font-size: 1.75rem;
     color: var(--kumpas-blue);
+}
+
+.stat-value-small {
+    font-size: 1.15rem;
 }
 
 .login-card {
@@ -476,6 +552,10 @@ a {
     .pagination-nav {
         justify-content: center;
     }
+
+    .account-detail-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 767px) {
@@ -503,5 +583,43 @@ a {
 
     .pagination-button-nav {
         width: 100%;
+    }
+}
+
+@media print {
+    body {
+        background: #fff !important;
+    }
+
+    .sidebar,
+    .topbar,
+    .soft-alert,
+    .filter-grid,
+    .stats-grid,
+    .reports-grid,
+    .no-print {
+        display: none !important;
+    }
+
+    .app-shell,
+    .main-shell,
+    .content-shell {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .soft-card {
+        box-shadow: none !important;
+        border: 1px solid #d8e2ec !important;
+        page-break-inside: avoid;
+    }
+
+    .printable-report {
+        display: block !important;
+    }
+
+    .print-only {
+        display: block !important;
     }
 }

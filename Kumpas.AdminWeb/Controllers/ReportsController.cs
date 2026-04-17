@@ -3,6 +3,7 @@ using Kumpas.AdminWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Kumpas.AdminWeb.Controllers;
 
@@ -10,10 +11,12 @@ namespace Kumpas.AdminWeb.Controllers;
 public class ReportsController : Controller
 {
     private readonly KumpasDbContext _dbContext;
+    private readonly IConfiguration _configuration;
 
-    public ReportsController(KumpasDbContext dbContext)
+    public ReportsController(KumpasDbContext dbContext, IConfiguration configuration)
     {
         _dbContext = dbContext;
+        _configuration = configuration;
     }
 
     [HttpGet]
@@ -30,6 +33,16 @@ public class ReportsController : Controller
 
         var totalAccounts = await _dbContext.Profiles.CountAsync();
         var activeAccounts = await _dbContext.Profiles.CountAsync(x => x.IsActive);
+        var inactiveAccounts = totalAccounts - activeAccounts;
+        var totalArModels = await CountRowsIfTableExistsAsync("ar_models");
+        var configuredModelUrl = _configuration["ModelAssets:ArModelUrl"];
+        var configuredModelProvider = _configuration["ModelAssets:ArModelProvider"] ?? "Hugging Face";
+        var configuredModelStatus = _configuration["ModelAssets:Status"];
+        var generatedAt = DateTimeOffset.UtcNow;
+        var yearStart = new DateTimeOffset(generatedAt.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
+        var monthStart = new DateTimeOffset(generatedAt.Year, generatedAt.Month, 1, 0, 0, 0, TimeSpan.Zero);
+        var dayStart = new DateTimeOffset(generatedAt.UtcDateTime.Date, TimeSpan.Zero);
+        var dayEnd = dayStart.AddDays(1);
 
         var totalSessions = await _dbContext.ChatSessions.CountAsync(x =>
             x.CreatedAt.HasValue &&
@@ -143,8 +156,22 @@ public class ReportsController : Controller
             Search = search,
             TotalAccounts = totalAccounts,
             ActiveAccounts = activeAccounts,
+            InactiveAccounts = inactiveAccounts,
             TotalSessions = totalSessions,
             TotalMessages = totalMessages,
+            TotalArModels = totalArModels,
+            ModelProvider = string.IsNullOrWhiteSpace(configuredModelUrl) ? "Not configured" : configuredModelProvider,
+            ModelUrl = configuredModelUrl,
+            ModelStatus = !string.IsNullOrWhiteSpace(configuredModelStatus)
+                ? configuredModelStatus
+                : !string.IsNullOrWhiteSpace(configuredModelUrl)
+                    ? "Hosted externally"
+                    : totalArModels > 0 ? "Operational" : "No AR models found",
+            ErrorLogsThisYear = await CountErrorLogsAsync(yearStart, generatedAt),
+            ErrorLogsThisMonth = await CountErrorLogsAsync(monthStart, generatedAt),
+            ErrorLogsToday = await CountErrorLogsAsync(dayStart, dayEnd),
+            GeneratedBy = User.Identity?.Name ?? "Administrator",
+            GeneratedAt = generatedAt,
             DailyUsage = dailyUsage,
             TopUsers = topUsers,
             MessageTypes = messageTypes,
@@ -166,5 +193,88 @@ public class ReportsController : Controller
         };
 
         return View(model);
+    }
+
+    private async Task<int> CountErrorLogsAsync(DateTimeOffset from, DateTimeOffset to)
+    {
+        var connectionString = _dbContext.Database.GetConnectionString();
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            return 0;
+        }
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            const string tableCheckSql = """
+                select 1
+                from information_schema.tables
+                where table_schema = 'public' and table_name = 'system_logs'
+                limit 1;
+                """;
+
+            await using (var tableCommand = new NpgsqlCommand(tableCheckSql, connection))
+            {
+                var tableExists = await tableCommand.ExecuteScalarAsync();
+                if (tableExists is null || tableExists == DBNull.Value)
+                {
+                    return 0;
+                }
+            }
+
+            const string sql = """
+                select count(*)
+                from public.system_logs
+                where timestamp >= @from
+                  and timestamp < @to
+                  and lower(coalesce(log_level, '')) = 'error';
+                """;
+
+            await using var command = new NpgsqlCommand(sql, connection);
+            command.Parameters.AddWithValue("from", from);
+            command.Parameters.AddWithValue("to", to);
+
+            var result = await command.ExecuteScalarAsync();
+            return Convert.ToInt32(result);
+        }
+        catch (PostgresException ex) when (ex.SqlState == "42P01" || ex.SqlState == "42703")
+        {
+            return 0;
+        }
+    }
+
+    private async Task<int> CountRowsIfTableExistsAsync(string tableName)
+    {
+        var connectionString = _dbContext.Database.GetConnectionString();
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            return 0;
+        }
+
+        await using var connection = new NpgsqlConnection(connectionString);
+        await connection.OpenAsync();
+
+        const string tableCheckSql = """
+            select 1
+            from information_schema.tables
+            where table_schema = 'public' and table_name = @tableName
+            limit 1;
+            """;
+
+        await using (var tableCommand = new NpgsqlCommand(tableCheckSql, connection))
+        {
+            tableCommand.Parameters.AddWithValue("tableName", tableName);
+            var tableExists = await tableCommand.ExecuteScalarAsync();
+            if (tableExists is null || tableExists == DBNull.Value)
+            {
+                return 0;
+            }
+        }
+
+        await using var command = new NpgsqlCommand($@"select count(*) from public.""{tableName}"";", connection);
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result);
     }
 }
