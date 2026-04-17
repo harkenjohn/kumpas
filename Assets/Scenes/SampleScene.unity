@@ -3182,7 +3182,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 160244751}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnHowAreYou
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &160244751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14743,7 +14755,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 787362702}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnYes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &787362702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14880,7 +14904,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 794121460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnImFine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &794121460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15364,7 +15400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &806255369
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16444,7 +16480,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 865729468}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnWalangAnuman
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &865729468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18866,7 +18914,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 995677371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnThankYou
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &995677371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20323,7 +20383,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1030307150}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnGoodEvening
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1030307150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25145,7 +25217,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1185617375}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnMagandangHapon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1185617375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26752,7 +26836,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1274758422}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnNo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1274758422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33649,7 +33745,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1669846612}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnGoodMorning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1669846612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35535,7 +35643,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1750341745}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnYoureWelcome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1750341745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37735,7 +37855,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1838284945}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnMagandangAraw
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1838284945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39191,7 +39323,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1909067005}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnGoodAfternoon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1909067005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40233,6 +40377,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959319899}
   m_CullTransparentMesh: 1
+--- !u!1 &1976923995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976923997}
+  - component: {fileID: 1976923996}
+  m_Layer: 0
+  m_Name: ToSpeechQuickChatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1976923996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976923995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6220a5c7263e344a664a4590576924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ToSpeechQuickChatManager
+  appManager: {fileID: 71467503}
+--- !u!4 &1976923997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976923995}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 586.1953, y: 1267.1953, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1980445967
 GameObject:
   m_ObjectHideFlags: 0
@@ -43491,7 +43680,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2117657850}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1976923996}
+        m_TargetAssemblyTypeName: ToSpeechQuickChatManager, Assembly-CSharp
+        m_MethodName: OnKumustaKa
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2117657850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44029,7 +44230,6 @@ SceneRoots:
   - {fileID: 735536671}
   - {fileID: 1389059753}
   - {fileID: 547610088}
-  - {fileID: 454032868}
   - {fileID: 1980445968}
   - {fileID: 15130157}
   - {fileID: 441348442}
@@ -44038,3 +44238,5 @@ SceneRoots:
   - {fileID: 654299769}
   - {fileID: 1789097684}
   - {fileID: 1328385280}
+  - {fileID: 454032868}
+  - {fileID: 1976923997}
