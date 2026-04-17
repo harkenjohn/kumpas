@@ -53,7 +53,8 @@ public class AppManager : MonoBehaviour
         VoiceInput,
         History,
         ConversationView,
-        ToSpeechQuickChat // Added this state
+        ToSpeechQuickChat, // Added this state
+        ToSignQuickChat
     }
     private AppState currentState;
 
@@ -179,6 +180,9 @@ public class AppManager : MonoBehaviour
             case AppState.VoiceInput:
                 ChangeState(AppState.AudioInput);
                 break;
+            case AppState.ToSignQuickChat:                        
+                ChangeState(AppState.AudioInput);                   
+                break;
             case AppState.ToSpeechQuickChat: // Returns to Camera Input when pressing back
                 ChangeState(AppState.CameraInput);
                 break;
@@ -241,6 +245,9 @@ public class AppManager : MonoBehaviour
                 break;
             case AppState.ToSpeechQuickChat: // Routes to the Quick Chat Panel
                 if (uiManager != null) uiManager.ShowToSpeechQuickChatPanel();
+                break;
+            case AppState.ToSignQuickChat: 
+                if (uiManager != null) uiManager.ShowToSignQuickChatPanel();
                 break;
         }
     }
