@@ -1,0 +1,77 @@
+@model Kumpas.AdminWeb.ViewModels.AccountDetailsViewModel
+@{
+    ViewData["Title"] = "Account Details";
+    ViewData["Section"] = "Accounts";
+}
+
+<section class="soft-card">
+    <div class="soft-card-header">
+        <div>
+            <h3>@Model.FullName</h3>
+            <p class="table-muted mb-0">View account information and manage secure account actions.</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-primary btn-sm">Back to Accounts</a>
+    </div>
+
+    <div class="account-detail-layout">
+        <div class="account-profile-grid">
+            <article class="profile-info-card">
+                <span class="detail-label">Full Name</span>
+                <strong>@Model.FullName</strong>
+            </article>
+
+            <article class="profile-info-card">
+                <span class="detail-label">Email</span>
+                <strong>@Model.Email</strong>
+            </article>
+
+            <article class="profile-info-card">
+                <span class="detail-label">User Type</span>
+                <strong>@Model.UserType</strong>
+            </article>
+
+            <article class="profile-info-card">
+                <span class="detail-label">Account Status</span>
+                <span class="badge-soft @(Model.IsActive ? "active" : "inactive")">
+                    @(Model.IsActive ? "Active" : "Inactive")
+                </span>
+            </article>
+
+            <article class="profile-info-card">
+                <span class="detail-label">Created Date</span>
+                <strong>@(Model.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt") ?? "N/A")</strong>
+            </article>
+        </div>
+
+        <aside class="account-actions-card">
+            <h4>Account Actions</h4>
+            <p class="table-muted">Only use these actions when requested by the account owner or system administrator.</p>
+
+            <form asp-action="UpdatePasswordFromDetails" method="post" class="account-action-form">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="UserId" value="@Model.Id" />
+
+                <div>
+                    <label class="form-label">New Password</label>
+                    <input type="password" name="NewPassword" class="form-control" minlength="8" required />
+                </div>
+
+                <div>
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="ConfirmPassword" class="form-control" minlength="8" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Update Password</button>
+            </form>
+
+            <form asp-action="ToggleStatusFromDetails" method="post" class="mt-3">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="isActive" value="@(!Model.IsActive)" />
+                <button type="submit" class="btn btn-outline-primary w-100">
+                    @(Model.IsActive ? "Deactivate Account" : "Activate Account")
+                </button>
+            </form>
+        </aside>
+    </div>
+</section>
