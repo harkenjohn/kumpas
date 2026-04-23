@@ -86,17 +86,20 @@ public class VoiceManager : MonoBehaviour
 
     public void StopRecording()
     {
-#if UNITY_ANDROID && !UNITY_EDITOR
+    #if UNITY_ANDROID && !UNITY_EDITOR
         if (!isInitialized) return;
 
         activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
             speechRecognizer.Call("stopListening");
         }));
-#endif
+    #endif
 
-        if (!string.IsNullOrEmpty(finalText))
+        // --- CHANGED: check if anything was transcribed before sending ---
+        if (!string.IsNullOrWhiteSpace(finalText))
             StartCoroutine(SendToDatabase(finalText));
+        else
+            StartCoroutine(ShowNotCaught()); // nothing transcribed at all
     }
 
     public void OnSpeechResult(string result)
@@ -117,15 +120,31 @@ public class VoiceManager : MonoBehaviour
         if (appManager == null)
         {
             Debug.LogError("AppManager not found!");
+            StartCoroutine(ShowNotCaught());
             yield break;
         }
 
-        // THIS LINE SENDS TO SUPABASE
-        appManager.SendTextMessage(message.Trim(), "TEXT_TO_SIGN");
+        bool sendFailed = false;
 
-        Debug.Log("Voice message sent to Supabase: " + message);
+        try
+        {
+            // THIS LINE SENDS TO SUPABASE
+            appManager.SendTextMessage(message.Trim(), "TEXT_TO_SIGN");
+            Debug.Log("Voice message sent to Supabase: " + message);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("SendTextMessage failed: " + ex.Message);
+            sendFailed = true;
+        }
 
-        // UI feedback
+        if (sendFailed)
+        {
+            StartCoroutine(ShowNotCaught());
+            yield break;
+        }
+
+        // --- SUCCESS: show checkmark ---
         if (sentCheckmark != null)
             sentCheckmark.SetActive(true);
 
@@ -133,5 +152,22 @@ public class VoiceManager : MonoBehaviour
 
         if (sentCheckmark != null)
             sentCheckmark.SetActive(false);
+
+        // Clear transcription text after success
+        if (transcriptionText != null)
+            transcriptionText.text = "Hold to speak....";
+    }
+
+    // --- NEW: shows the "not caught" error message then resets ---
+    IEnumerator ShowNotCaught()
+    {
+        if (transcriptionText != null)
+            transcriptionText.text = "Sorry, did not catch that! Try again.";
+
+        yield return new WaitForSeconds(3f);
+
+        // Reset back to idle prompt after 3 seconds
+        if (transcriptionText != null)
+            transcriptionText.text = "Hold to speak....";
     }
 }

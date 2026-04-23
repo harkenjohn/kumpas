@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.0726196">
+  <test-suite type="TestSuite" id="1265" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.072620" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1049" name="Kumpas.Tests.Integration.Account.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Account.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.064955" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1050" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.062085" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1051" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.059943" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1052" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.056620" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="Account" fullname="Kumpas.Tests.Integration.Account" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.054345" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1033" name="IT000006_UpdateAccountSuccessfully" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.052151" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1039" name="IT000006_InvalidData_UpdateIsPrevented" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully.IT000006_InvalidData_UpdateIsPrevented" methodname="IT000006_InvalidData_UpdateIsPrevented" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" seed="1720308456" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.009292" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000006-F — Invalid data: Update is prevented and gateway not called" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1035" name="IT000006_ValidUpdate_GetProfileCalledToConfirm" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully.IT000006_ValidUpdate_GetProfileCalledToConfirm" methodname="IT000006_ValidUpdate_GetProfileCalledToConfirm" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" seed="320111281" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.007180" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000006-B — Valid update: GetProfile is called to confirm update" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1036" name="IT000006_ValidUpdate_ReturnsSuccess" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully.IT000006_ValidUpdate_ReturnsSuccess" methodname="IT000006_ValidUpdate_ReturnsSuccess" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" seed="956619453" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.007207" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000006-C — Valid update: System returns Success" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1038" name="IT000006_ValidUpdate_ShowsSuccessMessage" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully.IT000006_ValidUpdate_ShowsSuccessMessage" methodname="IT000006_ValidUpdate_ShowsSuccessMessage" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" seed="1004122742" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.007042" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000006-E — Valid update: Success message is shown" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1037" name="IT000006_ValidUpdate_UpdatedProfileIsReflected" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully.IT000006_ValidUpdate_UpdatedProfileIsReflected" methodname="IT000006_ValidUpdate_UpdatedProfileIsReflected" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" seed="1794904480" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.009630" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000006-D — Valid update: Updated profile is reflected in response" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1034" name="IT000006_ValidUpdate_UpdateProfileIsCalled" fullname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully.IT000006_ValidUpdate_UpdateProfileIsCalled" methodname="IT000006_ValidUpdate_UpdateProfileIsCalled" classname="Kumpas.Tests.Integration.Account.IT000006_UpdateAccountSuccessfully" runstate="Runnable" seed="79698226" result="Passed" start-time="2026-04-19 19:12:57Z" end-time="2026-04-19 19:12:57Z" duration="0.007434" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000006-A — Valid update: UpdateProfile is called on gateway" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

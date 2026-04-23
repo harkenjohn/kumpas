@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.1000657">
+  <test-suite type="TestSuite" id="1121" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.100066" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1103" name="NewAssembly.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/NewAssembly.dll" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.091471" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1104" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.088531" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1105" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.085879" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1106" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.083113" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1112" name="EditAccount" fullname="Kumpas.Tests.EditMode.EditAccount" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.080261" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1063" name="TC011_EmptyFieldsUpdate" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.077633" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="EditAccount" />
+                </properties>
+                <test-case id="1066" name="TC011_BothFieldsEmpty_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_BothFieldsEmpty_ReturnsFailedResult" methodname="TC011_BothFieldsEmpty_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="1813170796" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.008659" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-C — Both fields empty returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1072" name="TC011_EmptyFields_IsSuccessIsFalse" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyFields_IsSuccessIsFalse" methodname="TC011_EmptyFields_IsSuccessIsFalse" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="350464480" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.009479" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-I — Empty fields do not set IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1069" name="TC011_EmptyFields_MessageMentionsRequiredFields" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyFields_MessageMentionsRequiredFields" methodname="TC011_EmptyFields_MessageMentionsRequiredFields" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="1767543107" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.007419" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-F — Empty fields error message mentions required fields" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1070" name="TC011_EmptyFields_UpdateProfileIsNeverCalled" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyFields_UpdateProfileIsNeverCalled" methodname="TC011_EmptyFields_UpdateProfileIsNeverCalled" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="461618345" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.008710" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-G — Empty fields never call Supabase UpdateProfile" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1067" name="TC011_EmptyFirstName_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyFirstName_ErrorMessageIsDisplayed" methodname="TC011_EmptyFirstName_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="2099976974" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.007118" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-D — Empty first name returns a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1064" name="TC011_EmptyFirstName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyFirstName_ReturnsFailedResult" methodname="TC011_EmptyFirstName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="1363624021" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.006508" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-A — Empty first name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1068" name="TC011_EmptyLastName_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyLastName_ErrorMessageIsDisplayed" methodname="TC011_EmptyLastName_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="2120232354" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.007258" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-E — Empty last name returns a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1065" name="TC011_EmptyLastName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_EmptyLastName_ReturnsFailedResult" methodname="TC011_EmptyLastName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="1822621372" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.007847" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-B — Empty last name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1071" name="TC011_WhitespaceOnlyFields_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate.TC011_WhitespaceOnlyFields_ReturnsFailedResult" methodname="TC011_WhitespaceOnlyFields_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC011_EmptyFieldsUpdate" runstate="Runnable" seed="1967414598" result="Passed" start-time="2026-04-18 19:35:15Z" end-time="2026-04-18 19:35:15Z" duration="0.007282" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-011-H — Whitespace-only fields are treated as empty" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

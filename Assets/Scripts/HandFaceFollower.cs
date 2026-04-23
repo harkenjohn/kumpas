@@ -9,15 +9,15 @@ public class HandFaceFollower : MonoBehaviour
     [Tooltip("How smoothly the hand follows the face")]
     public float smoothSpeed = 10f;
 
-    /*[Tooltip("Scale of hand relative to face size")]
-    public float scaleMultiplier = 1f;*/
+    [Tooltip("Scale of hand relative to face size")]
+    public float scaleMultiplier = 1f;
 
     private Transform noseTip;
     private Transform leftCheek;
     private Transform rightCheek;
 
     private Vector3 targetPosition;
-    //private Vector3 targetScale;
+    private Vector3 targetScale;
     private bool faceFound = false;
 
     void Start()
@@ -74,7 +74,7 @@ public class HandFaceFollower : MonoBehaviour
             Time.deltaTime * smoothSpeed
         );
 
-        /*// Scale based on face width if we have cheek landmarks
+        // Scale based on face width if we have cheek landmarks
         if (leftCheek != null && rightCheek != null)
         {
             float faceWidth = Vector3.Distance(leftCheek.position, rightCheek.position);
@@ -85,6 +85,6 @@ public class HandFaceFollower : MonoBehaviour
                 targetScale,
                 Time.deltaTime * smoothSpeed
             );
-        }*/
+        }
     }
 }

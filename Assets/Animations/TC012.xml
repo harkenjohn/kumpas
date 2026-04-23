@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.3078157">
+  <test-suite type="TestSuite" id="1135" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.307816" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1118" name="NewAssembly.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/NewAssembly.dll" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.285626" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1119" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.281058" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1120" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.276513" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1121" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.273014" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1128" name="DeleteAccount" fullname="Kumpas.Tests.EditMode.DeleteAccount" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.270200" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1073" name="TC012_DeleteAccount" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.265397" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="DeleteAccount" />
+                </properties>
+                <test-case id="1076" name="TC012_ConfirmedDeletion_DeactivateCalledOnce" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_ConfirmedDeletion_DeactivateCalledOnce" methodname="TC012_ConfirmedDeletion_DeactivateCalledOnce" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="1253600949" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.168065" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-C — Confirmed deletion calls DeactivateAccount once" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1078" name="TC012_ConfirmedDeletion_IsSuccessIsTrue" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_ConfirmedDeletion_IsSuccessIsTrue" methodname="TC012_ConfirmedDeletion_IsSuccessIsTrue" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="73876650" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.016319" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-E — Confirmed deletion sets IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1074" name="TC012_ConfirmedDeletion_ReturnsSuccess" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_ConfirmedDeletion_ReturnsSuccess" methodname="TC012_ConfirmedDeletion_ReturnsSuccess" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="556267357" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.013775" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-A — Confirmed deletion returns Success result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1077" name="TC012_ConfirmedDeletion_SignOutIsCalledAfterDeactivation" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_ConfirmedDeletion_SignOutIsCalledAfterDeactivation" methodname="TC012_ConfirmedDeletion_SignOutIsCalledAfterDeactivation" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="805371985" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.009209" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-D — Confirmed deletion calls SignOut after deactivation" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1075" name="TC012_ConfirmedDeletion_SuccessMessageIsReturned" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_ConfirmedDeletion_SuccessMessageIsReturned" methodname="TC012_ConfirmedDeletion_SuccessMessageIsReturned" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="1547068167" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.008860" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-B — Confirmed deletion returns a success message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1079" name="TC012_DatabaseError_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_DatabaseError_ReturnsFailedResult" methodname="TC012_DatabaseError_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="1681417943" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.010820" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-F — Database error during deletion returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1080" name="TC012_DatabaseError_SignOutIsNotCalled" fullname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount.TC012_DatabaseError_SignOutIsNotCalled" methodname="TC012_DatabaseError_SignOutIsNotCalled" classname="Kumpas.Tests.EditMode.DeleteAccount.TC012_DeleteAccount" runstate="Runnable" seed="1623886477" result="Passed" start-time="2026-04-18 19:57:21Z" end-time="2026-04-18 19:57:21Z" duration="0.008206" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-012-G — Database error during deletion does not call SignOut" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

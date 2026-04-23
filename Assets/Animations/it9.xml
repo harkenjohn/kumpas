@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.1656148">
+  <test-suite type="TestSuite" id="1268" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.165615" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1083" name="Kumpas.Tests.Integration.Conversion.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Conversion.dll" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.156813" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1084" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.152723" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1085" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.149970" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1086" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.146787" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1087" name="Conversion" fullname="Kumpas.Tests.Integration.Conversion" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.143556" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1060" name="IT000009_TextToARSignDisplay" fullname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" classname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.139936" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1065" name="IT000009_InvalidText_ARTriggerNotFired" fullname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay.IT000009_InvalidText_ARTriggerNotFired" methodname="IT000009_InvalidText_ARTriggerNotFired" classname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" runstate="Runnable" seed="140747104" result="Passed" start-time="2026-04-19 19:14:25Z" end-time="2026-04-19 19:14:26Z" duration="0.051564" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000009-E — Invalid text: AR trigger is never fired" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1064" name="IT000009_ValidText_ARTriggeredIsTrue" fullname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay.IT000009_ValidText_ARTriggeredIsTrue" methodname="IT000009_ValidText_ARTriggeredIsTrue" classname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" runstate="Runnable" seed="782359223" result="Passed" start-time="2026-04-19 19:14:26Z" end-time="2026-04-19 19:14:26Z" duration="0.019651" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000009-D — Valid text: ARTriggered flag is true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1062" name="IT000009_ValidText_ARTriggerIsFired" fullname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay.IT000009_ValidText_ARTriggerIsFired" methodname="IT000009_ValidText_ARTriggerIsFired" classname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" runstate="Runnable" seed="825757471" result="Passed" start-time="2026-04-19 19:14:26Z" end-time="2026-04-19 19:14:26Z" duration="0.018965" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000009-B — Valid text: AR sign trigger is fired" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1063" name="IT000009_ValidText_ReturnsSuccess" fullname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay.IT000009_ValidText_ReturnsSuccess" methodname="IT000009_ValidText_ReturnsSuccess" classname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" runstate="Runnable" seed="1980435137" result="Passed" start-time="2026-04-19 19:14:26Z" end-time="2026-04-19 19:14:26Z" duration="0.022977" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000009-C — Valid text: System returns Success" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1061" name="IT000009_ValidText_SendMessageIsCalled" fullname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay.IT000009_ValidText_SendMessageIsCalled" methodname="IT000009_ValidText_SendMessageIsCalled" classname="Kumpas.Tests.Integration.Conversion.IT000009_TextToARSignDisplay" runstate="Runnable" seed="417959108" result="Passed" start-time="2026-04-19 19:14:26Z" end-time="2026-04-19 19:14:26Z" duration="0.018614" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000009-A — Valid text: SendMessage is called with TEXT_TO_SIGN type" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

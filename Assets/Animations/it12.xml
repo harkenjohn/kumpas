@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.0818611">
+  <test-suite type="TestSuite" id="1269" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.081861" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1083" name="Kumpas.Tests.Integration.Conversion.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Conversion.dll" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.073541" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1084" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.070874" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1085" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.069019" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1086" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.066752" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1087" name="Conversion" fullname="Kumpas.Tests.Integration.Conversion" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.062422" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1078" name="IT000012_SpeechToSignTranslationStored" fullname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored" classname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.060129" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1082" name="IT000012_EmptyTranslation_StorageIsPrevented" fullname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored.IT000012_EmptyTranslation_StorageIsPrevented" methodname="IT000012_EmptyTranslation_StorageIsPrevented" classname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored" runstate="Runnable" seed="1797917950" result="Passed" start-time="2026-04-19 19:14:53Z" end-time="2026-04-19 19:14:54Z" duration="0.025719" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000012-D — Empty translation: Storage is prevented" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1080" name="IT000012_SuccessfulTranslation_ReturnsSuccess" fullname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored.IT000012_SuccessfulTranslation_ReturnsSuccess" methodname="IT000012_SuccessfulTranslation_ReturnsSuccess" classname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored" runstate="Runnable" seed="1163981846" result="Passed" start-time="2026-04-19 19:14:54Z" end-time="2026-04-19 19:14:54Z" duration="0.009703" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000012-B — Successful translation: System returns Success" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1081" name="IT000012_SuccessfulTranslation_StoredInHistoryIsTrue" fullname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored.IT000012_SuccessfulTranslation_StoredInHistoryIsTrue" methodname="IT000012_SuccessfulTranslation_StoredInHistoryIsTrue" classname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored" runstate="Runnable" seed="402824875" result="Passed" start-time="2026-04-19 19:14:54Z" end-time="2026-04-19 19:14:54Z" duration="0.008351" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000012-C — Successful translation: StoredInHistory is true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1079" name="IT000012_SuccessfulTranslation_StoreIsCalled" fullname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored.IT000012_SuccessfulTranslation_StoreIsCalled" methodname="IT000012_SuccessfulTranslation_StoreIsCalled" classname="Kumpas.Tests.Integration.Conversion.IT000012_SpeechToSignTranslationStored" runstate="Runnable" seed="1246368551" result="Passed" start-time="2026-04-19 19:14:54Z" end-time="2026-04-19 19:14:54Z" duration="0.010631" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000012-A — Successful translation: StoreTranslation is called with SPEECH_TO_SIGN type" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

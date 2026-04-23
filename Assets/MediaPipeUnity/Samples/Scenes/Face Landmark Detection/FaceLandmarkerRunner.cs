@@ -19,6 +19,10 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
 
     public readonly FaceLandmarkDetectionConfig config = new FaceLandmarkDetectionConfig();
 
+    private bool _isRunning = true;
+
+    private long _timestamp = 0;
+
     public override void Stop()
     {
       base.Stop();
@@ -75,7 +79,7 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
       var canUseGpuImage = SystemInfo.graphicsDeviceType == GraphicsDeviceType.OpenGLES3 && GpuManager.GpuResources != null;
       using var glContext = canUseGpuImage ? GpuManager.GetGlContext() : null;
 
-      while (true)
+      while (_isRunning)
       {
         if (isPaused)
         {
@@ -147,14 +151,51 @@ namespace Mediapipe.Unity.Sample.FaceLandmarkDetection
             }
             break;
           case Tasks.Vision.Core.RunningMode.LIVE_STREAM:
-            taskApi.DetectAsync(image, GetCurrentTimestampMillisec(), imageProcessingOptions);
+            _timestamp += 33;
+            taskApi.DetectAsync(image, _timestamp, imageProcessingOptions);
             break;
         }
       }
     }
 
+    public IEnumerator ResetRunner()
+    {
+        Debug.Log("RESETTING RUNNER...");
+
+        // 1. STOP LOOP
+        _isRunning = false;
+
+        // Wait one frame to fully stop
+        yield return null;
+
+        // 2. CLEAR ANNOTATIONS (VERY IMPORTANT)
+        _faceLandmarkerResultAnnotationController.DrawNow(default);
+
+        // 3. RESTART LOOP
+        _isRunning = true;
+
+        // Restart coroutine
+        StartCoroutine(Run());
+    }
+
+    public void ClearAnnotations()
+    {
+        _faceLandmarkerResultAnnotationController.DrawNow(default);
+    }
+
+    public void ForceClear()
+    {
+        _faceLandmarkerResultAnnotationController.ClearNow();
+    }
+
     private void OnFaceLandmarkDetectionOutput(FaceLandmarkerResult result, Image image, long timestamp)
     {
+      if (result.faceLandmarks == null || result.faceLandmarks.Count == 0)
+      {
+          // 🔥 CLEAR WHEN NO FACE
+          _faceLandmarkerResultAnnotationController.DrawLater(default);
+          return;
+      }
       _faceLandmarkerResultAnnotationController.DrawLater(result);
     }
   }

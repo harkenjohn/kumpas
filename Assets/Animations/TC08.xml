@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.8130453">
+  <test-suite type="TestSuite" id="1057" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.813045" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1048" name="Assembly-CSharp.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Assembly-CSharp.dll" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.777608" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21344" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1049" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.764355" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1050" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.744186" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1051" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.725444" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="CreateAccount" fullname="Kumpas.Tests.EditMode.CreateAccount" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.705324" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1039" name="TC008_InvalidEmailFormat" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.687506" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="CreateAccount" />
+                </properties>
+                <test-case id="1040" name="TC008_EmailMissingAtSign_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_EmailMissingAtSign_ReturnsFailedResult" methodname="TC008_EmailMissingAtSign_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="1967872870" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:46Z" duration="0.301776" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-A — Email missing '@' returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1041" name="TC008_EmailMissingDomain_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_EmailMissingDomain_ReturnsFailedResult" methodname="TC008_EmailMissingDomain_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="45096147" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:46Z" duration="0.074427" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-B — Email missing domain extension returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1047" name="TC008_EmailStartingWithAt_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_EmailStartingWithAt_ReturnsFailedResult" methodname="TC008_EmailStartingWithAt_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="1481936399" result="Passed" start-time="2026-04-17 14:05:46Z" end-time="2026-04-17 14:05:47Z" duration="0.086379" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-H — Email starting with '@' returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1043" name="TC008_InvalidEmail_ErrorMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_InvalidEmail_ErrorMessageIsDisplayed" methodname="TC008_InvalidEmail_ErrorMessageIsDisplayed" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="509852712" result="Passed" start-time="2026-04-17 14:05:47Z" end-time="2026-04-17 14:05:47Z" duration="0.041794" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-D — Invalid email format returns a non-empty error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1046" name="TC008_InvalidEmail_IsSuccessIsFalse" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_InvalidEmail_IsSuccessIsFalse" methodname="TC008_InvalidEmail_IsSuccessIsFalse" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="1876070594" result="Passed" start-time="2026-04-17 14:05:47Z" end-time="2026-04-17 14:05:47Z" duration="0.041791" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-G — Invalid email does not set IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1044" name="TC008_InvalidEmail_MessageMentionsInvalidFormat" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_InvalidEmail_MessageMentionsInvalidFormat" methodname="TC008_InvalidEmail_MessageMentionsInvalidFormat" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="981873349" result="Passed" start-time="2026-04-17 14:05:47Z" end-time="2026-04-17 14:05:47Z" duration="0.041689" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-E — Invalid email error message mentions invalid format" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1042" name="TC008_PlainText_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat.TC008_PlainText_ReturnsFailedResult" methodname="TC008_PlainText_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC008_InvalidEmailFormat" runstate="Runnable" seed="739755308" result="Passed" start-time="2026-04-17 14:05:47Z" end-time="2026-04-17 14:05:47Z" duration="0.047490" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-008-C — Plain text with no email structure returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

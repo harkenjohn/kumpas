@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.5624034">
+  <test-suite type="TestSuite" id="1260" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.562403" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1049" name="Kumpas.Tests.Integration.Account.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Account.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.540516" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1050" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.536782" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1051" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.533557" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1052" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.529722" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="Account" fullname="Kumpas.Tests.Integration.Account" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.526311" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1001" name="IT000001_LoginWithValidCredentials" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.521418" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1003" name="IT000001_ValidCredentials_AccountIsRetrieved" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials.IT000001_ValidCredentials_AccountIsRetrieved" methodname="IT000001_ValidCredentials_AccountIsRetrieved" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" seed="1034076356" result="Passed" start-time="2026-04-19 19:10:49Z" end-time="2026-04-19 19:10:50Z" duration="0.364918" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000001-B — Valid credentials: Account is retrieved from repository" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1002" name="IT000001_ValidCredentials_AuthIsCalled" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials.IT000001_ValidCredentials_AuthIsCalled" methodname="IT000001_ValidCredentials_AuthIsCalled" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" seed="305882390" result="Passed" start-time="2026-04-19 19:10:50Z" end-time="2026-04-19 19:10:50Z" duration="0.012849" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000001-A — Valid credentials: Auth gateway is called" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1006" name="IT000001_ValidCredentials_NavigatesToHome" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials.IT000001_ValidCredentials_NavigatesToHome" methodname="IT000001_ValidCredentials_NavigatesToHome" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" seed="1737402366" result="Passed" start-time="2026-04-19 19:10:50Z" end-time="2026-04-19 19:10:50Z" duration="0.027882" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000001-E — Valid credentials: NavigateToHome flag is true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1007" name="IT000001_ValidCredentials_ProfileIsPopulated" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials.IT000001_ValidCredentials_ProfileIsPopulated" methodname="IT000001_ValidCredentials_ProfileIsPopulated" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" seed="294599522" result="Passed" start-time="2026-04-19 19:10:50Z" end-time="2026-04-19 19:10:50Z" duration="0.020623" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000001-F — Valid credentials: Profile data is populated" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1004" name="IT000001_ValidCredentials_ReturnsSuccess" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials.IT000001_ValidCredentials_ReturnsSuccess" methodname="IT000001_ValidCredentials_ReturnsSuccess" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" seed="1665080092" result="Passed" start-time="2026-04-19 19:10:50Z" end-time="2026-04-19 19:10:50Z" duration="0.038223" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000001-C — Valid credentials: System returns Success result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1005" name="IT000001_ValidCredentials_ShowsSuccessMessage" fullname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials.IT000001_ValidCredentials_ShowsSuccessMessage" methodname="IT000001_ValidCredentials_ShowsSuccessMessage" classname="Kumpas.Tests.Integration.Account.IT000001_LoginWithValidCredentials" runstate="Runnable" seed="64962655" result="Passed" start-time="2026-04-19 19:10:50Z" end-time="2026-04-19 19:10:50Z" duration="0.010256" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000001-D — Valid credentials: System shows success message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:26Z" duration="0.1052256">
+  <test-suite type="TestSuite" id="1176" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:26Z" duration="0.105226" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1155" name="NewAssembly.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/NewAssembly.dll" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:26Z" duration="0.097350" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1156" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.094237" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1157" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.090336" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1158" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.087046" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1167" name="ConversationHistory" fullname="Kumpas.Tests.EditMode.ConversationHistory" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.084588" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1145" name="TC025_DeleteConversationHistory" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.082271" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="ConversationHistory" />
+                </properties>
+                <test-case id="1153" name="TC025_DatabaseError_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_DatabaseError_ReturnsFailedResult" methodname="TC025_DatabaseError_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="822965945" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.011190" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-H — Database error during deletion returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1152" name="TC025_MissingIds_DeleteSessionIsNeverCalled" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_MissingIds_DeleteSessionIsNeverCalled" methodname="TC025_MissingIds_DeleteSessionIsNeverCalled" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="1260135262" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.009383" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-G — Missing IDs never call Supabase DeleteSession" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1150" name="TC025_MissingSessionId_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_MissingSessionId_ReturnsFailedResult" methodname="TC025_MissingSessionId_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="1967267661" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.008796" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-E — Missing session ID returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1151" name="TC025_MissingUserId_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_MissingUserId_ReturnsFailedResult" methodname="TC025_MissingUserId_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="2065284969" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.008835" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-F — Missing user ID returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1154" name="TC025_SoftDelete_OnlyDeletesForRequestingUser" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_SoftDelete_OnlyDeletesForRequestingUser" methodname="TC025_SoftDelete_OnlyDeletesForRequestingUser" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="1837670978" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.007300" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-I — Soft delete: only deletes for the requesting user, not the partner" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1148" name="TC025_ValidDeletion_DeleteSessionCalledOnce" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_ValidDeletion_DeleteSessionCalledOnce" methodname="TC025_ValidDeletion_DeleteSessionCalledOnce" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="516285215" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.008509" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-C — Valid deletion calls DeleteSession on repository once" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1149" name="TC025_ValidDeletion_IsSuccessIsTrue" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_ValidDeletion_IsSuccessIsTrue" methodname="TC025_ValidDeletion_IsSuccessIsTrue" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="1636142681" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.007548" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-D — Valid deletion sets IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1146" name="TC025_ValidDeletion_ReturnsSuccess" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_ValidDeletion_ReturnsSuccess" methodname="TC025_ValidDeletion_ReturnsSuccess" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="368566551" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.007926" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-A — Valid deletion returns Success result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1147" name="TC025_ValidDeletion_SuccessMessageIsReturned" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory.TC025_ValidDeletion_SuccessMessageIsReturned" methodname="TC025_ValidDeletion_SuccessMessageIsReturned" classname="Kumpas.Tests.EditMode.ConversationHistory.TC025_DeleteConversationHistory" runstate="Runnable" seed="2096211380" result="Passed" start-time="2026-04-18 20:21:25Z" end-time="2026-04-18 20:21:25Z" duration="0.007944" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-025-B — Valid deletion returns a success message confirming removal" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

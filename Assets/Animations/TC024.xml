@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.1146677">
+  <test-suite type="TestSuite" id="1175" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.114668" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1155" name="NewAssembly.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/NewAssembly.dll" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.107038" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1156" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.104003" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1157" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.100008" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1158" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.096876" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1167" name="ConversationHistory" fullname="Kumpas.Tests.EditMode.ConversationHistory" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.091321" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1135" name="TC024_EditConversationHistory" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.087756" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="ConversationHistory" />
+                </properties>
+                <test-case id="1143" name="TC024_DatabaseError_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_DatabaseError_ReturnsFailedResult" methodname="TC024_DatabaseError_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="864085616" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.011082" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-H — Database error during update returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1141" name="TC024_EmptyContent_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_EmptyContent_ReturnsFailedResult" methodname="TC024_EmptyContent_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="1389174003" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.007858" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-F — Empty content returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1142" name="TC024_EmptyContent_UpdateSessionIsNeverCalled" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_EmptyContent_UpdateSessionIsNeverCalled" methodname="TC024_EmptyContent_UpdateSessionIsNeverCalled" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="1413987047" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.007832" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-G — Empty content never calls Supabase UpdateSession" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1140" name="TC024_MissingSessionId_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_MissingSessionId_ReturnsFailedResult" methodname="TC024_MissingSessionId_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="1340578621" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.009778" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-E — Missing session ID returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1139" name="TC024_ValidEdit_IsSuccessIsTrue" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_ValidEdit_IsSuccessIsTrue" methodname="TC024_ValidEdit_IsSuccessIsTrue" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="1136517883" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.010196" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-D — Valid edit sets IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1136" name="TC024_ValidEdit_ReturnsSuccess" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_ValidEdit_ReturnsSuccess" methodname="TC024_ValidEdit_ReturnsSuccess" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="427216174" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.008470" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-A — Valid edit returns Success result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1137" name="TC024_ValidEdit_SuccessMessageIsReturned" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_ValidEdit_SuccessMessageIsReturned" methodname="TC024_ValidEdit_SuccessMessageIsReturned" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="1623342911" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.008605" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-B — Valid edit returns a success message confirming save" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1138" name="TC024_ValidEdit_UpdateSessionCalledOnce" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_ValidEdit_UpdateSessionCalledOnce" methodname="TC024_ValidEdit_UpdateSessionCalledOnce" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="479879847" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.008304" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-C — Valid edit calls UpdateSession on repository once" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1144" name="TC024_WhitespaceContent_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory.TC024_WhitespaceContent_ReturnsFailedResult" methodname="TC024_WhitespaceContent_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC024_EditConversationHistory" runstate="Runnable" seed="235292245" result="Passed" start-time="2026-04-18 20:21:03Z" end-time="2026-04-18 20:21:03Z" duration="0.008625" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-024-I — Whitespace-only content is treated as empty" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.6797352">
+  <test-suite type="TestSuite" id="1057" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.679735" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1048" name="Assembly-CSharp.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Assembly-CSharp.dll" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.648905" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21344" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1049" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.629272" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1050" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.614731" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1051" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.599897" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="CreateAccount" fullname="Kumpas.Tests.EditMode.CreateAccount" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.588280" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1018" name="TC005_ValidAccountCreation" fullname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation" classname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.571575" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="CreateAccount" />
+                </properties>
+                <test-case id="1022" name="TC005_ValidDetails_IsSuccessIsTrue" fullname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation.TC005_ValidDetails_IsSuccessIsTrue" methodname="TC005_ValidDetails_IsSuccessIsTrue" classname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation" runstate="Runnable" seed="516775539" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.329903" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-005-D — Valid details set IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1019" name="TC005_ValidDetails_ReturnsSuccess" fullname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation.TC005_ValidDetails_ReturnsSuccess" methodname="TC005_ValidDetails_ReturnsSuccess" classname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation" runstate="Runnable" seed="1899379336" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.100226" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-005-A — Valid details return a Success result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1021" name="TC005_ValidDetails_SignUpCalledOnce" fullname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation.TC005_ValidDetails_SignUpCalledOnce" methodname="TC005_ValidDetails_SignUpCalledOnce" classname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation" runstate="Runnable" seed="1748165774" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.051583" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-005-C — Valid details call Supabase SignUp exactly once" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1020" name="TC005_ValidDetails_SuccessMessageIsReturned" fullname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation.TC005_ValidDetails_SuccessMessageIsReturned" methodname="TC005_ValidDetails_SuccessMessageIsReturned" classname="Kumpas.Tests.EditMode.CreateAccount.TC005_ValidAccountCreation" runstate="Runnable" seed="138343562" result="Passed" start-time="2026-04-17 13:59:25Z" end-time="2026-04-17 13:59:25Z" duration="0.040426" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-005-B — Valid details show a success confirmation message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

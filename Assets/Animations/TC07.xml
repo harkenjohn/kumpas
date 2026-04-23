@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.8320157">
+  <test-suite type="TestSuite" id="1057" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.832016" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1048" name="Assembly-CSharp.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Assembly-CSharp.dll" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.797515" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21344" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1049" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.784026" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1050" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.769473" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1051" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.755759" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="CreateAccount" fullname="Kumpas.Tests.EditMode.CreateAccount" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.740036" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1029" name="TC007_EmptyFieldsRegistration" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.715622" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="CreateAccount" />
+                </properties>
+                <test-case id="1034" name="TC007_AllFieldsEmpty_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_AllFieldsEmpty_ReturnsFailedResult" methodname="TC007_AllFieldsEmpty_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="1497120487" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:20Z" duration="0.233600" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-E — All fields empty returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1030" name="TC007_EmptyEmail_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyEmail_ReturnsFailedResult" methodname="TC007_EmptyEmail_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="121491223" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:20Z" duration="0.073388" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-A — Empty email returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1036" name="TC007_EmptyFields_MessageMentionsRequiredFields" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyFields_MessageMentionsRequiredFields" methodname="TC007_EmptyFields_MessageMentionsRequiredFields" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="612190239" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:20Z" duration="0.051438" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-G — Validation message mentions required fields" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1037" name="TC007_EmptyFields_SignUpIsNeverCalled" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyFields_SignUpIsNeverCalled" methodname="TC007_EmptyFields_SignUpIsNeverCalled" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="1859495853" result="Passed" start-time="2026-04-17 14:02:20Z" end-time="2026-04-17 14:02:21Z" duration="0.081745" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-H — Empty fields never call Supabase SignUp" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1035" name="TC007_EmptyFields_ValidationMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyFields_ValidationMessageIsDisplayed" methodname="TC007_EmptyFields_ValidationMessageIsDisplayed" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="132794714" result="Passed" start-time="2026-04-17 14:02:21Z" end-time="2026-04-17 14:02:21Z" duration="0.048551" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-F — Empty fields return a non-empty validation message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1032" name="TC007_EmptyFirstName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyFirstName_ReturnsFailedResult" methodname="TC007_EmptyFirstName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="1217558815" result="Passed" start-time="2026-04-17 14:02:21Z" end-time="2026-04-17 14:02:21Z" duration="0.043417" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-C — Empty first name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1033" name="TC007_EmptyLastName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyLastName_ReturnsFailedResult" methodname="TC007_EmptyLastName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="1889637355" result="Passed" start-time="2026-04-17 14:02:21Z" end-time="2026-04-17 14:02:21Z" duration="0.050525" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-D — Empty last name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1031" name="TC007_EmptyPassword_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_EmptyPassword_ReturnsFailedResult" methodname="TC007_EmptyPassword_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="1777794645" result="Passed" start-time="2026-04-17 14:02:21Z" end-time="2026-04-17 14:02:21Z" duration="0.043760" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-B — Empty password returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1038" name="TC007_WhitespaceFields_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration.TC007_WhitespaceFields_ReturnsFailedResult" methodname="TC007_WhitespaceFields_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.CreateAccount.TC007_EmptyFieldsRegistration" runstate="Runnable" seed="1247774605" result="Passed" start-time="2026-04-17 14:02:21Z" end-time="2026-04-17 14:02:21Z" duration="0.041748" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-007-I — Whitespace-only fields are treated as empty" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

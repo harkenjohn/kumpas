@@ -42,5 +42,16 @@ namespace Mediapipe.Unity
         annotation.Draw(_currentTarget.faceLandmarks, _visualizeZ);
       }
     }
+
+    public void ClearNow()
+    {
+        DrawNow(default); // force empty result immediately
+
+        // EXTRA: disable all children (important)
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
   }
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.1011849">
+  <test-suite type="TestSuite" id="1266" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.101185" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1049" name="Kumpas.Tests.Integration.Account.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Account.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.093383" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1050" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.089500" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1051" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.086261" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1052" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.083464" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="Account" fullname="Kumpas.Tests.Integration.Account" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.081340" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1040" name="IT000007_DeleteAccountIntegration" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.078302" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1042" name="IT000007_AccountExists_DeactivateIsCalled" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_AccountExists_DeactivateIsCalled" methodname="IT000007_AccountExists_DeactivateIsCalled" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="138082057" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.015002" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-B — Account exists: DeactivateAccount is called" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1041" name="IT000007_AccountExists_GetProfileIsCalled" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_AccountExists_GetProfileIsCalled" methodname="IT000007_AccountExists_GetProfileIsCalled" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="296153020" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.008756" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-A — Account exists: GetProfile is called to verify existence" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1046" name="IT000007_AccountNotFound_ReturnsFailed" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_AccountNotFound_ReturnsFailed" methodname="IT000007_AccountNotFound_ReturnsFailed" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="541051028" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.008679" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-F — Account not found: System returns Failed" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1044" name="IT000007_AccountRemoved_ReturnsSuccess" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_AccountRemoved_ReturnsSuccess" methodname="IT000007_AccountRemoved_ReturnsSuccess" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="183803431" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.008171" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-D — Account removed: System returns Success" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1045" name="IT000007_AccountRemoved_ShowsConfirmationMessage" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_AccountRemoved_ShowsConfirmationMessage" methodname="IT000007_AccountRemoved_ShowsConfirmationMessage" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="1923096320" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.007943" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-E — Account removed: Success message confirms removal" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1043" name="IT000007_AccountRemoved_SignOutIsCalled" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_AccountRemoved_SignOutIsCalled" methodname="IT000007_AccountRemoved_SignOutIsCalled" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="1616884536" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.007751" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-C — Account removed: SignOut is called after deactivation" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1048" name="IT000007_DeactivationError_SignOutNotCalled" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_DeactivationError_SignOutNotCalled" methodname="IT000007_DeactivationError_SignOutNotCalled" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="825524006" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.008226" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-H — DB error during deactivation: SignOut is not called" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1047" name="IT000007_NotConfirmed_DeactivateAndSignOutNotCalled" fullname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration.IT000007_NotConfirmed_DeactivateAndSignOutNotCalled" methodname="IT000007_NotConfirmed_DeactivateAndSignOutNotCalled" classname="Kumpas.Tests.Integration.Account.IT000007_DeleteAccountIntegration" runstate="Runnable" seed="1940674447" result="Passed" start-time="2026-04-19 19:13:14Z" end-time="2026-04-19 19:13:14Z" duration="0.009019" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000007-G — Not confirmed: Deactivate and SignOut are never called" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Kumpas.Models;
 using System.Collections.Generic;
 using System.Collections;
+using Mediapipe.Unity.Sample.FaceLandmarkDetection;
 
 /*
  * UI MANAGER (VIEW) - CONNECTED
@@ -37,6 +38,14 @@ public class UIManager : MonoBehaviour
     [Header("Text Input Panels")]
     public GameObject textToSpeechInputPanel; // For Sign User to type
     public GameObject textToSignInputPanel;   // For Speech User to type
+
+    [Header("Text To Sign Toast")]
+    public GameObject textToSignToastObject;  // the SendToast panel
+    public TMP_Text   textToSignToastIcon;    // ✓ or ✗
+    public TMP_Text   textToSignToastMessage; // "Message Sent!" etc.
+    public float      textToSignToastDuration = 3f;
+
+private Coroutine _textToSignToastCoroutine;
 
     // --- NEW HISTORY PANELS ---
     [Header("History Panels")]
@@ -106,6 +115,7 @@ public class UIManager : MonoBehaviour
     [Header("MediaPipe Integration")]
     public GameObject mediaPipeSolution;  // The 'Solution' GameObject
     public GameObject cameraFeedContainer; // The 'Container Panel' inside Main Canvas
+    public GameObject landMarker; // the faccelandmark
 
     [Header("ASL Camera Feed")]
     public GameObject aslCameraFeed;
@@ -113,6 +123,9 @@ public class UIManager : MonoBehaviour
     public GameObject handLandmarkCanvas;
     public GameObject poseLandmarkCanvas;  // Added for ASL camera feed
     public GameObject handSolution;
+
+    [SerializeField] private FaceLandmarkerRunner faceLandmarkerRunner;
+    [SerializeField] private AnnotationCleaner annotationCleaner;
 
     // This function will be called by AppManager to connect them
     public void Initialize(AppManager am)
@@ -149,9 +162,10 @@ public class UIManager : MonoBehaviour
 
         // Disable the visual canvas but leave handSolution running —
         // disabling a MediaPipe Async runner breaks it permanently.
-        if (mediaPipeSolution != null) mediaPipeSolution.SetActive(false);
+        //if (mediaPipeSolution != null) mediaPipeSolution.SetActive(false);
         if (cameraFeedContainer != null) cameraFeedContainer.SetActive(false);
         if (handLandmarkCanvas != null) handLandmarkCanvas.SetActive(false);
+        if (landMarker != null) landMarker.SetActive(false);
     }
 
     // --- HELPER: SHOWS CAMERA FULLSCREEN (hides all app UI) ---
@@ -163,6 +177,7 @@ public class UIManager : MonoBehaviour
         // Show camera feed and enable MediaPipe
         if (cameraFeedContainer != null) cameraFeedContainer.SetActive(true);
         if (mediaPipeSolution != null) mediaPipeSolution.SetActive(true);
+        if (landMarker != null) landMarker.SetActive(true);
 
         Debug.Log("[UIManager] Camera fullscreen shown - all UI hidden, MediaPipe enabled");
 
@@ -199,8 +214,10 @@ public class UIManager : MonoBehaviour
     public void HideCameraFullscreen()
     {
         // Hide camera feed and disable MediaPipe
-        if (cameraFeedContainer != null) cameraFeedContainer.SetActive(false);
+        if (landMarker != null) landMarker.SetActive(false);
         if (mediaPipeSolution != null) mediaPipeSolution.SetActive(false);
+        if (cameraFeedContainer != null) cameraFeedContainer.SetActive(false);
+        
 
         // Restore the app UI
         if (uiRoot != null) uiRoot.SetActive(true);
@@ -691,6 +708,12 @@ public class UIManager : MonoBehaviour
     // TextToSpeechInputPanel: Back Button (Returns to Camera Input)
     public void OnBackToCameraInputButton()
     {
+        //faceLandmarkerRunner.Stop();
+        //faceLandmarkerRunner.ClearAnnotations();
+        //faceLandmarkerRunner.ForceClear();
+        //annotationCleaner.ForceClear();
+        //ImageSourceProvider.ImageSource?.Stop();
+        StartCoroutine(faceLandmarkerRunner.ResetRunner());
         if (appManager == null) return;
         appManager.ChangeState(AppManager.AppState.CameraInput);
     }
@@ -722,16 +745,64 @@ public class UIManager : MonoBehaviour
     // TextToSignInputPanel: Send Text Button (Speech User types text)
     public void OnTextToSignSendButton()
     {
-        if (appManager == null) return;
+        if (appManager == null)
+        {
+            ShowTextToSignToast(success: false, "Message Not Sent");
+            return;
+        }
 
         string message = textToSignInput.text;
-        if (string.IsNullOrWhiteSpace(message)) return;
 
-        // Speech user typed text → Send as TEXT_TO_SIGN (triggers camera!)
-        appManager.SendTextMessage(message.Trim(), "TEXT_TO_SIGN");
-        textToSignInput.text = "";
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            ShowTextToSignToast(success: false, "Please type a message first");
+            return;
+        }
 
-        Debug.Log("[UIManager] Sent TEXT_TO_SIGN message - Camera should trigger for partner");
+        try
+        {
+            appManager.SendTextMessage(message.Trim(), "TEXT_TO_SIGN");
+            textToSignInput.text = "";
+            ShowTextToSignToast(success: true, "Message Sent!");
+            Debug.Log("[UIManager] Sent TEXT_TO_SIGN message - Camera should trigger for partner");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("[UIManager] SendTextMessage failed: " + ex.Message);
+            ShowTextToSignToast(success: false, "Message Not Sent");
+        }
+    }
+
+    private void ShowTextToSignToast(bool success, string message)
+    {
+        if (textToSignToastObject == null) return;
+
+        // Set icon and message
+        if (textToSignToastIcon != null)
+            textToSignToastIcon.text = success ? "✓" : "✗";
+
+        if (textToSignToastMessage != null)
+            textToSignToastMessage.text = message;
+
+        // Set color — green for success, red for failure
+        if (textToSignToastIcon != null)
+            textToSignToastIcon.color = success
+                ? new Color(0.18f, 0.8f, 0.44f)   // green
+                : new Color(0.91f, 0.3f, 0.24f);   // red
+
+        // Cancel previous toast if still showing
+        if (_textToSignToastCoroutine != null)
+            StopCoroutine(_textToSignToastCoroutine);
+
+        _textToSignToastCoroutine = StartCoroutine(TextToSignToastRoutine());
+    }
+
+    private IEnumerator TextToSignToastRoutine()
+    {
+        textToSignToastObject.SetActive(true);
+        yield return new WaitForSeconds(textToSignToastDuration);
+        textToSignToastObject.SetActive(false);
+        _textToSignToastCoroutine = null;
     }
 
     public void OnShowVoiceInputButton()

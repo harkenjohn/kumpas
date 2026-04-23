@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.0713133">
+  <test-suite type="TestSuite" id="1264" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.071313" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1049" name="Kumpas.Tests.Integration.Account.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Account.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.063949" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1050" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.061500" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1051" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.059229" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1052" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.057120" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="Account" fullname="Kumpas.Tests.Integration.Account" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.055091" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1027" name="IT000005_RetrieveAccountAllowsUpdate" fullname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" classname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.053165" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1030" name="IT000005_AccountExists_CanUpdateIsTrue" fullname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate.IT000005_AccountExists_CanUpdateIsTrue" methodname="IT000005_AccountExists_CanUpdateIsTrue" classname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" runstate="Runnable" seed="1709079024" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.016596" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000005-C — Account exists: System allows update (CanUpdate = true)" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1028" name="IT000005_AccountExists_GetProfileIsCalled" fullname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate.IT000005_AccountExists_GetProfileIsCalled" methodname="IT000005_AccountExists_GetProfileIsCalled" classname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" runstate="Runnable" seed="202053157" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.009769" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000005-A — Account exists: GetProfile is called on gateway" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1031" name="IT000005_AccountExists_ProfileDataIsReturned" fullname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate.IT000005_AccountExists_ProfileDataIsReturned" methodname="IT000005_AccountExists_ProfileDataIsReturned" classname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" runstate="Runnable" seed="1616608952" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.007139" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000005-D — Account exists: Profile data is returned" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1029" name="IT000005_AccountExists_ReturnsSuccess" fullname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate.IT000005_AccountExists_ReturnsSuccess" methodname="IT000005_AccountExists_ReturnsSuccess" classname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" runstate="Runnable" seed="156915668" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.008083" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000005-B — Account exists: System returns Success" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1032" name="IT000005_AccountNotFound_BlocksUpdate" fullname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate.IT000005_AccountNotFound_BlocksUpdate" methodname="IT000005_AccountNotFound_BlocksUpdate" classname="Kumpas.Tests.Integration.Account.IT000005_RetrieveAccountAllowsUpdate" runstate="Runnable" seed="1533650894" result="Passed" start-time="2026-04-19 19:12:37Z" end-time="2026-04-19 19:12:37Z" duration="0.007732" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000005-E — Account not found: System returns Failed and blocks update" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

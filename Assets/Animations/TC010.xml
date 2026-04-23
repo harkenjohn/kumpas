@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 19:34:39Z" end-time="2026-04-18 19:34:40Z" duration="0.1938719">
+  <test-suite type="TestSuite" id="1120" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:34:39Z" end-time="2026-04-18 19:34:40Z" duration="0.193872" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1103" name="NewAssembly.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/NewAssembly.dll" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.185070" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1104" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.181696" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1105" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.178148" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1106" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="90" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.174114" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1112" name="EditAccount" fullname="Kumpas.Tests.EditMode.EditAccount" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.170170" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1054" name="TC010_InvalidDataUpdate" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.165255" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="EditAccount" />
+                </properties>
+                <test-case id="1062" name="TC010_DatabaseError_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_DatabaseError_ReturnsFailedResult" methodname="TC010_DatabaseError_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="1358832075" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.050233" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-H — Supabase error during update returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1061" name="TC010_InvalidData_IsSuccessIsFalse" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_InvalidData_IsSuccessIsFalse" methodname="TC010_InvalidData_IsSuccessIsFalse" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="870328759" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.013753" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-G — Invalid data does not set IsSuccess to true" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1059" name="TC010_InvalidData_MessageMentionsLettersOnly" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_InvalidData_MessageMentionsLettersOnly" methodname="TC010_InvalidData_MessageMentionsLettersOnly" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="104062465" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.013152" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-E — Invalid data message mentions letters only" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1060" name="TC010_InvalidData_UpdateProfileIsNeverCalled" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_InvalidData_UpdateProfileIsNeverCalled" methodname="TC010_InvalidData_UpdateProfileIsNeverCalled" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="483098132" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.017169" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-F — Invalid data does not call Supabase UpdateProfile" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1058" name="TC010_InvalidData_ValidationMessageIsDisplayed" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_InvalidData_ValidationMessageIsDisplayed" methodname="TC010_InvalidData_ValidationMessageIsDisplayed" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="1506544885" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.022890" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-D — Invalid data returns a non-empty validation message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1055" name="TC010_NumbersInFirstName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_NumbersInFirstName_ReturnsFailedResult" methodname="TC010_NumbersInFirstName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="1324318556" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.012755" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-A — Numbers in first name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1056" name="TC010_NumbersInLastName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_NumbersInLastName_ReturnsFailedResult" methodname="TC010_NumbersInLastName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="1815388392" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.011061" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-B — Numbers in last name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1057" name="TC010_SpecialCharactersInName_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate.TC010_SpecialCharactersInName_ReturnsFailedResult" methodname="TC010_SpecialCharactersInName_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.EditAccount.TC010_InvalidDataUpdate" runstate="Runnable" seed="1350117133" result="Passed" start-time="2026-04-18 19:34:40Z" end-time="2026-04-18 19:34:40Z" duration="0.013416" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-010-C — Special characters in name returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

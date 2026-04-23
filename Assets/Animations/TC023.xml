@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.4429576">
+  <test-suite type="TestSuite" id="1174" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.442958" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1155" name="NewAssembly.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/NewAssembly.dll" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.433586" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="21136" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1156" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.428583" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1157" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.424412" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1158" name="EditMode" fullname="Kumpas.Tests.EditMode" runstate="Runnable" testcasecount="136" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.420738" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1167" name="ConversationHistory" fullname="Kumpas.Tests.EditMode.ConversationHistory" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.417347" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1126" name="TC023_ViewConversationHistory" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.414975" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="ConversationHistory" />
+                </properties>
+                <test-case id="1134" name="TC023_DatabaseError_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_DatabaseError_ReturnsFailedResult" methodname="TC023_DatabaseError_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="1129927923" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:32Z" duration="0.018525" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-H — Database error during fetch returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1133" name="TC023_EmptyHistory_ReturnsSuccessWithZeroCount" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_EmptyHistory_ReturnsSuccessWithZeroCount" methodname="TC023_EmptyHistory_ReturnsSuccessWithZeroCount" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="587026917" result="Passed" start-time="2026-04-18 20:19:32Z" end-time="2026-04-18 20:19:33Z" duration="0.285372" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-G — Empty history returns Success with count of zero" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1132" name="TC023_MissingUserId_GetSessionsIsNeverCalled" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_MissingUserId_GetSessionsIsNeverCalled" methodname="TC023_MissingUserId_GetSessionsIsNeverCalled" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="1664171783" result="Passed" start-time="2026-04-18 20:19:33Z" end-time="2026-04-18 20:19:33Z" duration="0.012435" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-F — Missing user ID never calls repository" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1131" name="TC023_MissingUserId_ReturnsFailedResult" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_MissingUserId_ReturnsFailedResult" methodname="TC023_MissingUserId_ReturnsFailedResult" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="1122078791" result="Passed" start-time="2026-04-18 20:19:33Z" end-time="2026-04-18 20:19:33Z" duration="0.009061" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-E — Missing user ID returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1128" name="TC023_ViewHistory_ConversationCountIsReturned" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_ViewHistory_ConversationCountIsReturned" methodname="TC023_ViewHistory_ConversationCountIsReturned" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="2087207581" result="Passed" start-time="2026-04-18 20:19:33Z" end-time="2026-04-18 20:19:33Z" duration="0.057597" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-B — Viewing history returns the correct conversation count" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1129" name="TC023_ViewHistory_GetSessionsCalledOnce" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_ViewHistory_GetSessionsCalledOnce" methodname="TC023_ViewHistory_GetSessionsCalledOnce" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="986692560" result="Passed" start-time="2026-04-18 20:19:33Z" end-time="2026-04-18 20:19:33Z" duration="0.009050" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-C — Viewing history calls GetSessions on repository once" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1127" name="TC023_ViewHistory_ReturnsSuccess" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_ViewHistory_ReturnsSuccess" methodname="TC023_ViewHistory_ReturnsSuccess" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="225062561" result="Passed" start-time="2026-04-18 20:19:33Z" end-time="2026-04-18 20:19:33Z" duration="0.008104" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-A — Viewing history returns Success result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1130" name="TC023_ViewHistory_SuccessMessageIsReturned" fullname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory.TC023_ViewHistory_SuccessMessageIsReturned" methodname="TC023_ViewHistory_SuccessMessageIsReturned" classname="Kumpas.Tests.EditMode.ConversationHistory.TC023_ViewConversationHistory" runstate="Runnable" seed="726581195" result="Passed" start-time="2026-04-18 20:19:33Z" end-time="2026-04-18 20:19:33Z" duration="0.008995" asserts="0">
+                  <properties>
+                    <property name="Description" value="TC-023-D — Viewing history returns a success message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

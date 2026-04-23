@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.0845629">
+  <test-suite type="TestSuite" id="1261" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="201" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.084563" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1049" name="Kumpas.Tests.Integration.Account.dll" fullname="C:/Users/ADRIAN/Downloads/kumpas/Library/ScriptAssemblies/Kumpas.Tests.Integration.Account.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.076650" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26876" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1050" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.073497" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1051" name="Tests" fullname="Kumpas.Tests" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.070289" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1052" name="Integration" fullname="Kumpas.Tests.Integration" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.067379" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1053" name="Account" fullname="Kumpas.Tests.Integration.Account" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.065008" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1008" name="IT000002_LoginWithInvalidCredentials" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.062725" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                </properties>
+                <test-case id="1014" name="IT000002_EmptyFields_BlocksLogin" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials.IT000002_EmptyFields_BlocksLogin" methodname="IT000002_EmptyFields_BlocksLogin" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" seed="336711630" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.012736" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000002-F — Empty fields: Login is blocked with validation error" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="IT000002_InvalidCredentials_AccountIsNeverRetrieved" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials.IT000002_InvalidCredentials_AccountIsNeverRetrieved" methodname="IT000002_InvalidCredentials_AccountIsNeverRetrieved" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" seed="606689314" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.013557" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000002-B — Invalid credentials: Account is never retrieved" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="IT000002_InvalidCredentials_AuthRejectsSignIn" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials.IT000002_InvalidCredentials_AuthRejectsSignIn" methodname="IT000002_InvalidCredentials_AuthRejectsSignIn" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" seed="956971460" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.007843" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000002-A — Invalid credentials: Auth gateway rejects sign-in" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="IT000002_InvalidCredentials_DoesNotNavigateToHome" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials.IT000002_InvalidCredentials_DoesNotNavigateToHome" methodname="IT000002_InvalidCredentials_DoesNotNavigateToHome" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" seed="1337544385" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.008100" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000002-E — Invalid credentials: App does not navigate to Home" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="IT000002_InvalidCredentials_ReturnsFailed" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials.IT000002_InvalidCredentials_ReturnsFailed" methodname="IT000002_InvalidCredentials_ReturnsFailed" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" seed="552842052" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.007801" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000002-C — Invalid credentials: System returns Failed result" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="IT000002_InvalidCredentials_ShowsValidationError" fullname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials.IT000002_InvalidCredentials_ShowsValidationError" methodname="IT000002_InvalidCredentials_ShowsValidationError" classname="Kumpas.Tests.Integration.Account.IT000002_LoginWithInvalidCredentials" runstate="Runnable" seed="2074179434" result="Passed" start-time="2026-04-19 19:11:32Z" end-time="2026-04-19 19:11:32Z" duration="0.007779" asserts="0">
+                  <properties>
+                    <property name="Description" value="IT-000002-D — Invalid credentials: System shows validation error message" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/ADRIAN/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
