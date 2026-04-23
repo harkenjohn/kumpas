@@ -126,6 +126,9 @@ private Coroutine _textToSignToastCoroutine;
 
     [SerializeField] private FaceLandmarkerRunner faceLandmarkerRunner;
     [SerializeField] private AnnotationCleaner annotationCleaner;
+    [Header("ASL Orientation")]
+    [Tooltip("Assign the GameObject that has ASLOrientationHandler attached")]
+    public ASLOrientationHandler aslOrientationHandler;
 
     // This function will be called by AppManager to connect them
     public void Initialize(AppManager am)
@@ -316,9 +319,13 @@ private Coroutine _textToSignToastCoroutine;
         // NOTE: handSolution and PoseLandmarkerRunner are NOT toggled —
         // disabling MediaPipe Async runners breaks them permanently.
 
+        // Force landscape for ASL recognition and notify orientation handler
+        //Screen.orientation = ScreenOrientation.LandscapeLeft;
+        if (aslOrientationHandler != null) aslOrientationHandler.OnASLSessionStarted();
+
         aslManager.StartSession();
 
-        Debug.Log("[UIManager] ASL Camera opened");
+        Debug.Log("[UIManager] ASL Camera opened - forced landscape");
     }
 
     // Called by ASLManager when the session ends (3s timeout)
@@ -332,6 +339,10 @@ private Coroutine _textToSignToastCoroutine;
         if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(true);
         // NOTE: handSolution and PoseLandmarkerRunner are NOT touched —
         // disabling MediaPipe Async runners breaks them permanently.
+
+        // Revert to portrait and notify orientation handler
+        //Screen.orientation = ScreenOrientation.Portrait;
+        if (aslOrientationHandler != null) aslOrientationHandler.OnASLSessionEnded();
 
         Debug.Log("[UIManager] ASL session ended - returned to CameraInputMethodPanel");
     }

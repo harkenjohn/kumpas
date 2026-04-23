@@ -37,6 +37,39 @@ a {
     display: grid;
     place-items: center;
     padding: 2rem;
+    overflow: hidden;
+    position: relative;
+    background:
+        radial-gradient(circle at 8% 8%, rgba(11, 114, 201, 0.16) 0 1.5px, transparent 1.7px) 0 0 / 24px 24px,
+        radial-gradient(circle at 88% 92%, rgba(11, 114, 201, 0.15) 0 1.5px, transparent 1.7px) 0 0 / 24px 24px,
+        linear-gradient(145deg, #f8fbff 0%, #eef5ff 56%, #dcecff 100%);
+}
+
+.auth-shell::before,
+.auth-shell::after {
+    content: "";
+    position: fixed;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.auth-shell::before {
+    width: 56rem;
+    height: 36rem;
+    right: -18rem;
+    top: -17rem;
+    background: rgba(48, 130, 232, 0.18);
+    border-radius: 0 0 0 70%;
+    transform: rotate(22deg);
+}
+
+.auth-shell::after {
+    width: 52rem;
+    height: 30rem;
+    right: -8rem;
+    bottom: -12rem;
+    background: linear-gradient(135deg, rgba(11, 114, 201, 0.84), rgba(66, 153, 235, 0.74));
+    border-radius: 65% 0 0 0;
 }
 
 .app-shell {
@@ -139,11 +172,105 @@ a {
 }
 
 .admin-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
     background: rgba(255, 255, 255, 0.88);
-    padding: 0.85rem 1rem;
+    padding: 0.7rem 0.9rem;
     border-radius: 18px;
     box-shadow: var(--kumpas-shadow);
-    text-align: right;
+    text-align: left;
+    border: 1px solid rgba(219, 228, 236, 0.78);
+}
+
+.admin-profile-button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.admin-profile-button:hover,
+.admin-profile-button:focus,
+.admin-profile-button[aria-expanded="true"] {
+    color: var(--kumpas-text);
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.98);
+    border-color: rgba(11, 114, 201, 0.18);
+}
+
+.admin-dropdown {
+    position: relative;
+}
+
+.admin-chevron {
+    color: var(--kumpas-blue);
+    font-size: 1.1rem;
+    line-height: 1;
+    transform: translateY(-1px);
+}
+
+.admin-menu {
+    min-width: 210px;
+    margin-top: 0.65rem;
+    padding: 0.55rem;
+    border: 1px solid rgba(219, 228, 236, 0.9);
+    border-radius: 18px;
+    box-shadow: var(--kumpas-shadow);
+}
+
+.admin-menu-item {
+    border-radius: 12px;
+    padding: 0.7rem 0.85rem;
+    font-weight: 700;
+    color: var(--kumpas-text);
+}
+
+.admin-menu-item:hover,
+.admin-menu-item:focus {
+    background: rgba(11, 114, 201, 0.08);
+    color: var(--kumpas-blue);
+}
+
+.admin-logout-form {
+    margin: 0;
+}
+
+.admin-menu-logout {
+    color: var(--kumpas-danger);
+}
+
+.admin-menu-logout:hover,
+.admin-menu-logout:focus {
+    background: rgba(198, 63, 63, 0.10);
+    color: var(--kumpas-danger);
+}
+
+.admin-profile-link {
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-profile-link:hover,
+.admin-profile-link:focus {
+    color: var(--kumpas-text);
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.98);
+    border-color: rgba(11, 114, 201, 0.18);
+}
+
+.admin-avatar {
+    width: 42px;
+    height: 42px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(11, 114, 201, 0.14), rgba(26, 194, 190, 0.18));
+    color: var(--kumpas-blue);
+    font-weight: 800;
+    border: 1px solid rgba(11, 114, 201, 0.12);
+}
+
+.admin-profile-copy {
+    display: grid;
+    gap: 0.1rem;
 }
 
 .admin-name,
@@ -212,7 +339,19 @@ a {
 }
 
 .settings-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    align-items: start;
+}
+
+.settings-actions {
+    display: flex;
+    align-self: start;
+    padding-top: 1.85rem;
+}
+
+.settings-actions .btn {
+    width: 100%;
+    min-width: 0;
 }
 
 .account-profile-grid {
@@ -252,6 +391,65 @@ a {
 
 .print-only {
     display: none;
+}
+
+.uptime-graph-card[hidden] {
+    display: none;
+}
+
+.uptime-graph {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    gap: 0.8rem;
+    align-items: end;
+}
+
+.uptime-hour {
+    display: grid;
+    gap: 0.4rem;
+    text-align: center;
+    color: var(--kumpas-muted);
+    font-size: 0.85rem;
+}
+
+.uptime-hour span {
+    color: var(--kumpas-text);
+    font-weight: 700;
+}
+
+.uptime-hour small {
+    line-height: 1.1;
+}
+
+.uptime-bar-wrap {
+    height: 130px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding: 0.45rem;
+    border-radius: 18px;
+    border: 1px solid var(--kumpas-border);
+    background: rgba(248, 250, 252, 0.96);
+}
+
+.uptime-bar {
+    width: 100%;
+    min-height: 8px;
+    border-radius: 12px;
+    background: var(--kumpas-border);
+    transition: height 0.25s ease, background-color 0.25s ease;
+}
+
+.uptime-hour.up .uptime-bar {
+    background: linear-gradient(180deg, #36c58d 0%, var(--kumpas-success) 100%);
+}
+
+.uptime-hour.down .uptime-bar {
+    background: linear-gradient(180deg, #e46c6c 0%, var(--kumpas-danger) 100%);
+}
+
+.uptime-hour.empty .uptime-bar {
+    background: linear-gradient(180deg, #e8eef4 0%, #cfdbe6 100%);
 }
 
 .account-detail-layout {
@@ -309,21 +507,170 @@ a {
     font-size: 1.15rem;
 }
 
-.login-card {
-    width: min(100%, 440px);
-    background: rgba(255, 255, 255, 0.96);
-    border-radius: 30px;
-    padding: 2rem;
-    box-shadow: var(--kumpas-shadow);
-    border: 1px solid rgba(219, 228, 236, 0.85);
+.login-portal {
+    width: min(100%, 1040px);
+    min-height: 620px;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(196, 214, 235, 0.95);
+    border-radius: 24px;
+    box-shadow: 0 28px 80px rgba(21, 70, 132, 0.18);
+    position: relative;
+    z-index: 1;
 }
 
-.login-brand {
-    margin-bottom: 1.5rem;
+.login-portal-info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 4.2rem 3.1rem;
+    background:
+        radial-gradient(circle at 0% 100%, rgba(11, 114, 201, 0.18), transparent 28%),
+        radial-gradient(circle at -8% 110%, rgba(11, 114, 201, 0.18), transparent 34%),
+        linear-gradient(180deg, #eff6ff 0%, #e7f0ff 100%);
 }
 
-.login-brand h1 {
-    margin: 0.35rem 0;
+.login-portal-logo-wrap {
+    text-align: center;
+}
+
+.login-portal-logo {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 0 auto 0.8rem;
+    object-fit: contain;
+}
+
+.login-portal-logo-wrap h1 {
+    margin: 0;
+    color: #0f2444;
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.04rem;
+}
+
+.login-portal-logo-wrap span {
+    display: inline-block;
+    color: var(--kumpas-blue);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.04rem;
+    border-bottom: 3px solid var(--kumpas-blue);
+    padding-bottom: 0.35rem;
+}
+
+.login-welcome-copy h2,
+.login-form-heading h2 {
+    margin: 0 0 0.7rem;
+    color: #10213d;
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+.login-welcome-copy p,
+.login-form-heading p,
+.login-authorized-note p {
+    margin: 0;
+    color: #475872;
+    line-height: 1.55;
+}
+
+.login-feature-list {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.login-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.login-feature-icon {
+    width: 42px;
+    height: 42px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 42px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--kumpas-blue);
+    box-shadow: 0 12px 28px rgba(20, 82, 145, 0.09);
+    border: 1px solid rgba(11, 114, 201, 0.05);
+}
+
+.login-feature-icon svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.login-feature-item strong {
+    display: block;
+    color: #152846;
+}
+
+.login-feature-item small {
+    color: #64748b;
+}
+
+.login-portal-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 3.6rem 2rem;
+}
+
+.login-form-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-input {
+    min-height: 52px;
+    background: #fff;
+    border-color: #d8e3ee;
+    box-shadow: 0 1px 0 rgba(20, 44, 73, 0.02);
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    color: var(--kumpas-muted);
+}
+
+.login-submit {
+    min-height: 54px;
+    font-weight: 700;
+    box-shadow: 0 14px 24px rgba(11, 114, 201, 0.18);
+}
+
+.login-authorized-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    margin: 2rem -3.6rem -2rem;
+    padding: 1.4rem 2rem;
+    background: #f5f9ff;
+    color: #475872;
+    font-size: 0.92rem;
+}
+
+.login-authorized-note span {
+    color: var(--kumpas-blue);
+    font-weight: 800;
 }
 
 .data-table {
@@ -556,6 +903,28 @@ a {
     .account-detail-layout {
         grid-template-columns: 1fr;
     }
+
+    .login-portal {
+        grid-template-columns: 1fr;
+        max-width: 620px;
+    }
+
+    .login-portal-info,
+    .login-portal-form {
+        padding: 2.4rem;
+    }
+
+    .login-authorized-note {
+        margin: 2rem -2.4rem -2.4rem;
+    }
+
+    .settings-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .settings-actions {
+        padding-top: 0;
+    }
 }
 
 @media (max-width: 767px) {
@@ -572,6 +941,38 @@ a {
         justify-content: space-between;
     }
 
+    .auth-shell {
+        padding: 1rem;
+    }
+
+    .login-portal {
+        min-height: auto;
+        border-radius: 22px;
+    }
+
+    .login-portal-info,
+    .login-portal-form {
+        padding: 1.5rem;
+    }
+
+    .login-portal-logo {
+        width: 118px;
+    }
+
+    .login-portal-logo-wrap h1 {
+        font-size: 1.85rem;
+    }
+
+    .login-portal-logo-wrap span {
+        font-size: 1rem;
+    }
+
+    .login-authorized-note {
+        margin: 1.6rem -1.5rem -1.5rem;
+        padding: 1rem;
+        text-align: center;
+    }
+
     .pagination-nav {
         flex-direction: column;
         align-items: stretch;
@@ -583,6 +984,14 @@ a {
 
     .pagination-button-nav {
         width: 100%;
+    }
+
+    .uptime-graph {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .uptime-bar-wrap {
+        height: 92px;
     }
 }
 
