@@ -85,6 +85,18 @@ else
             </main>
         </div>
     </div>
+
+    <div class="confirm-modal-backdrop" id="confirmModal" hidden>
+        <div class="confirm-modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle" aria-describedby="confirmModalMessage">
+            <div class="confirm-modal-icon" aria-hidden="true">!</div>
+            <h3 id="confirmModalTitle">Please confirm</h3>
+            <p id="confirmModalMessage">Are you sure you want to continue?</p>
+            <div class="confirm-modal-actions">
+                <button type="button" class="btn btn-light confirm-cancel" id="confirmModalCancel">Cancel</button>
+                <button type="button" class="btn btn-danger confirm-accept" id="confirmModalAccept">OK</button>
+            </div>
+        </div>
+    </div>
 }
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

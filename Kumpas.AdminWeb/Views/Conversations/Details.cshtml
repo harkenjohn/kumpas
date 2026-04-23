@@ -10,7 +10,10 @@
             <h3>@Model.RoomCode</h3>
             <p class="table-muted mb-0">@Model.ParticipantOne / @Model.ParticipantTwo</p>
         </div>
-        <span class="table-muted">@Model.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+        <div class="inline-actions">
+            <span class="table-muted">@Model.CreatedAt?.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+            <a asp-action="Index" class="btn btn-outline-primary btn-sm">Back to Conversations</a>
+        </div>
     </div>
 
     <div class="message-list">

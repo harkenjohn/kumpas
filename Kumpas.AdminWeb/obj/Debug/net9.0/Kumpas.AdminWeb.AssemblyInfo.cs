@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kumpas.AdminWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b2bbff7adb8ad67bc8e5af450113323cf21349a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+033e82516bc6809005d039c028bf69ddd4394c2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kumpas.AdminWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kumpas.AdminWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

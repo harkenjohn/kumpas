@@ -106,5 +106,5 @@ C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\ep
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\9kufxbfqee-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\3ek0kyqvwd-{0}-mlv21k5csn-mlv21k5csn.gz
 C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\swae.build.ex.cache
-C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\sy7fis1byf-{0}-bh9p5qqtku-bh9p5qqtku.gz
-C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\4xpt1x3zco-{0}-oz99jhj9wk-oz99jhj9wk.gz
+C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\4xpt1x3zco-{0}-vqtc63xwxo-vqtc63xwxo.gz
+C:\Users\Ryzen 5\Documents\kumpas\Kumpas.AdminWeb\obj\Debug\net9.0\compressed\sy7fis1byf-{0}-e35f31chm6-e35f31chm6.gz
