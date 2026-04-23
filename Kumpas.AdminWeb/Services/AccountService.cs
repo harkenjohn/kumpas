@@ -148,15 +148,13 @@ public class AccountService(KumpasDbContext dbContext)
 
     public async Task<bool> SetActiveStatusAsync(Guid userId, bool isActive, CancellationToken cancellationToken = default)
     {
-        var profile = await dbContext.Profiles.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
-        if (profile is null)
-        {
-            return false;
-        }
+        var updatedRows = await dbContext.Profiles
+            .Where(x => x.Id == userId)
+            .ExecuteUpdateAsync(
+                updates => updates.SetProperty(profile => profile.IsActive, isActive),
+                cancellationToken);
 
-        profile.IsActive = isActive;
-        await dbContext.SaveChangesAsync(cancellationToken);
-        return true;
+        return updatedRows > 0;
     }
 
     public async Task<bool> UpdateProfileAsync(ProfileSettingsViewModel model, CancellationToken cancellationToken = default)

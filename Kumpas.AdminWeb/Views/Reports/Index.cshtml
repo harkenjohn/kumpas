@@ -30,7 +30,7 @@
 <section class="soft-card printable-report">
     <div class="soft-card-header">
         <div>
-            <h3>Printable Report</h3>
+            <h3>System Report</h3>
             <p class="table-muted mb-0">Generated report summary for the selected filters.</p>
         </div>
         <button type="button" class="btn btn-outline-primary btn-sm no-print" onclick="window.print()">Print Report</button>
@@ -68,17 +68,10 @@
             <span class="detail-label">Model Uptime Status</span>
             <strong>@Model.ModelStatus</strong>
             <p class="table-muted mb-0">Provider: @Model.ModelProvider</p>
-            @if (!string.IsNullOrWhiteSpace(Model.ModelUrl))
-            {
-                <a href="@Model.ModelUrl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm mt-2 no-print">
-                    View Model
-                </a>
-                <p class="table-muted mt-2 mb-0 print-only">@Model.ModelUrl</p>
-            }
-            else
-            {
-                <p class="table-muted mt-2 mb-0">Paste the model URL in appsettings.json.</p>
-            }
+            <p class="table-muted mb-0">Uptime: @Model.ModelUptimePercent.ToString("0.#")% for @Model.UptimeReportDate.ToString("MMM dd, yyyy")</p>
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2 no-print" data-toggle-uptime>
+                View Uptime Graph
+            </button>
         </article>
 
         <article class="report-summary-card">
@@ -92,6 +85,37 @@
             <strong>@Model.TotalSessions</strong>
             <p class="table-muted mb-0">Messages in period: @Model.TotalMessages</p>
         </article>
+    </div>
+</section>
+
+<section class="soft-card uptime-graph-card no-print" id="model-uptime-graph" hidden>
+    <div class="soft-card-header">
+        <div>
+            <h3>Model Uptime Graph</h3>
+            <p class="table-muted mb-0">
+                Hourly model status for @Model.UptimeReportDate.ToString("MMM dd, yyyy"). Each hour is up when all recorded entries are <strong>OK</strong>.
+            </p>
+        </div>
+        <span class="badge-soft @(Model.ModelStatus == "OK" ? "success" : Model.ModelStatus == "No uptime data" ? "info" : "error")">
+            @Model.ModelStatus
+        </span>
+    </div>
+
+    <div class="uptime-graph" aria-label="Hourly model uptime graph">
+        @foreach (var hour in Model.ModelUptimeHours)
+        {
+            var statusClass = hour.HasData ? hour.IsUp ? "up" : "down" : "empty";
+            var barHeight = hour.HasData ? Math.Max(8, (int)hour.UptimePercent) : 8;
+
+            <article class="uptime-hour @statusClass" title="@hour.Label - @hour.DisplayStatus">
+                <div class="uptime-bar-wrap">
+                    <div class="uptime-bar" style="height: @barHeight%"></div>
+                </div>
+                <span>@hour.Label</span>
+                <small>@hour.DisplayStatus</small>
+                <small>@hour.UpChecks/@hour.TotalChecks</small>
+            </article>
+        }
     </div>
 </section>
 

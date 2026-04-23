@@ -13,4 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.toggle("active");
         });
     });
+
+    document.querySelectorAll("[data-toggle-uptime]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const graph = document.getElementById("model-uptime-graph");
+            if (!graph) {
+                return;
+            }
+
+            graph.hidden = !graph.hidden;
+            button.textContent = graph.hidden ? "View Uptime Graph" : "Hide Uptime Graph";
+
+            if (!graph.hidden) {
+                graph.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+    });
 });

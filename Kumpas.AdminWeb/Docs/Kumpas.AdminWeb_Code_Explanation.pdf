@@ -1,0 +1,1768 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 19 0 R 20 0 R 21 0 R 22 0 R 23 0 R 24 0 R 25 0 R 26 0 R 27 0 R 28 0 R 29 0 R 30 0 R 31 0 R 32 0 R 33 0 R ] /Count 15 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 2742 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(Kumpas.AdminWeb Beginner File-by-File Explanation) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Kumpas.AdminWeb Beginner Explanation) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(A longer, simpler, file-by-file guide to the KUMPAS admin website. This explains what each) Tj
+0 -13 Td
+(file does, why it exists, and how the pieces connect when an admin logs in, views) Tj
+0 -13 Td
+(dashboards, manages accounts, reads conversations, and prints reports.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Project folder: Kumpas.AdminWeb) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Generated: April 18, 2026) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Note: Real passwords, database strings, Supabase keys, and service-role tokens are) Tj
+0 -13 Td
+(intentionally not copied into this guide.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Start Here: What This App Is) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Kumpas.AdminWeb is an admin website built with ASP.NET Core MVC. In simple terms, it is a) Tj
+0 -13 Td
+(web dashboard for administrators of the KUMPAS system.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The app lets an administrator log in, open a dashboard, manage users, activate or deactivate) Tj
+0 -13 Td
+(accounts, update passwords through Supabase Auth, view conversations, delete conversation) Tj
+0 -13 Td
+(sessions, generate reports, and monitor translation-service records.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Beginner MVC Explanation) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(A browser asks for a page. A controller receives the request. The controller asks a service) Tj
+0 -13 Td
+(or the database context for data. The data is placed into a view model. A Razor view uses) Tj
+0 -13 Td
+(that view model to create HTML. The browser displays the HTML.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Word | Simple meaning in this project) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Model | A C# class that represents a database table row, such as Profile or ChatMessage.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModel | A C# class made only for a page, such as DashboardViewModel.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(View | A .cshtml Razor file that creates HTML for the browser.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controller | A C# class that handles a URL or form submission.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Service | A C# class that contains reusable work, such as querying accounts or calling) Tj
+0 -13 Td
+(Supabase.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(DbContext | The EF Core object that connects C# to the PostgreSQL database.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Overall Request Flow) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Browser -> URL or form submit -> Controller action -> Service/database -> ViewModel -> Razor) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Length 2510 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(View -> HTML page) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(For example, when the admin opens the accounts page, the request goes to) Tj
+0 -13 Td
+(AccountsController.Index. That action calls AccountService.GetAccountsAsync. The service) Tj
+0 -13 Td
+(queries profiles and auth users, returns a ManageAccountsViewModel, and) Tj
+0 -13 Td
+(Views/Accounts/Index.cshtml displays the account table.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Root Files) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Program.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The startup file. This is where the web application is assembled before it) Tj
+0 -13 Td
+(starts listening for requests.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(builder.Services.AddDbContext<KumpasDbContext>\(options =>) Tj
+0 -13 Td
+(options.UseNpgsql\(builder.Configuration.GetConnectionString\("DefaultConnection"\)\)\);) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(This registers the database connection. UseNpgsql means the app uses PostgreSQL.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(builder.Services.AddAuthentication\(...\).AddCookie\(options =>) Tj
+0 -13 Td
+({) Tj
+0 -13 Td
+(options.LoginPath = "/Auth/Login";) Tj
+0 -13 Td
+(options.Cookie.Name = "Kumpas.Admin.Auth";) Tj
+0 -13 Td
+(options.ExpireTimeSpan = TimeSpan.FromHours\(8\);) Tj
+0 -13 Td
+(}\);) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(This sets up cookie authentication. After a successful login, the browser receives a cookie.) Tj
+0 -13 Td
+(On later requests, ASP.NET reads that cookie and knows who the user is.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(options.AddPolicy\("AdminOnly", policy =>) Tj
+0 -13 Td
+({) Tj
+0 -13 Td
+(policy.RequireAuthenticatedUser\(\);) Tj
+0 -13 Td
+(policy.RequireClaim\("UserType", "Admin"\);) Tj
+0 -13 Td
+(}\);) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(This creates the rule used by admin pages. A person must be signed in and must have the) Tj
+0 -13 Td
+(claim UserType = Admin.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Kumpas.AdminWeb.csproj) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The project file. It tells .NET what type of app this is and what packages it) Tj
+0 -13 Td
+(needs.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Microsoft.NET.Sdk.Web means this is an ASP.NET web app.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- TargetFramework net9.0 means it targets .NET 9.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Microsoft.EntityFrameworkCore lets the app query the database through C# objects.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+6 0 obj
+<< /Length 2382 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(- Npgsql.EntityFrameworkCore.PostgreSQL lets EF Core talk to PostgreSQL.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(appsettings.json) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The main configuration file.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- ConnectionStrings:DefaultConnection: database connection information.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Supabase: URL, anon key, and service-role key used by SupabaseAuthService.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- DevelopmentSeed: whether sample development logs should be inserted.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- ModelAssets: AR/model provider, URL, and status shown in reports.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Logging: how much logging ASP.NET and EF Core should produce.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Security reminder: database passwords and Supabase service-role keys should not be stored in) Tj
+0 -13 Td
+(committed source code. Use user secrets, environment variables, or a secure secret manager.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(appsettings.Development.json) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: Extra settings used when running the app in Development mode. It sets project) Tj
+0 -13 Td
+(logging to Debug so developers can see more detail while testing locally.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Properties/launchSettings.json) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: Local launch settings used by Visual Studio or dotnet run. It normally defines) Tj
+0 -13 Td
+(local URLs, HTTPS ports, and development environment variables. It is mainly for local) Tj
+0 -13 Td
+(development, not the main production server configuration.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Data Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Data/KumpasDbContext.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The database map for the app. EF Core uses this class to understand tables,) Tj
+0 -13 Td
+(columns, keys, and relationships.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(public DbSet<AuthUser> AuthUsers => Set<AuthUser>\(\);) Tj
+0 -13 Td
+(public DbSet<Profile> Profiles => Set<Profile>\(\);) Tj
+0 -13 Td
+(public DbSet<ChatSession> ChatSessions => Set<ChatSession>\(\);) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+7 0 obj
+<< /Length 2598 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(public DbSet<ChatMessage> ChatMessages => Set<ChatMessage>\(\);) Tj
+0 -13 Td
+(public DbSet<GestureLibrary> GestureLibraries => Set<GestureLibrary>\(\);) Tj
+0 -13 Td
+(public DbSet<ArModel> ArModels => Set<ArModel>\(\);) Tj
+0 -13 Td
+(public DbSet<GestureRecognitionData> GestureRecognitionData =>) Tj
+0 -13 Td
+(Set<GestureRecognitionData>\(\);) Tj
+0 -13 Td
+(public DbSet<SystemLog> SystemLogs => Set<SystemLog>\(\);) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Each DbSet acts like a table. For example, dbContext.Profiles means the app is working with) Tj
+0 -13 Td
+(rows from the profiles table.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(OnModelCreating: This method maps C# names to database names. Example: Profile.FirstName) Tj
+0 -13 Td
+(maps to first_name. It also defines relationships such as a profile belonging to an auth) Tj
+0 -13 Td
+(user, chat sessions having two users, and messages belonging to a session.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Data/SeedData.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: A background startup service that can add sample log rows during development.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- It runs when the app starts because Program.cs registers it with) Tj
+0 -13 Td
+(AddHostedService<SeedData>\(\).) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- It only continues if the app is in Development mode and DevelopmentSeed:Enabled is true.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- It checks whether SystemLogs has any rows.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- If no rows exist, it inserts two sample logs.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- If the database schema does not accept the insert, it logs a warning instead of crashing.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Database Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Database/seed-test-data.sql) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: A small SQL script intended to insert a test row into public.system_logs.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(insert into public.system_logs \(id, created_at\)) Tj
+0 -13 Td
+(select gen_random_uuid\(\), now\(\)) Tj
+0 -13 Td
+(where not exists \(select 1 from public.system_logs\);) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(This means: insert one row with a generated ID and the current time, but only if the table) Tj
+0 -13 Td
+(has no rows yet. ASP.NET does not automatically run this unless a developer or database tool) Tj
+0 -13 Td
+(runs it.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models Folder) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+8 0 obj
+<< /Length 2808 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+() Tj
+0 -13 Td
+(Models/AuthUser.cs) Tj
+0 -13 Td
+(Represents: A user account from Supabase Auth, mapped to auth.users. It stores Id, Email,) Tj
+0 -13 Td
+(EncryptedPassword, and a linked Profile.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/Profile.cs) Tj
+0 -13 Td
+(Represents: The app profile for a user. It stores name, UserType, IsActive, and created) Tj
+0 -13 Td
+(date. This file matters because admin access depends on UserType and IsActive.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/ChatSession.cs) Tj
+0 -13 Td
+(Represents: One conversation session between two users. It has User1Id, User2Id, RoomCode,) Tj
+0 -13 Td
+(deleted flags, and a collection of Messages.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/ChatMessage.cs) Tj
+0 -13 Td
+(Represents: One message inside a conversation. SessionId connects it to a session, SenderId) Tj
+0 -13 Td
+(connects it to a profile, and optional GestureId means it is a gesture message.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/GestureLibrary.cs) Tj
+0 -13 Td
+(Represents: A known sign or gesture. It stores the gesture name, type, description, and) Tj
+0 -13 Td
+(category, plus relationships to messages, AR models, and recognition data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/ArModel.cs) Tj
+0 -13 Td
+(Represents: AR model and animation file paths for a gesture. It links back to GestureLibrary) Tj
+0 -13 Td
+(through GestureId.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/GestureRecognitionData.cs) Tj
+0 -13 Td
+(Represents: Data used for recognizing gestures. It stores image path, video path, and JSON) Tj
+0 -13 Td
+(keypoint data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/SystemLog.cs) Tj
+0 -13 Td
+(Represents: One system log entry, with level, module/source, message, optional stack trace,) Tj
+0 -13 Td
+(timestamp, and optional user profile.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Models/ErrorViewModel.cs) Tj
+0 -13 Td
+(Represents: Simple data for the error page. ShowRequestId is true only when a request ID) Tj
+0 -13 Td
+(exists.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services/ISupabaseAuthService.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: An interface. It describes what the Supabase auth service must be able to do.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- SignInAsync: checks email and password with Supabase.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- UpdatePasswordAsync: changes a user's password using Supabase admin API.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- DeleteUserAsync: deletes a user from Supabase Auth.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(SupabaseLoginResult and SupabaseOperationResult are small result objects that say whether) Tj
+0 -13 Td
+(the operation succeeded and optionally include an error message.) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+9 0 obj
+<< /Length 2382 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services/SupabaseOptions.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: A settings class for Supabase configuration. ASP.NET fills Url, AnonKey, and) Tj
+0 -13 Td
+(ServiceRoleKey from the Supabase section of appsettings.json.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services/SupabaseAuthService.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The class that talks to Supabase Auth using HTTP requests.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(SignInAsync: Sends email and password to Supabase at /auth/v1/token?grant_type=password. If) Tj
+0 -13 Td
+(login succeeds, it reads the returned user ID and access token from JSON.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(UpdatePasswordAsync: Uses the service-role key to update a user's password through) Tj
+0 -13 Td
+(Supabase's admin endpoint.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(DeleteUserAsync: Uses the service-role key to delete a Supabase auth user.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Beginner note: The service-role key is powerful. It can perform admin actions, so it must be) Tj
+0 -13 Td
+(protected carefully.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services/AccountService.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The service for account list, account details, activation, profile updates, and) Tj
+0 -13 Td
+(profile deletion.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GetAccountsAsync: Joins profiles and auth.users. Then it applies search, status, user-type) Tj
+0 -13 Td
+(filters, and pagination. It always uses 10 rows per page.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GetAccountDetailsAsync: Loads one account and calculates conversation count, message count,) Tj
+0 -13 Td
+(last conversation date, and five recent conversations.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(SetActiveStatusAsync: Finds a profile and changes IsActive.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(UpdateProfileAsync: Updates first and last name.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(DeleteProfileAsync: Removes the profile row from the database.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services/ConversationService.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: The service for listing, viewing, and deleting conversations.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+10 0 obj
+<< /Length 3121 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(GetSessionsAsync: Loads sessions with User1, User2, and Messages. It can filter by date) Tj
+0 -13 Td
+(range and search by room code or participant name.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GetSessionDetailsAsync: Loads one session, including messages and sender names. It labels) Tj
+0 -13 Td
+(each message as Gesture if GestureId has a value, otherwise Text.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(DeleteSessionAsync: Deletes all messages for the session, then deletes the session itself.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Services/AdminAnalyticsService.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it is: A service for dashboard, reports, and translation-service monitoring data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GetDashboardAsync: Counts total accounts, active accounts, sessions, sessions today,) Tj
+0 -13 Td
+(messages, errors today, recent accounts, recent sessions, and recent errors.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GetTranslationServicesAsync: Counts sessions and messages in a date range, gesture library) Tj
+0 -13 Td
+(items, AR models, recognition records, system logs, and average messages per session.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GetReportsAsync: Builds daily usage, top users, and message type breakdown.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Why direct SQL appears here: Some methods use NpgsqlConnection and SQL directly so the code) Tj
+0 -13 Td
+(can check whether tables or columns exist before reading system logs.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/LoginViewModel.cs) Tj
+0 -13 Td
+(Used by: Login page and AuthController. It stores Email, Password, and RememberMe. Data) Tj
+0 -13 Td
+(annotations require email/password and validate email format.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/DashboardViewModel.cs) Tj
+0 -13 Td
+(Used by: Dashboard page. It stores totals for accounts, sessions, messages, errors, plus) Tj
+0 -13 Td
+(recent accounts, sessions, and errors.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/AccountViewModels.cs) Tj
+0 -13 Td
+(Used by: Account pages. It contains ManageAccountsViewModel for the list,) Tj
+0 -13 Td
+(AccountRowViewModel for one table row, AccountDetailsViewModel for the details screen, and) Tj
+0 -13 Td
+(UpdateUserPasswordViewModel for password forms.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/ConversationViewModels.cs) Tj
+0 -13 Td
+(Used by: Conversation pages. It contains the list model, one session row model, details) Tj
+0 -13 Td
+(model, and one message row model.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/ReportsViewModel.cs) Tj
+0 -13 Td
+(Used by: Reports page. It stores date filters, account/session/message totals, AR model) Tj
+0 -13 Td
+(status, error counts, generated-by data, daily usage rows, top users, message types, and) Tj
+0 -13 Td
+(pagination for top users.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/ProfileSettingsViewModel.cs) Tj
+0 -13 Td
+(Used by: Settings page. It stores current admin name, email, optional new password, and) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+11 0 obj
+<< /Length 2590 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(confirmation password. Email is shown read-only because Supabase Auth manages it.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/PaginationViewModel.cs) Tj
+0 -13 Td
+(Used by: Shared pagination partial. It calculates total pages, previous/next availability,) Tj
+0 -13 Td
+(visible page numbers, route values, and text like Showing 1-10 of 45 records.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/SystemLogItemViewModel.cs) Tj
+0 -13 Td
+(Used by: Dashboard and translation monitoring pages. It stores log ID, level, message,) Tj
+0 -13 Td
+(source, user name, and created date.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ViewModels/TranslationServicesViewModel.cs) Tj
+0 -13 Td
+(Used by: Translation Services page. It stores date filters, totals, average messages per) Tj
+0 -13 Td
+(session, and system log rows.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/AuthController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Handles login and logout.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(GET Login: Shows the login form. If the user is already logged in, it redirects to the) Tj
+0 -13 Td
+(dashboard.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(POST Login: Validates the form, checks credentials with Supabase, loads the user's profile,) Tj
+0 -13 Td
+(blocks inactive accounts, blocks non-admin users, creates login claims, and signs the user) Tj
+0 -13 Td
+(in with a cookie.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(UserType is saved as a claim because the AdminOnly policy checks for UserType = Admin.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Logout: Deletes the auth cookie and redirects to login.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/DashboardController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Builds the dashboard page.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(It counts accounts, active accounts, total sessions, sessions today, total messages, and) Tj
+0 -13 Td
+(errors today. It also loads recent accounts, recent sessions, and recent errors.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Safety check: Before reading system_logs, it checks whether the table exists. If not, the) Tj
+0 -13 Td
+(dashboard avoids crashing and simply shows zero log data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/AccountsController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Handles admin account management.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Index: shows the searchable, filterable account list.) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+12 0 obj
+<< /Length 2410 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+() Tj
+0 -13 Td
+(- Details: shows one account.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- ToggleStatus and ToggleStatusFromDetails: activate/deactivate accounts.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- UpdatePassword and UpdatePasswordFromDetails: validate password forms and call Supabase.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Delete: deletes the Supabase auth user first, then deletes the local profile.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(POST actions use [ValidateAntiForgeryToken], which helps prevent fake form submissions from) Tj
+0 -13 Td
+(other websites.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/ConversationsController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Handles conversation history pages.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Index shows conversations with optional search and date filters. Details shows the messages) Tj
+0 -13 Td
+(in one conversation. Delete removes a conversation and redirects back to the list with a) Tj
+0 -13 Td
+(success or error message.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/ReportsController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Builds the reports page.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(It calculates account totals, session totals, message totals, AR model count, model status,) Tj
+0 -13 Td
+(error log totals, daily usage, top users, message type totals, and pagination for top users.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Beginner note: This controller has a lot of query logic. Some similar logic also exists in) Tj
+0 -13 Td
+(AdminAnalyticsService, so a future cleanup could move more reporting work into that service.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/SettingsController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Lets the current admin update their own profile and optionally change) Tj
+0 -13 Td
+(password.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(It reads the current user's ID from the login claim, loads the profile, shows first name,) Tj
+0 -13 Td
+(last name, and email, and saves changes. If a new password is entered, it calls Supabase to) Tj
+0 -13 Td
+(update it.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Controllers/TranslationServicesController.cs) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+13 0 obj
+<< /Length 3029 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(What it does: Shows translation-service monitoring metrics. It accepts optional date) Tj
+0 -13 Td
+(filters, calls AdminAnalyticsService.GetTranslationServicesAsync, and returns the monitoring) Tj
+0 -13 Td
+(view.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/_ViewStart.cshtml) Tj
+0 -13 Td
+(What it does: Sets Layout = "_Layout", meaning views automatically use) Tj
+0 -13 Td
+(Views/Shared/_Layout.cshtml.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/_ViewImports.cshtml) Tj
+0 -13 Td
+(What it does: Imports namespaces and MVC tag helpers. Tag helpers allow Razor attributes) Tj
+0 -13 Td
+(like asp-controller, asp-action, asp-for, and asp-validation-for.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Shared/_Layout.cshtml) Tj
+0 -13 Td
+(What it does: Creates the main page frame. Anonymous users see the login shell.) Tj
+0 -13 Td
+(Authenticated users see the sidebar, KUMPAS branding, navigation, topbar, admin name, logout) Tj
+0 -13 Td
+(button, alert messages, and page content. @RenderBody\(\) is where each page's content is) Tj
+0 -13 Td
+(inserted.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Shared/_Pagination.cshtml) Tj
+0 -13 Td
+(What it does: Reusable pagination UI. It displays summary text, Previous button, page) Tj
+0 -13 Td
+(numbers, and Next button while preserving search/date filters.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Shared/_ValidationScriptsPartial.cshtml) Tj
+0 -13 Td
+(What it does: Loads client-side validation JavaScript. Login and Settings use it so) Tj
+0 -13 Td
+(browser-side validation can show form errors.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Shared/Error.cshtml) Tj
+0 -13 Td
+(What it does: Displays a friendly error page and can show a request ID to help developers) Tj
+0 -13 Td
+(find related logs.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Auth/Login.cshtml) Tj
+0 -13 Td
+(What it does: Shows the admin login form. It binds to LoginViewModel. Inputs like) Tj
+0 -13 Td
+(asp-for="Email" connect the HTML field to the model property.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Dashboard/Index.cshtml) Tj
+0 -13 Td
+(What it does: Shows dashboard stat cards, recent accounts, recent errors, and recent) Tj
+0 -13 Td
+(conversations using DashboardViewModel.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Accounts/Index.cshtml) Tj
+0 -13 Td
+(What it does: Shows filters for search, status, and user type. It displays an account table) Tj
+0 -13 Td
+(and includes the shared pagination partial.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Accounts/Details.cshtml) Tj
+0 -13 Td
+(What it does: Shows one user's details and provides forms to update password and) Tj
+0 -13 Td
+(activate/deactivate the account.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Conversations/Index.cshtml) Tj
+0 -13 Td
+(What it does: Shows conversation history with filters, a table, View buttons, and Delete) Tj
+0 -13 Td
+(forms. Delete forms use data-confirm so JavaScript asks before deleting.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+14 0 obj
+<< /Length 2605 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(Views/Conversations/Details.cshtml) Tj
+0 -13 Td
+(What it does: Shows one conversation with room code, participants, time, sender names,) Tj
+0 -13 Td
+(message type, and message content.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Reports/Index.cshtml) Tj
+0 -13 Td
+(What it does: Shows report filters, a printable report section, stat cards, daily usage, top) Tj
+0 -13 Td
+(users, and message type counts. The Print Report button calls window.print\(\).) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/Settings/Index.cshtml) Tj
+0 -13 Td
+(What it does: Shows the current admin's profile/settings form. The admin can update first) Tj
+0 -13 Td
+(name, last name, and optionally password. Email is read-only.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Views/TranslationServices/Index.cshtml) Tj
+0 -13 Td
+(What it does: Shows translation service monitoring metrics and recent system logs.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(wwwroot Folder) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(wwwroot/css/site.css) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Controls the look and layout of the admin website.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(It defines KUMPAS colors, backgrounds, cards, sidebar, topbar, tables, badges, buttons,) Tj
+0 -13 Td
+(forms, pagination, login screen, responsive layout, and print styles.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- :root defines reusable CSS variables like --kumpas-blue.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- .app-shell, .sidebar, and .main-shell build the main admin layout.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- .soft-card, .stat-card, and .data-table style common UI blocks.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- @media rules adjust layout for smaller screens.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- @media print hides navigation and filters when printing reports.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(wwwroot/js/site.js) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(What it does: Adds small browser-side behavior.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The first part watches forms with data-confirm. When the form is submitted, it shows a) Tj
+0 -13 Td
+(confirmation dialog. If the admin cancels, it prevents the form from submitting.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The second part toggles an active class on collapse buttons. This helps UI controls visually) Tj
+0 -13 Td
+(show when they are active.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(wwwroot/images/kumpas-logo.png) Tj
+0 -13 Td
+(What it is: The KUMPAS logo image used in the layout and favicon area.) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+15 0 obj
+<< /Length 2193 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+() Tj
+0 -13 Td
+(wwwroot/favicon.ico) Tj
+0 -13 Td
+(What it is: A small icon browsers can show in a tab or bookmark.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(wwwroot/lib) Tj
+0 -13 Td
+(What it is: Third-party frontend libraries such as Bootstrap, jQuery, jQuery Validation, and) Tj
+0 -13 Td
+(unobtrusive validation. This guide does not explain every vendor file because those are) Tj
+0 -13 Td
+(library files, not KUMPAS-specific code.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Important Flows Explained Slowly) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Flow 1: Admin Login) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin opens the login page.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- AuthController.Login GET returns Views/Auth/Login.cshtml.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin submits email and password.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- LoginViewModel checks that email and password are present.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- SupabaseAuthService.SignInAsync sends credentials to Supabase.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- If Supabase accepts them, the app receives a user ID.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The controller loads Profile using that user ID.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The controller checks that the profile exists, is active, and has UserType = Admin.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The controller creates claims and signs in using a cookie.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin is redirected to the dashboard.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Flow 2: Opening the Dashboard) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The browser requests /Dashboard/Index.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin cookie is checked.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The AdminOnly policy checks for UserType = Admin.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- DashboardController.Index counts database records.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The controller creates DashboardViewModel.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Views/Dashboard/Index.cshtml displays stat cards and tables.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Flow 3: Managing Accounts) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+16 0 obj
+<< /Length 2230 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin opens Manage Accounts.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- AccountsController.Index receives optional filters.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- AccountService.GetAccountsAsync joins profiles with auth users.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The service filters, sorts, counts, and paginates the data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The view shows the account table.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- For details, the admin clicks View, which opens AccountsController.Details.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- For password changes or activation, the page submits a POST form.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Flow 4: Viewing and Deleting Conversations) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin opens Conversation History.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- ConversationsController.Index receives search/date filters.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- ConversationService.GetSessionsAsync loads sessions, users, and messages.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The list view shows sessions and pagination.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The Details page loads one session and shows all messages in time order.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- If Delete is clicked, site.js asks for confirmation.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- If confirmed, ConversationService.DeleteSessionAsync deletes messages first, then the) Tj
+0 -13 Td
+(session.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Flow 5: Generating Reports) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The admin chooses filters on the Reports page.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- ReportsController.Index converts dates into UTC start/end ranges.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The controller counts accounts, sessions, messages, AR models, and errors.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- It groups sessions/messages by day and groups messages by sender and type.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The data is placed in ReportsViewModel.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- The report view shows both web cards and a printable report section.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+17 0 obj
+<< /Length 2538 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+() Tj
+0 -13 Td
+(Things To Watch Out For) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Secrets in config: move database passwords and Supabase service-role keys out of committed) Tj
+0 -13 Td
+(files.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Duplicate analytics logic: dashboard/report code appears both in services and controllers.) Tj
+0 -13 Td
+(Keeping it mostly in services would make maintenance easier.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Delete order: account deletion removes the Supabase user before local profile cleanup. If) Tj
+0 -13 Td
+(local cleanup fails, the auth user may already be deleted.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Null assumptions: some queries assume related profiles exist. Broken database) Tj
+0 -13 Td
+(relationships could cause page errors.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(- Time zones: database filtering uses UTC-style ranges, while views show local time with) Tj
+0 -13 Td
+(ToLocalTime\(\).) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Glossary) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Term | Meaning) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(ASP.NET Core | Microsoft's web framework for building websites and APIs in C#.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(MVC | Model-View-Controller, a way to organize web code.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Razor | HTML mixed with C# using @ syntax.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(EF Core | Entity Framework Core, the database library used by the app.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(LINQ | C# query syntax used to filter, sort, join, and group data.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Supabase Auth | The authentication system used for login, password updates, and user) Tj
+0 -13 Td
+(deletion.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Cookie | A small browser value used here to remember that the admin is logged in.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Claim | A stored identity value, such as user ID, email, or UserType.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Anti-forgery token | A hidden form value that helps prove a form was submitted from the real) Tj
+0 -13 Td
+(site.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Pagination | Splitting a long list into pages, such as 10 accounts per page.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(Final Simple Summary) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The app starts in Program.cs. It connects to PostgreSQL/Supabase through KumpasDbContext.) Tj
+0 -13 Td
+(Login is checked by SupabaseAuthService. Admin-only pages are protected by a policy that) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+18 0 obj
+<< /Length 457 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+(requires UserType = Admin. Controllers handle browser requests. Services do most reusable) Tj
+0 -13 Td
+(data work. ViewModels carry prepared data to Razor views. The views display the admin pages.) Tj
+0 -13 Td
+(CSS and JavaScript make the pages look good and add small interactions.) Tj
+0 -13 Td
+() Tj
+0 -13 Td
+(The main idea is: request -> controller -> service/database -> view model -> view -> page.) Tj
+0 -13 Td
+ET
+
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 4 0 R >>
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 8 0 R >>
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 10 0 R >>
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 11 0 R >>
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 12 0 R >>
+endobj
+28 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 13 0 R >>
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 14 0 R >>
+endobj
+30 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 15 0 R >>
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 16 0 R >>
+endobj
+32 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 17 0 R >>
+endobj
+33 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 18 0 R >>
+endobj
+xref
+0 34
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000217 00000 n 
+0000000287 00000 n 
+0000003081 00000 n 
+0000005643 00000 n 
+0000008077 00000 n 
+0000010727 00000 n 
+0000013587 00000 n 
+0000016021 00000 n 
+0000019195 00000 n 
+0000021838 00000 n 
+0000024301 00000 n 
+0000027383 00000 n 
+0000030041 00000 n 
+0000032287 00000 n 
+0000034570 00000 n 
+0000037161 00000 n 
+0000037670 00000 n 
+0000037797 00000 n 
+0000037924 00000 n 
+0000038051 00000 n 
+0000038178 00000 n 
+0000038305 00000 n 
+0000038432 00000 n 
+0000038560 00000 n 
+0000038688 00000 n 
+0000038816 00000 n 
+0000038944 00000 n 
+0000039072 00000 n 
+0000039200 00000 n 
+0000039328 00000 n 
+0000039456 00000 n 
+trailer
+<< /Size 34 /Root 1 0 R >>
+startxref
+39584
+%%EOF

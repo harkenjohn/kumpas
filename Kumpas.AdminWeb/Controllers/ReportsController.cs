@@ -39,6 +39,17 @@ public class ReportsController : Controller
         var configuredModelProvider = _configuration["ModelAssets:ArModelProvider"] ?? "Hugging Face";
         var configuredModelStatus = _configuration["ModelAssets:Status"];
         var generatedAt = DateTimeOffset.UtcNow;
+        var uptimeReportDate = DateOnly.FromDateTime((toDate ?? DateTime.Today).Date);
+        var uptimeHours = await GetModelUptimeHoursAsync(uptimeReportDate);
+        var uptimeHoursWithData = uptimeHours.Where(x => x.HasData).ToList();
+        var uptimePercent = uptimeHoursWithData.Count == 0
+            ? 0
+            : Math.Round(uptimeHoursWithData.Average(x => x.UptimePercent), 1);
+        var modelStatus = uptimeHoursWithData.Count == 0
+            ? "No uptime data"
+            : uptimeHoursWithData.Any(x => !x.IsUp)
+                ? "Issues detected"
+                : "OK";
         var yearStart = new DateTimeOffset(generatedAt.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
         var monthStart = new DateTimeOffset(generatedAt.Year, generatedAt.Month, 1, 0, 0, 0, TimeSpan.Zero);
         var dayStart = new DateTimeOffset(generatedAt.UtcDateTime.Date, TimeSpan.Zero);
@@ -162,17 +173,18 @@ public class ReportsController : Controller
             TotalArModels = totalArModels,
             ModelProvider = string.IsNullOrWhiteSpace(configuredModelUrl) ? "Not configured" : configuredModelProvider,
             ModelUrl = configuredModelUrl,
-            ModelStatus = !string.IsNullOrWhiteSpace(configuredModelStatus)
-                ? configuredModelStatus
-                : !string.IsNullOrWhiteSpace(configuredModelUrl)
-                    ? "Hosted externally"
-                    : totalArModels > 0 ? "Operational" : "No AR models found",
+            ModelStatus = uptimeHoursWithData.Count > 0 || string.IsNullOrWhiteSpace(configuredModelStatus)
+                ? modelStatus
+                : configuredModelStatus,
+            UptimeReportDate = uptimeReportDate,
+            ModelUptimePercent = uptimePercent,
             ErrorLogsThisYear = await CountErrorLogsAsync(yearStart, generatedAt),
             ErrorLogsThisMonth = await CountErrorLogsAsync(monthStart, generatedAt),
             ErrorLogsToday = await CountErrorLogsAsync(dayStart, dayEnd),
             GeneratedBy = User.Identity?.Name ?? "Administrator",
             GeneratedAt = generatedAt,
             DailyUsage = dailyUsage,
+            ModelUptimeHours = uptimeHours,
             TopUsers = topUsers,
             MessageTypes = messageTypes,
             TopUsersPagination = new PaginationViewModel
@@ -193,6 +205,100 @@ public class ReportsController : Controller
         };
 
         return View(model);
+    }
+
+    private async Task<IReadOnlyList<ModelUptimeHourViewModel>> GetModelUptimeHoursAsync(DateOnly date)
+    {
+        var connectionString = _dbContext.Database.GetConnectionString();
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            return BuildEmptyUptimeHours();
+        }
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            const string tableCheckSql = """
+                select 1
+                from information_schema.tables
+                where table_schema = 'public' and table_name = 'model_status_logs'
+                limit 1;
+                """;
+
+            await using (var tableCommand = new NpgsqlCommand(tableCheckSql, connection))
+            {
+                var tableExists = await tableCommand.ExecuteScalarAsync();
+                if (tableExists is null || tableExists == DBNull.Value)
+                {
+                    return BuildEmptyUptimeHours();
+                }
+            }
+
+            var singaporeZone = GetSingaporeTimeZone();
+            var localStart = date.ToDateTime(TimeOnly.MinValue);
+            var localEnd = localStart.AddDays(1);
+            var utcStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localStart, singaporeZone), TimeSpan.Zero);
+            var utcEnd = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localEnd, singaporeZone), TimeSpan.Zero);
+
+            const string sql = """
+                select extract(hour from recorded_at at time zone 'Asia/Singapore')::int as hour,
+                       count(*)::int as total_checks,
+                       count(*) filter (where upper(coalesce(status, '')) = 'OK')::int as up_checks
+                from public.model_status_logs
+                where recorded_at >= @from
+                  and recorded_at < @to
+                group by hour
+                order by hour;
+                """;
+
+            var hourlyData = new Dictionary<int, ModelUptimeHourViewModel>();
+            await using var command = new NpgsqlCommand(sql, connection);
+            command.Parameters.AddWithValue("from", utcStart);
+            command.Parameters.AddWithValue("to", utcEnd);
+
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var hour = reader.GetInt32(0);
+                hourlyData[hour] = new ModelUptimeHourViewModel
+                {
+                    Hour = hour,
+                    TotalChecks = reader.GetInt32(1),
+                    UpChecks = reader.GetInt32(2)
+                };
+            }
+
+            return Enumerable.Range(0, 24)
+                .Select(hour => hourlyData.TryGetValue(hour, out var row)
+                    ? row
+                    : new ModelUptimeHourViewModel { Hour = hour })
+                .ToList();
+        }
+        catch (PostgresException ex) when (ex.SqlState == "42P01" || ex.SqlState == "42703")
+        {
+            return BuildEmptyUptimeHours();
+        }
+    }
+
+    private static IReadOnlyList<ModelUptimeHourViewModel> BuildEmptyUptimeHours()
+    {
+        return Enumerable.Range(0, 24)
+            .Select(hour => new ModelUptimeHourViewModel { Hour = hour })
+            .ToList();
+    }
+
+    private static TimeZoneInfo GetSingaporeTimeZone()
+    {
+        try
+        {
+            return TimeZoneInfo.FindSystemTimeZoneById("Asia/Singapore");
+        }
+        catch (TimeZoneNotFoundException)
+        {
+            return TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+        }
     }
 
     private async Task<int> CountErrorLogsAsync(DateTimeOffset from, DateTimeOffset to)

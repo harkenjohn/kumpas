@@ -12,6 +12,8 @@
 @{
     var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+    var adminName = User.Identity?.Name ?? "Admin";
+    var adminInitial = string.IsNullOrWhiteSpace(adminName) ? "A" : adminName.Trim()[0].ToString().ToUpperInvariant();
 }
 @if (!isAuthenticated)
 {
@@ -46,15 +48,25 @@ else
                 </div>
 
                 <div class="topbar-actions">
-                    <div class="admin-pill">
-                        <span class="admin-name">@User.Identity?.Name</span>
-                        <span class="admin-role">Administrator</span>
-                    </div>
+                    <div class="dropdown admin-dropdown">
+                        <button class="admin-pill admin-profile-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="admin-avatar">@adminInitial</span>
+                            <span class="admin-profile-copy">
+                                <span class="admin-name">@adminName</span>
+                                <span class="admin-role">Administrator</span>
+                            </span>
+                            <span class="admin-chevron" aria-hidden="true">⌄</span>
+                        </button>
 
-                    <form asp-controller="Auth" asp-action="Logout" method="post">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-outline-primary btn-sm">Logout</button>
-                    </form>
+                        <div class="dropdown-menu dropdown-menu-end admin-menu">
+                            <a asp-controller="Settings" asp-action="Index" class="dropdown-item admin-menu-item">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <form asp-controller="Auth" asp-action="Logout" method="post" class="admin-logout-form">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item admin-menu-item admin-menu-logout">Logout</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </header>
 

@@ -17,6 +17,7 @@ public class KumpasDbContext : DbContext
     public DbSet<ArModel> ArModels => Set<ArModel>();
     public DbSet<GestureRecognitionData> GestureRecognitionData => Set<GestureRecognitionData>();
     public DbSet<SystemLog> SystemLogs => Set<SystemLog>();
+    public DbSet<ModelStatusLog> ModelStatusLogs => Set<ModelStatusLog>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -252,6 +253,22 @@ public class KumpasDbContext : DbContext
                 .WithMany(x => x.SystemLogs)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ModelStatusLog>(entity =>
+        {
+            entity.ToTable("model_status_logs");
+
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.Id)
+                .HasColumnName("id");
+
+            entity.Property(x => x.Status)
+                .HasColumnName("status");
+
+            entity.Property(x => x.RecordedAt)
+                .HasColumnName("recorded_at");
         });
     }
 }
