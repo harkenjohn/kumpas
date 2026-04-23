@@ -43,18 +43,15 @@ public class ASLManager : MonoBehaviour
     // ── Timing ────────────────────────────────────────────────
     private const float RECORD_DURATION = 2.0f;
     private const float GAP_DURATION = 1.0f;
-    private const float SESSION_END_TIME = 5.0f;
+
+    // ── Session end trigger ───────────────────────────────────
+    private const int MAX_FAILED_CLASSIFICATIONS = 2;
 
     // ── Frame capture ─────────────────────────────────────────
     [Header("Frame Capture")]
     public int sendWidth = 320;
     public int sendHeight = 240;
     private const int TARGET_FRAMES = 60;
-
-    // ── Hand presence ─────────────────────────────────────────
-    [Header("Motion Detection")]
-    [Range(0f, 0.1f)]
-    public float handPresenceThreshold = 0.005f;
 
     // ── State machine ─────────────────────────────────────────
     private enum State { Recording, Gap, Classifying, SessionEnd }
@@ -72,12 +69,11 @@ public class ASLManager : MonoBehaviour
     private List<byte[]> _recordedFrames = new List<byte[]>();
     private float _recordTimer = 0f;
     private float _gapTimer = 0f;
-    private float _handGoneTimer = 0f;
-    private bool _handPresent = false;
+
+    // ── Session end tracking ──────────────────────────────────
+    private int _consecutiveFailedClassifications = 0;
 
     // ── Frame capture helpers ──────────────────────────────────
-    private Texture2D _prevFrame = null;
-    private Texture2D _currFrame = null;
     private int _frameCounter = 0;
 
     // ── Android TTS ───────────────────────────────────────────
@@ -107,12 +103,6 @@ public class ASLManager : MonoBehaviour
         if (!_sessionActive) return;
         if (_state == State.Classifying || _state == State.SessionEnd) return;
 
-        _frameCounter++;
-        if (_frameCounter % 2 == 0)
-            CaptureCurrentFrame();
-
-        UpdateHandPresence();
-
         switch (_state)
         {
             case State.Recording: RunRecording(); break;
@@ -125,8 +115,6 @@ public class ASLManager : MonoBehaviour
     void OnDestroy()
     {
         _tts?.Call("shutdown");
-        if (_prevFrame != null) Destroy(_prevFrame);
-        if (_currFrame != null) Destroy(_currFrame);
     }
 
     // =========================================================
@@ -141,13 +129,9 @@ public class ASLManager : MonoBehaviour
         _camWaitTimer = 0f;
         _recordTimer = 0f;
         _gapTimer = 0f;
-        _handGoneTimer = 0f;
-        _handPresent = false;
+        _consecutiveFailedClassifications = 0;
         _frameCounter = 0;
         _recordedFrames.Clear();
-
-        if (_prevFrame != null) { Destroy(_prevFrame); _prevFrame = null; }
-        if (_currFrame != null) { Destroy(_currFrame); _currFrame = null; }
 
         if (webCamTexture == null)
         {
@@ -196,72 +180,34 @@ public class ASLManager : MonoBehaviour
     }
 
     // =========================================================
-    // Frame Capture
-    // =========================================================
-    void CaptureCurrentFrame()
-    {
-        if (webCamTexture == null || !webCamTexture.isPlaying) return;
-
-        if (_prevFrame != null) Destroy(_prevFrame);
-        _prevFrame = _currFrame;
-
-        var fullTex = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.RGB24, false);
-        fullTex.SetPixels(webCamTexture.GetPixels());
-        fullTex.Apply();
-
-        var rt = RenderTexture.GetTemporary(sendWidth, sendHeight, 0, RenderTextureFormat.ARGB32);
-        Graphics.Blit(fullTex, rt);
-        RenderTexture.active = rt;
-
-        _currFrame = new Texture2D(sendWidth, sendHeight, TextureFormat.RGB24, false);
-        _currFrame.ReadPixels(new Rect(0, 0, sendWidth, sendHeight), 0, 0);
-        _currFrame.Apply();
-
-        RenderTexture.active = null;
-        RenderTexture.ReleaseTemporary(rt);
-        Destroy(fullTex);
-    }
-
-    void UpdateHandPresence()
-    {
-        if (_prevFrame == null || _currFrame == null) return;
-
-        Color32[] prev = _prevFrame.GetPixels32();
-        Color32[] curr = _currFrame.GetPixels32();
-        int total = prev.Length;
-        int changed = 0;
-
-        for (int i = 0; i < total; i++)
-        {
-            float dr = Mathf.Abs(curr[i].r - prev[i].r) / 255f;
-            float dg = Mathf.Abs(curr[i].g - prev[i].g) / 255f;
-            float db = Mathf.Abs(curr[i].b - prev[i].b) / 255f;
-            if ((dr + dg + db) / 3f > 0.08f) changed++;
-        }
-
-        _handPresent = ((float)changed / total) > handPresenceThreshold;
-
-        if (_handPresent)
-            _handGoneTimer = 0f;
-        else
-            _handGoneTimer += Time.deltaTime;
-
-        if (_handGoneTimer >= SESSION_END_TIME)
-        {
-            Debug.Log("[ASL] Hand gone 5s → end session");
-            EndSession();
-        }
-    }
-
-    // =========================================================
     // State: Recording
     // =========================================================
     void RunRecording()
     {
         _recordTimer += Time.deltaTime;
 
-        if (_currFrame != null)
-            _recordedFrames.Add(_currFrame.EncodeToJPG(60));
+        // Capture frame directly from webCamTexture
+        if (webCamTexture != null && webCamTexture.isPlaying)
+        {
+            var fullTex = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.RGB24, false);
+            fullTex.SetPixels(webCamTexture.GetPixels());
+            fullTex.Apply();
+
+            var rt = RenderTexture.GetTemporary(sendWidth, sendHeight, 0, RenderTextureFormat.ARGB32);
+            Graphics.Blit(fullTex, rt);
+            RenderTexture.active = rt;
+
+            var resizedFrame = new Texture2D(sendWidth, sendHeight, TextureFormat.RGB24, false);
+            resizedFrame.ReadPixels(new Rect(0, 0, sendWidth, sendHeight), 0, 0);
+            resizedFrame.Apply();
+
+            RenderTexture.active = null;
+            RenderTexture.ReleaseTemporary(rt);
+            Destroy(fullTex);
+
+            _recordedFrames.Add(resizedFrame.EncodeToJPG(60));
+            Destroy(resizedFrame);
+        }
 
         SetStatus($"Recording… {_recordTimer:F1}s");
 
@@ -349,6 +295,16 @@ public class ASLManager : MonoBehaviour
         {
             Debug.LogError($"[ASL] Auto API error: {req.error}");
             SetStatus("API error — check connection");
+
+            // Treat API error as failed classification
+            _consecutiveFailedClassifications++;
+            Debug.Log($"[ASL] Failed classification count: {_consecutiveFailedClassifications}/{MAX_FAILED_CLASSIFICATIONS}");
+
+            if (_consecutiveFailedClassifications >= MAX_FAILED_CLASSIFICATIONS)
+            {
+                Debug.Log("[ASL] 2 consecutive failed classifications → ending session");
+                EndSession();
+            }
         }
         else
         {
@@ -356,6 +312,8 @@ public class ASLManager : MonoBehaviour
 
             if (response.detected && !string.IsNullOrEmpty(response.result))
             {
+                // SUCCESS — reset counter and append result
+                _consecutiveFailedClassifications = 0;
                 AppendToSentence(response.result);
 
                 if (response.result_type == "letter")
@@ -371,8 +329,16 @@ public class ASLManager : MonoBehaviour
             }
             else
             {
+                // FAILED — increment counter
+                _consecutiveFailedClassifications++;
                 SetStatus("Not recognized");
-                Debug.Log("[ASL] Nothing recognized this window");
+                Debug.Log($"[ASL] Nothing recognized this window. Failed count: {_consecutiveFailedClassifications}/{MAX_FAILED_CLASSIFICATIONS}");
+
+                if (_consecutiveFailedClassifications >= MAX_FAILED_CLASSIFICATIONS)
+                {
+                    Debug.Log("[ASL] 2 consecutive failed classifications → ending session");
+                    EndSession();
+                }
             }
         }
     }

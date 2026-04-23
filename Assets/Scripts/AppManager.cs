@@ -731,14 +731,23 @@ public class AppManager : MonoBehaviour
             if (session != null)
             {
                 Debug.Log("Registration Successful!");
-                uiManager.ShowStatus("Registration Successful! Please check your email to verify and then Log in.", "register");
+                uiManager.ShowStatus("Registration Successful!", "register");
                 ChangeState(AppState.Login);
             }
         }
         catch (System.Exception ex)
         {
-            Debug.LogError("Registration Failed: " + ex.Message);
-            uiManager.ShowStatus("Registration Failed: " + ex.Message, "register");
+            string userMessage;
+            if (ex.Message.Contains("User already registered"))
+                userMessage = "An account with this email already exists.";
+            else if (ex.Message.Contains("Password should be at least"))
+                userMessage = "Password must have 1 uppercase, 1 lowercase letter, 1 special character, and 1 number.";
+            else if (ex.Message.Contains("Unable to validate email"))
+                userMessage = "Please enter a valid email address.";
+            else
+                userMessage = "Registration failed. Please try again.";
+
+            uiManager.ShowStatus(userMessage, "register");
         }
     }
 

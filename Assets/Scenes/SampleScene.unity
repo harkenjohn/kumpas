@@ -4812,16 +4812,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287006420}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1597546634}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2336}
+  m_AnchoredPosition: {x: -1011, y: -87}
   m_SizeDelta: {x: 2000, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287006422
@@ -16336,16 +16336,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856155466}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1597546634}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2249}
+  m_AnchoredPosition: {x: 1023, y: 1114}
   m_SizeDelta: {x: 2000, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &856155468
@@ -16433,7 +16433,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -4.675354, y: 0, z: 0, w: 0}
+  m_margin: {x: 94.6062, y: 0, z: -2203.8774, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -25693,6 +25693,7 @@ MonoBehaviour:
   handLandmarkCanvas: {fileID: 1115078976}
   poseLandmarkCanvas: {fileID: 1650856940}
   handSolution: {fileID: 441348440}
+  aslOrientationHandler: {fileID: 1980445970}
 --- !u!224 &1188492208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28647,6 +28648,10 @@ PrefabInstance:
     - target: {fileID: 3259285889726014651, guid: 5713b959e3c77a58fb258133fc8e4aef, type: 3}
       propertyPath: m_Name
       value: Annotatable Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259285889726014655, guid: 5713b959e3c77a58fb258133fc8e4aef, type: 3}
+      propertyPath: _fitMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36659,6 +36664,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8571076842338426122, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571076842338426122, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571076842338426122, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -40964,6 +40977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980445968}
   - component: {fileID: 1980445969}
+  - component: {fileID: 1980445970}
   m_Layer: 0
   m_Name: ASLManager
   m_TagString: Untagged
@@ -40998,7 +41012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af30ac459000c9409a947af342793cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ASLManager
-  apiBaseUrl: https://kennn14-sign-language-recognition-api.hf.space
+  apiBaseUrl: https://kumpas-model-sign-language-recognition-api.hf.space
   webCamTexture: {fileID: 0}
   predictionText: {fileID: 2132021170}
   sentenceText: {fileID: 856155468}
@@ -41006,9 +41020,23 @@ MonoBehaviour:
   statusText: {fileID: 287006422}
   appManager: {fileID: 71467503}
   uiManager: {fileID: 1188492207}
-  sendWidth: 320
-  sendHeight: 240
-  handPresenceThreshold: 0.005
+  sendWidth: 640
+  sendHeight: 480
+--- !u!114 &1980445970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980445967}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b3425faa6c1404cb000fc28fe0198f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ASLOrientationHandler
+  statusText: {fileID: 0}
+  previewText: {fileID: 0}
+  cameraFeedBody: {fileID: 0}
 --- !u!1 &1986288323
 GameObject:
   m_ObjectHideFlags: 0

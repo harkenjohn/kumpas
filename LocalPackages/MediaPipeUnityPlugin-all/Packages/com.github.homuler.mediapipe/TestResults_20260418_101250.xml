@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-04-18 02:12:00Z" end-time="2026-04-18 02:12:08Z" duration="7.9433863">
+  <test-suite type="TestSuite" id="1007" name="Kumpas" fullname="Kumpas" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-04-18 02:12:00Z" end-time="2026-04-18 02:12:08Z" duration="7.943386" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1003" name="Tests.PlayMode.dll" fullname="C:/Users/Harken/Desktop/Kumpas/Kumpas/Library/ScriptAssemblies/Tests.PlayMode.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-04-18 02:12:00Z" end-time="2026-04-18 02:12:08Z" duration="7.908415" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16304" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="TC014_SignToSpeech_VisualInput" fullname="TC014_SignToSpeech_VisualInput" classname="TC014_SignToSpeech_VisualInput" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-04-18 02:12:00Z" end-time="2026-04-18 02:12:08Z" duration="7.891302" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="TC014_ValidHandGesture_CorrectTextDisplayedAndSpeakTextTriggered" fullname="TC014_SignToSpeech_VisualInput.TC014_ValidHandGesture_CorrectTextDisplayedAndSpeakTextTriggered" methodname="TC014_ValidHandGesture_CorrectTextDisplayedAndSpeakTextTriggered" classname="TC014_SignToSpeech_VisualInput" runstate="Runnable" seed="1056691840" result="Passed" start-time="2026-04-18 02:12:00Z" end-time="2026-04-18 02:12:08Z" duration="7.845152" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[TC-014] Video has 60 total frames.
+[TC-014] Frame extraction complete. 60 frames captured.
+[TC-014] Captured 60 raw frames.
+[TC-014] Downsampled to 60 frames. Sending to API...
+[TC-014] Raw API response: {"result":"HELLO","result_type":"phrase","confidence":0.9998284578323364,"vote_ratio":0.0,"detected":true}
+[TC-014] API returned: 'HELLO', detected: True
+[TC-014] SimulateSpeakText called with: 'HELLO'
+[TC-014] PASSED — Recognized: 'HELLO', SpeakText triggered with: 'HELLO'
+Saving results to: C:/Users/Harken/AppData/LocalLow/DefaultCompany/Kumpas\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
