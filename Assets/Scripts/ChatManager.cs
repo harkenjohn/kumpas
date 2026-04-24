@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
 using Kumpas.Models;
@@ -94,7 +94,7 @@ public class ChatManager : MonoBehaviour
 
     // Only these message types represent real conversation content worth
     // displaying. Internal signalling types (ASL state broadcasts, remote
-    // camera requests) are excluded — they carry no meaningful text.
+    // camera requests) are excluded ï¿½ they carry no meaningful text.
     private static readonly HashSet<string> DisplayableMessageTypes = new HashSet<string>
     {
         "TEXT_TO_SIGN",
@@ -118,7 +118,7 @@ public class ChatManager : MonoBehaviour
                 return new List<ChatMessage>();
 
             // Filter out internal signalling messages (ASL states, remote camera
-            // requests, etc.) — only keep actual conversation content.
+            // requests, etc.) ï¿½ only keep actual conversation content.
             return response.Models
                 .Where(m => DisplayableMessageTypes.Contains(m.MessageType)
                             && !string.IsNullOrWhiteSpace(m.MessageContent))
@@ -140,20 +140,23 @@ public class ChatManager : MonoBehaviour
     {
         try
         {
+            // Fetch all messages for the session, ordered descending by date
             var response = await SupabaseManager.Instance
                 .From<ChatMessage>()
                 .Where(m => m.SessionId == sessionId)
                 .Order(m => m.CreatedAt, Postgrest.Constants.Ordering.Descending)
-                .Limit(1)
                 .Get();
 
             if (response.Models == null || response.Models.Count == 0)
                 return null;
 
+            // Filter in-memory to only displayable types with real content,
+            // then take the most recent one. This ensures ASL state/control
+            // messages don't shadow real conversation messages.
             var latest = response.Models
                 .Where(m => DisplayableMessageTypes.Contains(m.MessageType)
                             && !string.IsNullOrWhiteSpace(m.MessageContent))
-                .FirstOrDefault();
+                .FirstOrDefault(); // already sorted descending
 
             return latest?.CreatedAt;
         }
@@ -161,6 +164,32 @@ public class ChatManager : MonoBehaviour
         {
             Debug.LogError($"[ChatManager] Error fetching latest message date for session {sessionId}: {ex.Message}");
             return null;
+        }
+    }
+
+    // --- SAVE NICKNAME ---
+
+    // Saves the user's chosen nickname for a session partner.
+    // Each user has their own nickname column (user_1_nickname / user_2_nickname).
+    public async Task<bool> SaveNickname(ChatSession session, string myUserId, string nickname)
+    {
+        try
+        {
+            bool isUser1 = session.User1Id == myUserId;
+
+            if (isUser1)
+                session.User1Nickname = nickname;
+            else
+                session.User2Nickname = nickname;
+
+            await session.Update<ChatSession>();
+            Debug.Log($"[ChatManager] Nickname saved: '{nickname}' for session {session.Id}");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[ChatManager] Error saving nickname: {ex.Message}");
+            return false;
         }
     }
 

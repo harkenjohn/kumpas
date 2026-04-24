@@ -396,6 +396,23 @@ public class AppManager : MonoBehaviour
         return currentPartnerDisplayName;
     }
 
+    public string GetCurrentUserId()
+    {
+        return currentUserProfile?.Id;
+    }
+
+    public async void SaveNickname(ChatSession session, string nickname)
+    {
+        if (chatManager == null || currentUserProfile == null || session == null) return;
+
+        bool success = await chatManager.SaveNickname(session, currentUserProfile.Id, nickname);
+
+        if (success)
+            Debug.Log($"[AppManager] Nickname '{nickname}' saved for session {session.Id}");
+        else
+            Debug.LogError("[AppManager] Failed to save nickname.");
+    }
+
     // -------------------------------------------------------------------------
     // --- HISTORY / CONVERSATION VIEW -----------------------------------------
     // -------------------------------------------------------------------------
@@ -420,7 +437,8 @@ public class AppManager : MonoBehaviour
 
         uiManager.SetHistoryStatus("");
 
-        int renderedCount = 0;
+        // --- Build card data list first, then sort by latest message date ---
+        var cardDataList = new List<(ChatSession session, string partnerName, DateTime? latestMessageDate)>();
 
         foreach (var session in sessions)
         {
@@ -440,11 +458,27 @@ public class AppManager : MonoBehaviour
             }
 
             DateTime? latestMessageDate = await chatManager.GetLatestMessageDate(session.Id);
-            uiManager.CreateConversationCard(session, partnerName, myUserId, latestMessageDate);
-            renderedCount++;
+
+            // Use nickname if set, otherwise fall back to real name
+            string displayName = isUser1
+                ? (string.IsNullOrWhiteSpace(session.User1Nickname) ? partnerName : session.User1Nickname)
+                : (string.IsNullOrWhiteSpace(session.User2Nickname) ? partnerName : session.User2Nickname);
+
+            cardDataList.Add((session, displayName, latestMessageDate));
         }
 
-        if (renderedCount == 0)
+        // Sort by latest message date descending (sessions with no messages fall to the bottom)
+        cardDataList.Sort((a, b) =>
+        {
+            DateTime aDate = a.latestMessageDate ?? a.session.CreatedAt ?? DateTime.MinValue;
+            DateTime bDate = b.latestMessageDate ?? b.session.CreatedAt ?? DateTime.MinValue;
+            return bDate.CompareTo(aDate);
+        });
+
+        foreach (var (session, partnerName, latestMessageDate) in cardDataList)
+            uiManager.CreateConversationCard(session, partnerName, myUserId, latestMessageDate);
+
+        if (cardDataList.Count == 0)
             uiManager.SetHistoryStatus("No completed conversations found.");
     }
 

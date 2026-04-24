@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     private AppManager appManager; // This will be our connection to the "brain"
     private List<GameObject> activeHistoryCards = new List<GameObject>(); // Tracks dynamically created cards
     private List<GameObject> activeMessageBubbles = new List<GameObject>(); // Tracks dynamically created message bubbles
+    private ConversationCard _pendingNicknameCard; // The card waiting for nickname input
 
     // --- PANELS ---
     [Header("Panels")]
@@ -52,6 +53,13 @@ public class UIManager : MonoBehaviour
     [Header("History Panels")]
     public GameObject historyPanel;         // The panel containing chat history list
     public GameObject conversationViewPanel; // The panel showing messages inside a chat
+
+    // --- NICKNAME EDIT MODAL ---
+    [Header("Nickname Edit Modal")]
+    public GameObject editNicknameModal;         // EditNickname panel inside historyPanel
+    public TMP_InputField nicknameModalInput;    // NicknameInput input field
+    public Button nicknameModalSaveButton;       // Save button
+    public Button nicknameModalCancelButton;     // Cancel button
 
     // --- CONVERSATION VIEW UI (UPDATED) ---
     [Header("Conversation View UI")]
@@ -152,6 +160,16 @@ public class UIManager : MonoBehaviour
         {
             backToHistoryButton.onClick.AddListener(OnBackToHistoryButton);
         }
+
+        // Wire nickname modal buttons once at init
+        if (nicknameModalSaveButton != null)
+            nicknameModalSaveButton.onClick.AddListener(OnNicknameModalSave);
+
+        if (nicknameModalCancelButton != null)
+            nicknameModalCancelButton.onClick.AddListener(OnNicknameModalCancel);
+
+        if (editNicknameModal != null)
+            editNicknameModal.SetActive(false);
     }
 
     // --- HELPER: HIDES ALL PANELS ---
@@ -438,6 +456,55 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         if (textToSignInputPanel != null) textToSignInputPanel.SetActive(true);      // SHOW
+    }
+
+    // --- NICKNAME MODAL ---
+
+    // Called by ConversationCard when the edit button is tapped
+    public void OpenNicknameModal(ConversationCard card, string currentName)
+    {
+        _pendingNicknameCard = card;
+
+        if (nicknameModalInput != null)
+        {
+            nicknameModalInput.text = currentName;
+            nicknameModalInput.ActivateInputField();
+        }
+
+        if (editNicknameModal != null)
+            editNicknameModal.SetActive(true);
+
+        Debug.Log($"[UIManager] Nickname modal opened. Current name: '{currentName}'");
+    }
+
+    private void OnNicknameModalSave()
+    {
+        string newNickname = nicknameModalInput != null ? nicknameModalInput.text.Trim() : "";
+
+        if (!string.IsNullOrWhiteSpace(newNickname) && _pendingNicknameCard != null)
+        {
+            _pendingNicknameCard.ApplyNickname(newNickname);
+            Debug.Log($"[UIManager] Nickname saved: '{newNickname}'");
+        }
+
+        CloseNicknameModal();
+    }
+
+    private void OnNicknameModalCancel()
+    {
+        Debug.Log("[UIManager] Nickname modal cancelled.");
+        CloseNicknameModal();
+    }
+
+    private void CloseNicknameModal()
+    {
+        if (editNicknameModal != null)
+            editNicknameModal.SetActive(false);
+
+        _pendingNicknameCard = null;
+
+        if (nicknameModalInput != null)
+            nicknameModalInput.text = "";
     }
 
     // --- HISTORY SHOW FUNCTIONS (NEW) ---

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Kumpas.Models;
@@ -7,8 +7,8 @@ using System;
 /*
  * CONVERSATION CARD (VIEW)
  * * WHAT IT DOES:
- * - Displays session data (Date, Partner Name).
- * - Handles Click/Edit/Delete actions for this specific session.
+ * - Displays session data (Date, Partner Name / Nickname).
+ * - Edit button opens the nickname modal via UIManager.
  */
 public class ConversationCard : MonoBehaviour
 {
@@ -17,38 +17,32 @@ public class ConversationCard : MonoBehaviour
     public TMP_Text partnerNameText;
     public Button editButton;
     public Button deleteButton;
-    public Button cardButton; // The main button covering the whole card
+    public Button cardButton;
 
-    // Private state for the session this card represents
+    // Private state
     private ChatSession session;
     private UIManager uiManager;
     private AppManager appManager;
     private string myUserId;
+    private string currentDisplayName;
 
-    // Call this immediately after instantiation to set the data
     public void Initialize(ChatSession chatSession, UIManager ui, AppManager am, string partnerName, string userId, DateTime? latestMessageDate = null)
     {
         session = chatSession;
         uiManager = ui;
         appManager = am;
         myUserId = userId;
+        currentDisplayName = partnerName;
 
-        // Use the latest message date if available, otherwise fall back to session creation date
+        // Date display
         DateTime? displayDate = latestMessageDate ?? session.CreatedAt;
+        dateText.text = displayDate.HasValue
+            ? displayDate.Value.ToLocalTime().ToString("MMM dd, yyyy")
+            : "Just Now";
 
-        if (displayDate.HasValue)
-        {
-            dateText.text = displayDate.Value.ToLocalTime().ToString("MMM dd, yyyy");
-        }
-        else
-        {
-            dateText.text = "Just Now";
-        }
+        partnerNameText.text = currentDisplayName;
 
-        partnerNameText.text = partnerName;
-
-        // Set up listeners (The cardButton is the main click action)
-        // RemoveAllListeners prevents stacking events if the card is pooled/reused
+        // Wire buttons
         cardButton.onClick.RemoveAllListeners();
         cardButton.onClick.AddListener(OnCardClicked);
 
@@ -59,24 +53,32 @@ public class ConversationCard : MonoBehaviour
         deleteButton.onClick.AddListener(OnDeleteClicked);
     }
 
-    private void OnCardClicked()
+    // Called by UIManager after the user confirms a nickname in the modal
+    public void ApplyNickname(string newNickname)
     {
-        Debug.Log($"Card clicked! Opening Session ID: {session.Id}");
+        if (string.IsNullOrWhiteSpace(newNickname)) return;
 
-        // Tell AppManager to load this session for viewing
-        appManager.ViewChatHistory(session);
+        currentDisplayName = newNickname;
+        partnerNameText.text = newNickname;
+        appManager.SaveNickname(session, newNickname);
+        Debug.Log($"[ConversationCard] Nickname applied: '{newNickname}'");
     }
 
     private void OnEditClicked()
     {
-        Debug.Log($"Edit clicked for Session ID: {session.Id}");
-        // Optional: Implement simple edit functionality or just review.
+        Debug.Log($"[ConversationCard] Edit clicked for session {session.Id}");
+        uiManager.OpenNicknameModal(this, currentDisplayName);
+    }
+
+    private void OnCardClicked()
+    {
+        Debug.Log($"[ConversationCard] Card clicked. Opening session {session.Id}");
+        appManager.ViewChatHistory(session);
     }
 
     private void OnDeleteClicked()
     {
-        Debug.Log($"Delete clicked for Session ID: {session.Id}");
-        // Calls the AppManager function to delete the record in Supabase
+        Debug.Log($"[ConversationCard] Delete clicked for session {session.Id}");
         appManager.DeleteChatSession(session);
     }
 }

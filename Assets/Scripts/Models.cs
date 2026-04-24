@@ -52,6 +52,13 @@ namespace Kumpas.Models
         [Column("user_2_deleted")]
         public bool User2Deleted { get; set; } = false;
 
+        // Nicknames — each user can independently label the conversation
+        [Column("user_1_nickname")]
+        public string User1Nickname { get; set; }
+
+        [Column("user_2_nickname")]
+        public string User2Nickname { get; set; }
+
         [Column("room_code")]
         public string RoomCode { get; set; }
 
