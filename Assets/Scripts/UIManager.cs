@@ -150,6 +150,15 @@ public class UIManager : MonoBehaviour
 
     private Coroutine _joinErrorCoroutine;
 
+    [Header("Forgot Password Panel")]
+    public GameObject forgotPasswordPanel;
+    public TMP_InputField forgotPasswordInput;
+    public TMP_Text forgotPasswordStatusText;
+
+    [Header("Room Code Display")]
+    public TMP_Text cameraRoomCodeText;
+    public TMP_Text audioRoomCodeText;
+
 
     // This function will be called by AppManager to connect them
     public void Initialize(AppManager am)
@@ -193,6 +202,7 @@ public class UIManager : MonoBehaviour
         voiceInputPanel?.SetActive(false);
         toSpeechQuickChatPanel?.SetActive(false); // ADDED THIS
         toSignQuickChatPanel?.SetActive(false);
+        forgotPasswordPanel?.SetActive(false); // ← ADD THIS
 
         // Disable the visual canvas but leave handSolution running —
         // disabling a MediaPipe Async runner breaks it permanently.
@@ -1176,6 +1186,10 @@ public class UIManager : MonoBehaviour
             if (speech_JoinSessionButton != null) speech_JoinSessionButton.interactable = true;
             if (speech_JoinWithoutSessionButton != null) speech_JoinWithoutSessionButton.interactable = true;
         }
+
+        // Always update the room code display on both input panels
+        if (cameraRoomCodeText != null) cameraRoomCodeText.text = "Session: " + roomCode;
+        if (audioRoomCodeText != null) audioRoomCodeText.text = "Session: " + roomCode;
     }
 
     // Clears the login fields
@@ -1240,4 +1254,33 @@ public class UIManager : MonoBehaviour
         ClearPasswordFields();
         if (changePasswordSuccessText != null) changePasswordSuccessText.SetActive(true);
     }
+
+    public void ShowForgotPasswordPanel()
+    {
+        HideAllPanels();
+        if (forgotPasswordPanel != null) forgotPasswordPanel.SetActive(true);
+        if (forgotPasswordInput != null) forgotPasswordInput.text = "";
+        if (forgotPasswordStatusText != null) forgotPasswordStatusText.text = "";
+    }
+
+    public void ShowForgotPasswordStatus(string message)
+    {
+        if (forgotPasswordStatusText != null) forgotPasswordStatusText.text = message;
+    }
+
+    // Called by the Send Reset Link button
+    public void OnForgotPasswordButton()
+    {
+        if (appManager == null) return;
+        string email = forgotPasswordInput != null ? forgotPasswordInput.text.Trim() : "";
+        appManager.SendPasswordReset(email);
+    }
+
+    // Add to UIManager:
+    public void OnForgotPasswordLinkButton()
+    {
+        if (appManager == null) return;
+        appManager.ChangeState(AppManager.AppState.ForgotPassword);
+    }
+    
 }

@@ -61,7 +61,8 @@ public class AppManager : MonoBehaviour
         History,
         ConversationView,
         ToSpeechQuickChat,
-        ToSignQuickChat
+        ToSignQuickChat,
+        ForgotPassword
     }
     private AppState currentState;
 
@@ -269,6 +270,9 @@ public class AppManager : MonoBehaviour
                 break;
             case AppState.ToSignQuickChat:
                 if (uiManager != null) uiManager.ShowToSignQuickChatPanel();
+                break;
+            case AppState.ForgotPassword:
+                if (uiManager != null) uiManager.ShowForgotPasswordPanel();
                 break;
         }
     }
@@ -891,6 +895,48 @@ public class AppManager : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError("Deactivation Failed: " + ex.Message);
+        }
+    }
+
+    public async void SendPasswordReset(string email)
+    {
+        if (uiManager == null) return;
+
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            uiManager.ShowForgotPasswordStatus("Please enter your email.");
+            return;
+        }
+
+        uiManager.ShowForgotPasswordStatus("Sending reset link...");
+
+        try
+        {
+            await SupabaseManager.Instance.Auth.ResetPasswordForEmail(
+                new Supabase.Gotrue.ResetPasswordForEmailOptions(email)
+                {
+                    RedirectTo = "https://adm4444.github.io/kumpas-reset-password"
+                }
+            );
+            uiManager.ShowForgotPasswordStatus("Reset link sent! Check your email.");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[AppManager] Password reset failed: {ex.Message}");
+
+            // Parse the Supabase JSON error into a clean user-friendly message
+            string userMessage = "Something went wrong. Please try again.";
+
+            if (ex.Message.Contains("invalid format") || ex.Message.Contains("validation_failed"))
+                userMessage = "Please enter a valid email address.";
+            else if (ex.Message.Contains("email_address_invalid"))
+                userMessage = "That email address is invalid.";
+            else if (ex.Message.Contains("user_not_found") || ex.Message.Contains("404"))
+                userMessage = "No account found with that email.";
+            else if (ex.Message.Contains("rate_limit") || ex.Message.Contains("429"))
+                userMessage = "Too many attempts. Please wait and try again.";
+
+            uiManager.ShowForgotPasswordStatus(userMessage);
         }
     }
 }
