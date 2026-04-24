@@ -141,7 +141,22 @@ public class AppManager : MonoBehaviour
         Debug.Log($"[AppManager] SpeakText: '{spokenText}'");
 #if UNITY_ANDROID && !UNITY_EDITOR
         if (_ttsReady && _tts != null)
-            _tts.Call<int>("speak", spokenText, 0, null, null);
+        {
+            try
+            {
+                AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                string capturedText = spokenText; // capture for lambda
+                activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+                {
+                    _tts.Call<int>("speak", capturedText, 0, null, null);
+                }));
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[AppManager] SpeakText failed: {e.Message}");
+            }
+        }
 #else
         Debug.Log($"[AppManager] Editor TTS: '{spokenText}'");
 #endif
@@ -591,7 +606,6 @@ public class AppManager : MonoBehaviour
             {
                 Debug.LogError("[AppManager] Session not found or room is full.");
                 uiManager.OnJoinSessionFailed("Room not found or is full.");
-                //uiManager.SetSessionStatus("Error: Room not found or is full.");
                 return;
             }
 
@@ -618,7 +632,6 @@ public class AppManager : MonoBehaviour
             {
                 Debug.LogError("[AppManager] Found room, but User 2 is occupied by another ID.");
                 uiManager.OnJoinSessionFailed("Room is full.");
-                //uiManager.SetSessionStatus("Error: Room is full.");
                 return;
             }
 
@@ -924,7 +937,6 @@ public class AppManager : MonoBehaviour
         {
             Debug.LogError($"[AppManager] Password reset failed: {ex.Message}");
 
-            // Parse the Supabase JSON error into a clean user-friendly message
             string userMessage = "Something went wrong. Please try again.";
 
             if (ex.Message.Contains("invalid format") || ex.Message.Contains("validation_failed"))
