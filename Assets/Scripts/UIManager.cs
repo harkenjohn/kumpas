@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Kumpas.Models;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 using Mediapipe.Unity.Sample.FaceLandmarkDetection;
 
 /*
@@ -41,11 +42,11 @@ public class UIManager : MonoBehaviour
 
     [Header("Text To Sign Toast")]
     public GameObject textToSignToastObject;  // the SendToast panel
-    public TMP_Text   textToSignToastIcon;    // ✓ or ✗
-    public TMP_Text   textToSignToastMessage; // "Message Sent!" etc.
-    public float      textToSignToastDuration = 3f;
+    public TMP_Text textToSignToastIcon;    // ✓ or ✗
+    public TMP_Text textToSignToastMessage; // "Message Sent!" etc.
+    public float textToSignToastDuration = 3f;
 
-private Coroutine _textToSignToastCoroutine;
+    private Coroutine _textToSignToastCoroutine;
 
     // --- NEW HISTORY PANELS ---
     [Header("History Panels")]
@@ -130,11 +131,17 @@ private Coroutine _textToSignToastCoroutine;
     [Tooltip("Assign the GameObject that has ASLOrientationHandler attached")]
     public ASLOrientationHandler aslOrientationHandler;
 
+
+    [Header("ASL State Overlay (Signer's Device)")]
+    [Tooltip("Full-screen Image inside CameraInputMethodPanel used to flash state colors to the Signer")]
+    public Image aslStateOverlay;
+
     [Header("Join Error Text")]
     public TMP_Text signJoinErrorText;
     public TMP_Text speechJoinErrorText;
 
     private Coroutine _joinErrorCoroutine;
+
 
     // This function will be called by AppManager to connect them
     public void Initialize(AppManager am)
@@ -226,7 +233,7 @@ private Coroutine _textToSignToastCoroutine;
         if (landMarker != null) landMarker.SetActive(false);
         if (mediaPipeSolution != null) mediaPipeSolution.SetActive(false);
         if (cameraFeedContainer != null) cameraFeedContainer.SetActive(false);
-        
+
 
         // Restore the app UI
         if (uiRoot != null) uiRoot.SetActive(true);
@@ -308,13 +315,28 @@ private Coroutine _textToSignToastCoroutine;
         if (toSignQuickChatPanel != null) toSignQuickChatPanel.SetActive(true);
     }
 
-    // Called by the Camera button inside CameraInputMethodPanel
-    // Opens the ASL fullscreen camera feed and starts the ASL session
+    // Called by the Camera button inside CameraInputMethodPanel (Signer's device).
+    // Instead of opening the camera locally, sends a REMOTE_CAMERA_REQUEST to the
+    // Speaker's device so they point their camera at the Signer.
     public void OnOpenASLCameraButton()
+    {
+        if (appManager == null)
+        {
+            Debug.LogError("[UIManager] AppManager reference not set!");
+            return;
+        }
+
+        appManager.SendTextMessage("", "REMOTE_CAMERA_REQUEST");
+        Debug.Log("[UIManager] Sent REMOTE_CAMERA_REQUEST — Speaker's device will open ASL camera.");
+    }
+
+    // Called by AppManager on the SPEAKER's device when REMOTE_CAMERA_REQUEST is received.
+    // Opens the ASL camera feed and starts the recognition session here.
+    public void TriggerRemoteASLSession()
     {
         if (aslManager == null)
         {
-            Debug.LogError("[UIManager] ASLManager reference not set!");
+            Debug.LogError("[UIManager] ASLManager reference not set — cannot start remote ASL session!");
             return;
         }
 
@@ -325,32 +347,73 @@ private Coroutine _textToSignToastCoroutine;
         // NOTE: handSolution and PoseLandmarkerRunner are NOT toggled —
         // disabling MediaPipe Async runners breaks them permanently.
 
-        // Force landscape for ASL recognition and notify orientation handler
-        //Screen.orientation = ScreenOrientation.LandscapeLeft;
         if (aslOrientationHandler != null) aslOrientationHandler.OnASLSessionStarted();
 
         aslManager.StartSession();
 
-        Debug.Log("[UIManager] ASL Camera opened - forced landscape");
+        Debug.Log("[UIManager] TriggerRemoteASLSession — ASL camera opened on Speaker device.");
     }
 
     // Called by ASLManager when the session ends (3s timeout)
-    // Hides the camera feed and returns to the CameraInputMethodPanel
+    // Hides the camera feed and returns to the AudioInputMethodPanel
     public void OnASLSessionEnded()
     {
         // Hide the camera canvases, restore app UI
         if (handLandmarkCanvas != null) handLandmarkCanvas.SetActive(false);
         if (poseLandmarkCanvas != null) poseLandmarkCanvas.SetActive(false);
         if (uiRoot != null) uiRoot.SetActive(true);
-        if (cameraInputMethodPanel != null) cameraInputMethodPanel.SetActive(true);
+        if (audioInputMethodPanel != null) audioInputMethodPanel.SetActive(true);
         // NOTE: handSolution and PoseLandmarkerRunner are NOT touched —
         // disabling MediaPipe Async runners breaks them permanently.
 
-        // Revert to portrait and notify orientation handler
-        //Screen.orientation = ScreenOrientation.Portrait;
         if (aslOrientationHandler != null) aslOrientationHandler.OnASLSessionEnded();
 
-        Debug.Log("[UIManager] ASL session ended - returned to CameraInputMethodPanel");
+        Debug.Log("[UIManager] ASL session ended - returned to AudioInputMethodPanel");
+    }
+
+    // Called by AppManager on the SIGNER's device when an ASL state message is received.
+    // Changes the overlay color to signal the current recording state.
+    //   ASL_STATE_GAP         → Orange  (get ready)
+    //   ASL_STATE_RECORDING   → Green   (sign now!)
+    //   ASL_STATE_CLASSIFYING → Red     (processing)
+    //   ASL_STATE_END         → hide overlay
+    public void SetASLStateOverlay(string stateType)
+    {
+        if (aslStateOverlay == null)
+        {
+            Debug.LogWarning("[UIManager] aslStateOverlay is not assigned — cannot show state color.");
+            return;
+        }
+
+        switch (stateType)
+        {
+            case "ASL_STATE_GAP":
+                aslStateOverlay.color = new Color(1f, 0.55f, 0f, 1f);   // Orange, fully opaque
+                aslStateOverlay.gameObject.SetActive(true);
+                Debug.Log("[UIManager] Overlay → ORANGE (Gap)");
+                break;
+
+            case "ASL_STATE_RECORDING":
+                aslStateOverlay.color = new Color(0.18f, 0.8f, 0.44f, 1f); // Green, fully opaque
+                aslStateOverlay.gameObject.SetActive(true);
+                Debug.Log("[UIManager] Overlay → GREEN (Recording)");
+                break;
+
+            case "ASL_STATE_CLASSIFYING":
+                aslStateOverlay.color = new Color(0.91f, 0.3f, 0.24f, 1f); // Red, fully opaque
+                aslStateOverlay.gameObject.SetActive(true);
+                Debug.Log("[UIManager] Overlay → RED (Classifying)");
+                break;
+
+            case "ASL_STATE_END":
+                aslStateOverlay.gameObject.SetActive(false);
+                Debug.Log("[UIManager] Overlay → hidden (End)");
+                break;
+
+            default:
+                Debug.LogWarning($"[UIManager] Unknown ASL state: '{stateType}'");
+                break;
+        }
     }
 
     public void ShowAudioInputMethodPanel()
@@ -403,7 +466,7 @@ private Coroutine _textToSignToastCoroutine;
     // --- 2. DYNAMIC HISTORY FUNCTIONS (NEW) ---
 
     // Called by AppManager to create a new card from fetched data
-    public void CreateConversationCard(ChatSession session, string partnerName, string myUserId)
+    public void CreateConversationCard(ChatSession session, string partnerName, string myUserId, DateTime? latestMessageDate = null)
     {
         if (conversationCardPrefab == null || historyContentContainer == null)
         {
@@ -416,7 +479,7 @@ private Coroutine _textToSignToastCoroutine;
 
         if (newCard != null)
         {
-            newCard.Initialize(session, this, appManager, partnerName, myUserId);
+            newCard.Initialize(session, this, appManager, partnerName, myUserId, latestMessageDate);
             activeHistoryCards.Add(newCardObject);
         }
         else
