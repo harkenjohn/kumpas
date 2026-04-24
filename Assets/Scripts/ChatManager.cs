@@ -90,9 +90,18 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    // --- NEW: FETCH CHAT MESSAGES FOR A SESSION ---
+    // --- FETCH CHAT MESSAGES FOR A SESSION ---
 
-    // Fetches all messages for a given session ID, ordered by timestamp.
+    // Only these message types represent real conversation content worth
+    // displaying. Internal signalling types (ASL state broadcasts, remote
+    // camera requests) are excluded — they carry no meaningful text.
+    private static readonly HashSet<string> DisplayableMessageTypes = new HashSet<string>
+    {
+        "TEXT_TO_SIGN",
+        "TEXT_TO_SPEECH"
+    };
+
+    // Fetches displayable conversation messages for a session, ordered by timestamp.
     public async Task<List<ChatMessage>> GetChatMessages(string sessionId)
     {
         Debug.Log($"[ChatManager] Fetching messages for session: {sessionId}");
@@ -102,21 +111,56 @@ public class ChatManager : MonoBehaviour
             var response = await SupabaseManager.Instance
                 .From<ChatMessage>()
                 .Where(m => m.SessionId == sessionId)
-                // IMPORTANT: Sort by created_at to display messages in order
                 .Order(m => m.CreatedAt, Postgrest.Constants.Ordering.Ascending)
                 .Get();
 
             if (response.Models == null)
-            {
                 return new List<ChatMessage>();
-            }
 
-            return response.Models.ToList();
+            // Filter out internal signalling messages (ASL states, remote camera
+            // requests, etc.) — only keep actual conversation content.
+            return response.Models
+                .Where(m => DisplayableMessageTypes.Contains(m.MessageType)
+                            && !string.IsNullOrWhiteSpace(m.MessageContent))
+                .ToList();
         }
         catch (Exception ex)
         {
             Debug.LogError($"[ChatManager] Error fetching messages for session {sessionId}: {ex.Message}");
             return new List<ChatMessage>();
+        }
+    }
+
+    // --- FETCH LATEST MESSAGE DATE FOR A SESSION ---
+
+    // Returns the CreatedAt timestamp of the most recent message in a session.
+    // Only considers displayable message types (TEXT_TO_SIGN, TEXT_TO_SPEECH).
+    // Returns null if no messages exist yet.
+    public async Task<DateTime?> GetLatestMessageDate(string sessionId)
+    {
+        try
+        {
+            var response = await SupabaseManager.Instance
+                .From<ChatMessage>()
+                .Where(m => m.SessionId == sessionId)
+                .Order(m => m.CreatedAt, Postgrest.Constants.Ordering.Descending)
+                .Limit(1)
+                .Get();
+
+            if (response.Models == null || response.Models.Count == 0)
+                return null;
+
+            var latest = response.Models
+                .Where(m => DisplayableMessageTypes.Contains(m.MessageType)
+                            && !string.IsNullOrWhiteSpace(m.MessageContent))
+                .FirstOrDefault();
+
+            return latest?.CreatedAt;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[ChatManager] Error fetching latest message date for session {sessionId}: {ex.Message}");
+            return null;
         }
     }
 

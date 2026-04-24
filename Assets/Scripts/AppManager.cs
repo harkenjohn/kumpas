@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Supabase.Gotrue;
 using System.Threading.Tasks;
 using Kumpas.Models;
@@ -32,6 +32,13 @@ public class AppManager : MonoBehaviour
     private bool triggerTTS = false;
     private string receivedTTSText = "";
 
+    // --- Remote ASL Session Trigger (Speaker receives → opens ASL camera) ---
+    private bool triggerASLSession = false;
+
+    // --- ASL State Trigger Flags (Signer receives → changes screen color) ---
+    private bool triggerASLStateChange = false;
+    private string receivedASLState = "";
+
     // --- Android TTS ---
     private AndroidJavaObject _tts;
     private bool _ttsReady = false;
@@ -53,7 +60,7 @@ public class AppManager : MonoBehaviour
         VoiceInput,
         History,
         ConversationView,
-        ToSpeechQuickChat, // Added this state
+        ToSpeechQuickChat,
         ToSignQuickChat
     }
     private AppState currentState;
@@ -80,6 +87,21 @@ public class AppManager : MonoBehaviour
             triggerTTS = false;
             Debug.Log($"[AppManager] UPDATE: triggerTTS caught! Speaking: {receivedTTSText}");
             SpeakText(receivedTTSText);
+        }
+
+        if (triggerASLSession)
+        {
+            triggerASLSession = false;
+            Debug.Log("[AppManager] UPDATE: triggerASLSession caught! Opening ASL camera on Speaker device.");
+            if (uiManager != null) uiManager.TriggerRemoteASLSession();
+        }
+
+        // --- ASL State Change (Signer's screen color update) ---
+        if (triggerASLStateChange)
+        {
+            triggerASLStateChange = false;
+            Debug.Log($"[AppManager] UPDATE: triggerASLStateChange caught! State: {receivedASLState}");
+            if (uiManager != null) uiManager.SetASLStateOverlay(receivedASLState);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -114,7 +136,6 @@ public class AppManager : MonoBehaviour
 
     public void SpeakText(string text)
     {
-        // Convert to lowercase so Android TTS reads it as words, not letters
         string spokenText = text.ToLower();
         Debug.Log($"[AppManager] SpeakText: '{spokenText}'");
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -180,10 +201,10 @@ public class AppManager : MonoBehaviour
             case AppState.VoiceInput:
                 ChangeState(AppState.AudioInput);
                 break;
-            case AppState.ToSignQuickChat:                        
-                ChangeState(AppState.AudioInput);                   
+            case AppState.ToSignQuickChat:
+                ChangeState(AppState.AudioInput);
                 break;
-            case AppState.ToSpeechQuickChat: // Returns to Camera Input when pressing back
+            case AppState.ToSpeechQuickChat:
                 ChangeState(AppState.CameraInput);
                 break;
             case AppState.Home:
@@ -243,10 +264,10 @@ public class AppManager : MonoBehaviour
             case AppState.ConversationView:
                 if (uiManager != null) uiManager.ShowConversationViewPanel();
                 break;
-            case AppState.ToSpeechQuickChat: // Routes to the Quick Chat Panel
+            case AppState.ToSpeechQuickChat:
                 if (uiManager != null) uiManager.ShowToSpeechQuickChatPanel();
                 break;
-            case AppState.ToSignQuickChat: 
+            case AppState.ToSignQuickChat:
                 if (uiManager != null) uiManager.ShowToSignQuickChatPanel();
                 break;
         }
@@ -324,6 +345,21 @@ public class AppManager : MonoBehaviour
                                 receivedTTSText = message.MessageContent;
                                 triggerTTS = true;
                                 Debug.Log($"[Realtime] *** TTS TRIGGER SET: '{message.MessageContent}' ***");
+                            }
+                            else if (message.MessageType == "REMOTE_CAMERA_REQUEST")
+                            {
+                                triggerASLSession = true;
+                                Debug.Log("[Realtime] *** REMOTE_CAMERA_REQUEST received — ASL session trigger set! ***");
+                            }
+                            // --- ASL State messages (Signer receives → screen color changes) ---
+                            else if (message.MessageType == "ASL_STATE_GAP" ||
+                                     message.MessageType == "ASL_STATE_RECORDING" ||
+                                     message.MessageType == "ASL_STATE_CLASSIFYING" ||
+                                     message.MessageType == "ASL_STATE_END")
+                            {
+                                receivedASLState = message.MessageType;
+                                triggerASLStateChange = true;
+                                Debug.Log($"[Realtime] *** ASL STATE RECEIVED: '{message.MessageType}' ***");
                             }
                             else
                             {
@@ -403,7 +439,8 @@ public class AppManager : MonoBehaviour
                     partnerName = $"{partnerProfile.FirstName} {partnerProfile.LastName}";
             }
 
-            uiManager.CreateConversationCard(session, partnerName, myUserId);
+            DateTime? latestMessageDate = await chatManager.GetLatestMessageDate(session.Id);
+            uiManager.CreateConversationCard(session, partnerName, myUserId, latestMessageDate);
             renderedCount++;
         }
 

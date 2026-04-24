@@ -1,15 +1,18 @@
 // ============================================================
-// ASLManager.cs — API-based ASL Recognition
+// ASLManager.cs — API-based ASL Recognition with State Broadcasting
 // ============================================================
 // Flow:
-//   1. Record 2 seconds → collect frames
-//   2. Downsample to 60 frames
-//   3. Send all 60 frames to /predict/auto
-//   4. Server runs CNN majority vote → if ≥75% → letter
-//   5. Else server runs LSTM → phrase
-//   6. Commit result to sentence
-//   7. 1 second gap → repeat
-//   8. Hand gone 5s → end session
+//   0. Camera preparation (2s)
+//   1. Initial Gap (1s) → Broadcasts ASL_STATE_GAP → Signer screen: ORANGE
+//   2. Record 2 seconds  → Broadcasts ASL_STATE_RECORDING → Signer screen: GREEN
+//   3. Downsample to 60 frames
+//   4. Send all 60 frames to /predict/auto
+//   5. Server runs CNN majority vote → if ≥75% → letter
+//   6. Else server runs LSTM → phrase
+//   7. Commit result to sentence → Broadcasts ASL_STATE_CLASSIFYING → Signer screen: RED
+//   8. 1 second gap → Broadcasts ASL_STATE_GAP → Signer screen: ORANGE
+//   9. Repeat from step 2
+//   10. 2 consecutive failed classifications → end session → Broadcasts ASL_STATE_END
 // ============================================================
 
 using System.Collections;
@@ -76,6 +79,10 @@ public class ASLManager : MonoBehaviour
     // ── Frame capture helpers ──────────────────────────────────
     private int _frameCounter = 0;
 
+    // ── State broadcast tracking ──────────────────────────────
+    // Tracks last broadcast state to avoid sending duplicates
+    private string _lastBroadcastState = "";
+
     // ── Android TTS ───────────────────────────────────────────
     private AndroidJavaObject _tts;
     private bool _ttsReady = false;
@@ -131,6 +138,7 @@ public class ASLManager : MonoBehaviour
         _gapTimer = 0f;
         _consecutiveFailedClassifications = 0;
         _frameCounter = 0;
+        _lastBroadcastState = "";
         _recordedFrames.Clear();
 
         if (webCamTexture == null)
@@ -155,9 +163,11 @@ public class ASLManager : MonoBehaviour
     {
         _waitingForCam = false;
         _sessionActive = true;
-        _state = State.Recording;
-        SetStatus("Recording…");
-        Debug.Log("[ASL] Session started");
+        _state = State.Gap;
+        _gapTimer = 0f;
+        SetStatus("Get Ready…");
+        BroadcastState("ASL_STATE_GAP");
+        Debug.Log("[ASL] Session started with initial gap");
     }
 
     void EndSession()
@@ -168,6 +178,8 @@ public class ASLManager : MonoBehaviour
         _state = State.SessionEnd;
 
         Debug.Log($"[ASL] Session ended. Sentence: '{_sentence}'");
+
+        BroadcastState("ASL_STATE_END");
 
         if (!string.IsNullOrEmpty(_sentence))
         {
@@ -184,6 +196,13 @@ public class ASLManager : MonoBehaviour
     // =========================================================
     void RunRecording()
     {
+        // Broadcast RECORDING state only once per recording cycle
+        if (_recordTimer == 0f)
+        {
+            BroadcastState("ASL_STATE_RECORDING");
+            Debug.Log("[ASL] State: RECORDING");
+        }
+
         _recordTimer += Time.deltaTime;
 
         // Capture frame directly from webCamTexture
@@ -216,6 +235,8 @@ public class ASLManager : MonoBehaviour
             Debug.Log($"[ASL] 2s recorded. {_recordedFrames.Count} raw frames → processing");
             _recordTimer = 0f;
             _state = State.Classifying;
+            BroadcastState("ASL_STATE_CLASSIFYING");
+            Debug.Log("[ASL] State: CLASSIFYING");
             StartCoroutine(ProcessRecording(_recordedFrames));
             _recordedFrames = new List<byte[]>();
         }
@@ -226,8 +247,15 @@ public class ASLManager : MonoBehaviour
     // =========================================================
     void RunGap()
     {
+        // Broadcast GAP state only once per gap cycle
+        if (_gapTimer == 0f)
+        {
+            BroadcastState("ASL_STATE_GAP");
+            Debug.Log("[ASL] State: GAP");
+        }
+
         _gapTimer += Time.deltaTime;
-        SetStatus($"Gap… {_gapTimer:F1}s");
+        SetStatus($"Get Ready… {_gapTimer:F1}s");
 
         if (_gapTimer >= GAP_DURATION)
         {
@@ -296,7 +324,6 @@ public class ASLManager : MonoBehaviour
             Debug.LogError($"[ASL] Auto API error: {req.error}");
             SetStatus("API error — check connection");
 
-            // Treat API error as failed classification
             _consecutiveFailedClassifications++;
             Debug.Log($"[ASL] Failed classification count: {_consecutiveFailedClassifications}/{MAX_FAILED_CLASSIFICATIONS}");
 
@@ -312,7 +339,6 @@ public class ASLManager : MonoBehaviour
 
             if (response.detected && !string.IsNullOrEmpty(response.result))
             {
-                // SUCCESS — reset counter and append result
                 _consecutiveFailedClassifications = 0;
                 AppendToSentence(response.result);
 
@@ -329,7 +355,6 @@ public class ASLManager : MonoBehaviour
             }
             else
             {
-                // FAILED — increment counter
                 _consecutiveFailedClassifications++;
                 SetStatus("Not recognized");
                 Debug.Log($"[ASL] Nothing recognized this window. Failed count: {_consecutiveFailedClassifications}/{MAX_FAILED_CLASSIFICATIONS}");
@@ -352,6 +377,29 @@ public class ASLManager : MonoBehaviour
             _sentence += " ";
         _sentence += word;
         Debug.Log($"[ASL] Sentence so far: '{_sentence}'");
+    }
+
+    // =========================================================
+    // State Broadcasting
+    // =========================================================
+
+    /// <summary>
+    /// Sends the current ASL session state to the Signer's device via Supabase.
+    /// Only broadcasts if the state has changed to avoid duplicate messages.
+    /// Message types:
+    ///   ASL_STATE_GAP         → Signer screen: ORANGE (get ready)
+    ///   ASL_STATE_RECORDING   → Signer screen: GREEN  (sign now!)
+    ///   ASL_STATE_CLASSIFYING → Signer screen: RED    (processing)
+    ///   ASL_STATE_END         → Signer screen: resets to normal
+    /// </summary>
+    void BroadcastState(string stateType)
+    {
+        // Avoid sending duplicate state messages
+        if (_lastBroadcastState == stateType) return;
+
+        _lastBroadcastState = stateType;
+        appManager?.SendTextMessage("", stateType);
+        Debug.Log($"[ASL] Broadcast state: {stateType}");
     }
 
     // =========================================================

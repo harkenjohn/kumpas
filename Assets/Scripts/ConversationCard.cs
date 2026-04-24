@@ -26,22 +26,22 @@ public class ConversationCard : MonoBehaviour
     private string myUserId;
 
     // Call this immediately after instantiation to set the data
-    public void Initialize(ChatSession chatSession, UIManager ui, AppManager am, string partnerName, string userId)
+    public void Initialize(ChatSession chatSession, UIManager ui, AppManager am, string partnerName, string userId, DateTime? latestMessageDate = null)
     {
         session = chatSession;
         uiManager = ui;
         appManager = am;
         myUserId = userId;
 
-        // FIX: Handle nullable DateTime? safely
-        if (session.CreatedAt.HasValue)
+        // Use the latest message date if available, otherwise fall back to session creation date
+        DateTime? displayDate = latestMessageDate ?? session.CreatedAt;
+
+        if (displayDate.HasValue)
         {
-            // Use .Value to get the underlying DateTime object
-            dateText.text = session.CreatedAt.Value.ToLocalTime().ToString("MMM dd, yyyy");
+            dateText.text = displayDate.Value.ToLocalTime().ToString("MMM dd, yyyy");
         }
         else
         {
-            // Fallback if the database returned null (rare, but safe)
             dateText.text = "Just Now";
         }
 
