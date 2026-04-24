@@ -129,6 +129,9 @@ public class KumpasDbContext : DbContext
             entity.Property(x => x.MessageContent)
                 .HasColumnName("message_content");
 
+            entity.Property(x => x.MessageType)
+                .HasColumnName("message_type");
+
             entity.Property(x => x.GestureId)
                 .HasColumnName("gesture_id");
 

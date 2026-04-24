@@ -54,7 +54,7 @@ public class ModelUptimeHourViewModel
     public int TotalChecks { get; set; }
     public int UpChecks { get; set; }
 
-    public string Label => $"{Hour:00}:00";
+    public string Label => DateTime.Today.AddHours(Hour).ToString("h:mm tt");
     public bool HasData => TotalChecks > 0;
     public bool IsUp => HasData && UpChecks == TotalChecks;
     public decimal UptimePercent => HasData ? Math.Round((decimal)UpChecks / TotalChecks * 100, 1) : 0;
