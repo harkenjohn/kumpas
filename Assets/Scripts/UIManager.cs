@@ -58,6 +58,7 @@ public class UIManager : MonoBehaviour
     // --- NICKNAME EDIT MODAL ---
     [Header("Nickname Edit Modal")]
     public GameObject editNicknameModal;         // EditNickname panel inside historyPanel
+    public GameObject editNicknameBlurBG;
     public TMP_InputField nicknameModalInput;    // NicknameInput input field
     public Button nicknameModalSaveButton;       // Save button
     public Button nicknameModalCancelButton;     // Cancel button
@@ -185,6 +186,7 @@ public class UIManager : MonoBehaviour
 
         if (editNicknameModal != null)
             editNicknameModal.SetActive(false);
+        if (editNicknameBlurBG != null) editNicknameBlurBG.SetActive(false);
     }
 
     // --- HELPER: HIDES ALL PANELS ---
@@ -486,9 +488,9 @@ public class UIManager : MonoBehaviour
             nicknameModalInput.text = currentName;
             nicknameModalInput.ActivateInputField();
         }
-
-        if (editNicknameModal != null)
-            editNicknameModal.SetActive(true);
+        
+        if (editNicknameBlurBG != null) editNicknameBlurBG.SetActive(true);
+        if (editNicknameModal != null) editNicknameModal.SetActive(true);
 
         Debug.Log($"[UIManager] Nickname modal opened. Current name: '{currentName}'");
     }
@@ -514,8 +516,8 @@ public class UIManager : MonoBehaviour
 
     private void CloseNicknameModal()
     {
-        if (editNicknameModal != null)
-            editNicknameModal.SetActive(false);
+        if (editNicknameBlurBG != null) editNicknameBlurBG.SetActive(false);
+        if (editNicknameModal != null) editNicknameModal.SetActive(false);
 
         _pendingNicknameCard = null;
 
