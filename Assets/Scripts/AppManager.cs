@@ -240,9 +240,11 @@ public class AppManager : MonoBehaviour
                 break;
             case AppState.SignSession:
                 if (uiManager != null) uiManager.ShowSignSessionPanel();
+                LoadRecentSessions();
                 break;
             case AppState.SpeechSession:
                 if (uiManager != null) uiManager.ShowSpeechSessionPanel();
+                LoadRecentSessions();
                 break;
             case AppState.CameraInput:
                 if (uiManager != null) uiManager.ShowCameraInputMethodPanel();
@@ -938,6 +940,36 @@ public class AppManager : MonoBehaviour
 
             uiManager.ShowForgotPasswordStatus(userMessage);
         }
+    }
+
+    public async void LoadRecentSessions()
+    {
+        if (currentUserProfile == null || chatManager == null || uiManager == null) return;
+
+        string myUserId = currentUserProfile.Id;
+        List<ChatSession> sessions = await chatManager.GetUserSessions(myUserId);
+
+        if (sessions == null || sessions.Count == 0) return;
+
+        // Get partner names for the 3 most recent
+        var partnerNames = new Dictionary<string, string>();
+        foreach (var session in sessions.Take(3))
+        {
+            if (string.IsNullOrEmpty(session.User2Id))
+            {
+                partnerNames[session.Id] = ""; // no partner yet
+                continue;
+            }
+
+            bool isUser1 = session.User1Id == myUserId;
+            string partnerId = isUser1 ? session.User2Id : session.User1Id;
+
+            Profile partnerProfile = await chatManager.GetUserProfile(partnerId);
+            if (partnerProfile != null)
+                partnerNames[session.Id] = $"{partnerProfile.FirstName} {partnerProfile.LastName}";
+        }
+
+        uiManager.DisplayRecentSessions(sessions, partnerNames, this);
     }
 }
 
