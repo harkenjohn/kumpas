@@ -130,6 +130,12 @@ private Coroutine _textToSignToastCoroutine;
     [Tooltip("Assign the GameObject that has ASLOrientationHandler attached")]
     public ASLOrientationHandler aslOrientationHandler;
 
+    [Header("Join Error Text")]
+    public TMP_Text signJoinErrorText;
+    public TMP_Text speechJoinErrorText;
+
+    private Coroutine _joinErrorCoroutine;
+
     // This function will be called by AppManager to connect them
     public void Initialize(AppManager am)
     {
@@ -989,6 +995,34 @@ private Coroutine _textToSignToastCoroutine;
             if (speech_CreateSessionButton != null) speech_CreateSessionButton.interactable = true;
             if (speech_JoinSessionButton != null) speech_JoinSessionButton.interactable = true;
         }
+    }
+
+    public void OnJoinSessionFailed(string errorMessage)
+    {
+        // Re-enable buttons so user can try again
+        if (sign_JoinSessionButton != null) sign_JoinSessionButton.interactable = true;
+        if (sign_CreateSessionButton != null) sign_CreateSessionButton.interactable = true;
+        if (speech_JoinSessionButton != null) speech_JoinSessionButton.interactable = true;
+        if (speech_CreateSessionButton != null) speech_CreateSessionButton.interactable = true;
+
+        // Stop existing toast if already showing
+        if (_joinErrorCoroutine != null) StopCoroutine(_joinErrorCoroutine);
+        _joinErrorCoroutine = StartCoroutine(ShowJoinErrorToast(errorMessage));
+    }
+
+    private IEnumerator ShowJoinErrorToast(string errorMessage)
+    {
+        // Show the error on both panels
+        if (signJoinErrorText != null) signJoinErrorText.text = errorMessage;
+        if (speechJoinErrorText != null) speechJoinErrorText.text = errorMessage;
+
+        // Wait 2 seconds then clear
+        yield return new WaitForSeconds(2f);
+
+        if (signJoinErrorText != null) signJoinErrorText.text = "";
+        if (speechJoinErrorText != null) speechJoinErrorText.text = "";
+
+        _joinErrorCoroutine = null;
     }
 
     // This is called by AppManager on success

@@ -34,6 +34,7 @@ public class ASLRealtimeSentencePlayer : MonoBehaviour
         { "GOOD EVENING",     "ASL_GoodEvening" },
         { "MAGANDANG HAPON",  "ASL_MagandangHapon" },
         { "MAGANDANG UMAGA",  "ASL_MagandangUmaga" },
+        { "MAGANDANG ARAW",  "ASL_MagandangUmaga" },
         { "I'M FINE",         "ASL_ImFine" },
         { "IM FINE",          "ASL_ImFine" },
         { "HELLO",            "ASL_Hello" },
@@ -201,7 +202,7 @@ public class ASLRealtimeSentencePlayer : MonoBehaviour
                 }
                 else if (c == ' ')
                 {
-                    yield return new WaitForSeconds(letterDelay * 1.5f);
+                    yield return new WaitForSeconds(letterDelay * 1f);
                 }
                 // '0' and other chars are skipped (no ASL_0 defined)
             }
@@ -246,8 +247,8 @@ public class ASLRealtimeSentencePlayer : MonoBehaviour
         yield return new WaitUntil(() => GetActiveHandAnimator() != null);
 
         Animator anim = GetActiveHandAnimator();
-        anim.Play("Default", 0, 0f);
-        yield return null;
+        //anim.Play("Default", 0, 0f);
+        //yield return null;
         anim.Play(stateName, 0, 0f);
         yield return null;
 
@@ -281,16 +282,16 @@ public class ASLRealtimeSentencePlayer : MonoBehaviour
         {
             if (token is string)
             {
-                total += letterDelay * 3f;          // whole-word signs ~3× longer
+                total += letterDelay; //* 3f;          // whole-word signs ~3× longer
             }
             else if (token is char c)
             {
                 if (char.IsLetter(c))
-                    total += (letterDelay + 0.1f) * 2f; // connector + letter
+                    total += letterDelay + 0.1f; // connector + letter
                 else if (char.IsDigit(c) && c >= '1' && c <= '9')
-                    total += (letterDelay + 0.1f) * 2f; // connector + digit
+                    total += letterDelay + 0.1f; // connector + digit
                 else if (c == ' ')
-                    total += letterDelay * 1.5f;
+                    total += letterDelay * 1f;
             }
         }
         return total;

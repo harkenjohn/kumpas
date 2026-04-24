@@ -515,7 +515,8 @@ public class AppManager : MonoBehaviour
             if (sessionToJoin == null)
             {
                 Debug.LogError("[AppManager] Session not found or room is full.");
-                uiManager.SetSessionStatus("Error: Room not found or is full.");
+                uiManager.OnJoinSessionFailed("Room not found or is full.");
+                //uiManager.SetSessionStatus("Error: Room not found or is full.");
                 return;
             }
 
@@ -533,7 +534,7 @@ public class AppManager : MonoBehaviour
                     ? AppState.CameraInput
                     : AppState.AudioInput;
 
-                Debug.Log($"[JoinChatSession] Rejoining - navigating to: {nextState}");
+                Debug.Log($"[JoinChatSession] currentState is: {currentState}, navigating to: {nextState}");
                 ChangeState(nextState);
                 return;
             }
@@ -541,7 +542,8 @@ public class AppManager : MonoBehaviour
             if (!string.IsNullOrEmpty(sessionToJoin.User2Id))
             {
                 Debug.LogError("[AppManager] Found room, but User 2 is occupied by another ID.");
-                uiManager.SetSessionStatus("Error: Room is full.");
+                uiManager.OnJoinSessionFailed("Room is full.");
+                //uiManager.SetSessionStatus("Error: Room is full.");
                 return;
             }
 
@@ -563,19 +565,19 @@ public class AppManager : MonoBehaviour
                     ? AppState.CameraInput
                     : AppState.AudioInput;
 
-                Debug.Log($"[JoinChatSession] First time join - navigating to: {nextState}");
+                Debug.Log($"[JoinChatSession] currentState is: {currentState}, navigating to: {nextState}");
                 ChangeState(nextState);
             }
             else
             {
                 Debug.LogError("[AppManager] Update failed. Response was null.");
-                uiManager.SetSessionStatus("Error: Join failed (Database Error).");
+                uiManager.OnJoinSessionFailed("Join failed. Please try again.");
             }
         }
         catch (System.Exception ex)
         {
             Debug.LogError($"[AppManager] EXCEPTION: {ex.Message}");
-            uiManager.SetSessionStatus("Error: Could not join session.");
+            uiManager.OnJoinSessionFailed("Could not join session.");
         }
     }
 
