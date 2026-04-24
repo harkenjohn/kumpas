@@ -7,6 +7,7 @@ public class ChatMessage
     public Guid SessionId { get; set; }
     public Guid SenderId { get; set; }
     public string? MessageContent { get; set; }
+    public string? MessageType { get; set; }
     public long? GestureId { get; set; }
 
     public ChatSession? ChatSession { get; set; }

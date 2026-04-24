@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using Kumpas.AdminWeb.Services;
 using Kumpas.AdminWeb.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +42,8 @@ public class SettingsController(AccountService accountService, ISupabaseAuthServ
             return View(model);
         }
 
+        var passwordWasChanged = !string.IsNullOrWhiteSpace(model.NewPassword);
+
         var updated = await accountService.UpdateProfileAsync(model, cancellationToken);
         if (!updated)
         {
@@ -57,10 +61,40 @@ public class SettingsController(AccountService accountService, ISupabaseAuthServ
             }
         }
 
-        TempData["StatusMessage"] = "Profile settings saved successfully.";
+        await RefreshAdminIdentityAsync(model);
+
+        TempData["StatusMessage"] = passwordWasChanged
+            ? "Password changed successfully."
+            : "Profile settings saved successfully.";
         return RedirectToAction(nameof(Index));
     }
 
     private bool TryGetCurrentUserId(out Guid userId) =>
         Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
+
+    private async Task RefreshAdminIdentityAsync(ProfileSettingsViewModel model)
+    {
+        var displayName = $"{model.FirstName} {model.LastName}".Trim();
+        if (string.IsNullOrWhiteSpace(displayName))
+        {
+            displayName = model.Email;
+        }
+
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.NameIdentifier, model.UserId.ToString()),
+            new(ClaimTypes.Name, displayName),
+            new(ClaimTypes.Email, model.Email ?? string.Empty),
+            new("UserType", "Admin")
+        };
+
+        var existingAuth = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            principal,
+            existingAuth.Properties ?? new AuthenticationProperties());
+    }
 }

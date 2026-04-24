@@ -30,9 +30,10 @@ public class ReportsController : Controller
         var toUtc = toDate.HasValue
             ? new DateTimeOffset(DateTime.SpecifyKind(toDate.Value.Date.AddDays(1), DateTimeKind.Utc))
             : new DateTimeOffset(DateTime.UtcNow, TimeSpan.Zero);
+        var nonAdminProfiles = _dbContext.Profiles.Where(x => !EF.Functions.ILike(x.UserType ?? string.Empty, "admin"));
 
-        var totalAccounts = await _dbContext.Profiles.CountAsync();
-        var activeAccounts = await _dbContext.Profiles.CountAsync(x => x.IsActive);
+        var totalAccounts = await nonAdminProfiles.CountAsync();
+        var activeAccounts = await nonAdminProfiles.CountAsync(x => x.IsActive);
         var inactiveAccounts = totalAccounts - activeAccounts;
         var totalArModels = await CountRowsIfTableExistsAsync("ar_models");
         var configuredModelUrl = _configuration["ModelAssets:ArModelUrl"];
@@ -114,7 +115,8 @@ public class ReportsController : Controller
             from authUser in authJoin.DefaultIfEmpty()
             where message.CreatedAt.HasValue &&
                   message.CreatedAt.Value >= fromUtc &&
-                  message.CreatedAt.Value < toUtc
+                  message.CreatedAt.Value < toUtc &&
+                  !EF.Functions.ILike(profile.UserType ?? string.Empty, "admin")
             group new { profile, authUser } by new
             {
                 profile.FirstName,
@@ -145,20 +147,7 @@ public class ReportsController : Controller
             .Take(pageSize)
             .ToListAsync();
 
-        var messageTypes = await _dbContext.ChatMessages
-            .AsNoTracking()
-            .Where(x =>
-                x.CreatedAt.HasValue &&
-                x.CreatedAt.Value >= fromUtc &&
-                x.CreatedAt.Value < toUtc)
-            .GroupBy(x => x.GestureId.HasValue ? "Gesture" : "Text")
-            .Select(x => new MessageTypeRowViewModel
-            {
-                MessageType = x.Key,
-                Total = x.Count()
-            })
-            .OrderByDescending(x => x.Total)
-            .ToListAsync();
+        var messageTypes = await GetMessageTypeBreakdownAsync(fromUtc, toUtc);
 
         var model = new ReportsViewModel
         {
@@ -348,6 +337,81 @@ public class ReportsController : Controller
         catch (PostgresException ex) when (ex.SqlState == "42P01" || ex.SqlState == "42703")
         {
             return 0;
+        }
+    }
+
+    private async Task<IReadOnlyList<MessageTypeRowViewModel>> GetMessageTypeBreakdownAsync(DateTimeOffset from, DateTimeOffset to)
+    {
+        var connectionString = _dbContext.Database.GetConnectionString();
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            return [];
+        }
+
+        try
+        {
+            await using var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            const string tableCheckSql = """
+                select 1
+                from information_schema.tables
+                where table_schema = 'public' and table_name = 'chat_messages'
+                limit 1;
+                """;
+
+            await using (var tableCommand = new NpgsqlCommand(tableCheckSql, connection))
+            {
+                var tableExists = await tableCommand.ExecuteScalarAsync();
+                if (tableExists is null || tableExists == DBNull.Value)
+                {
+                    return [];
+                }
+            }
+
+            const string sql = """
+                select message_type, total
+                from (
+                    select 'Translated to Speech' as message_type,
+                           count(*)::int as total
+                    from public.chat_messages
+                    where created_at >= @from
+                      and created_at < @to
+                      and upper(coalesce(message_type, '')) = 'TEXT_TO_SPEECH'
+
+                    union all
+
+                    select 'Translated to Sign' as message_type,
+                           count(*)::int as total
+                    from public.chat_messages
+                    where created_at >= @from
+                      and created_at < @to
+                      and upper(coalesce(message_type, '')) = 'TEXT_TO_SIGN'
+                ) counts
+                where total > 0
+                order by total desc;
+                """;
+
+            await using var command = new NpgsqlCommand(sql, connection);
+            command.Parameters.AddWithValue("from", from);
+            command.Parameters.AddWithValue("to", to);
+
+            var results = new List<MessageTypeRowViewModel>();
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                results.Add(new MessageTypeRowViewModel
+                {
+                    MessageType = reader.GetString(0),
+                    Total = reader.GetInt32(1)
+                });
+            }
+
+            return results;
+        }
+        catch (PostgresException ex) when (ex.SqlState == "42P01" || ex.SqlState == "42703")
+        {
+            return [];
         }
     }
 

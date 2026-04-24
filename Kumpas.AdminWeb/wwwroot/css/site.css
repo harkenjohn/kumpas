@@ -389,6 +389,11 @@ a {
     margin-bottom: 0.35rem;
 }
 
+.report-provider-text {
+    color: var(--kumpas-blue);
+    font-weight: 700;
+}
+
 .print-only {
     display: none;
 }
