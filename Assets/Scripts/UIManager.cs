@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using Mediapipe.Unity.Sample.FaceLandmarkDetection;
+using System.Linq;
 
 /*
  * UI MANAGER (VIEW) - CONNECTED
@@ -159,6 +160,11 @@ public class UIManager : MonoBehaviour
     [Header("Room Code Display")]
     public TMP_Text cameraRoomCodeText;
     public TMP_Text audioRoomCodeText;
+
+    [Header("Recent Sessions")]
+    public GameObject recentSessionCardPrefab;
+    public Transform signRecentSessionsContainer;   // empty GameObject inside Sign panel
+    public Transform speechRecentSessionsContainer; // empty GameObject inside Speech panel
 
 
     // This function will be called by AppManager to connect them
@@ -1283,6 +1289,40 @@ public class UIManager : MonoBehaviour
     {
         if (appManager == null) return;
         appManager.ChangeState(AppManager.AppState.ForgotPassword);
+    }
+
+    public void DisplayRecentSessions(List<ChatSession> sessions, 
+    Dictionary<string, string> partnerNames, AppManager appManager)
+    {
+        // Clear old cards on both panels
+        foreach (Transform child in signRecentSessionsContainer)
+            Destroy(child.gameObject);
+        foreach (Transform child in speechRecentSessionsContainer)
+            Destroy(child.gameObject);
+
+        // Take only 3 most recent
+        var recent = sessions.Take(3).ToList();
+
+        foreach (var session in recent)
+        {
+            partnerNames.TryGetValue(session.Id, out string partnerName);
+
+            // Create card for Sign panel
+            var signCard = Instantiate(recentSessionCardPrefab, signRecentSessionsContainer);
+            signCard.GetComponent<RecentSessionCard>().Setup(
+                partnerName, 
+                session.RoomCode, 
+                (code) => appManager.JoinChatSession(code)
+            );
+
+            // Create card for Speech panel
+            var speechCard = Instantiate(recentSessionCardPrefab, speechRecentSessionsContainer);
+            speechCard.GetComponent<RecentSessionCard>().Setup(
+                partnerName, 
+                session.RoomCode, 
+                (code) => appManager.JoinChatSession(code)
+            );
+        }
     }
     
 }
