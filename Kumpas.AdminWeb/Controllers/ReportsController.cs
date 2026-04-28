@@ -58,7 +58,9 @@ public class ReportsController : Controller
         var configuredModelProvider = _configuration["ModelAssets:ArModelProvider"] ?? "Hugging Face";
         var configuredModelStatus = _configuration["ModelAssets:Status"];
 
-        var generatedAt = DateTimeOffset.UtcNow;
+        var singaporeZone = GetSingaporeTimeZone();
+        var generatedAtUtc = DateTimeOffset.UtcNow;
+        var generatedAt = TimeZoneInfo.ConvertTime(generatedAtUtc, singaporeZone);
         var uptimeReportDate = DateOnly.FromDateTime((toDate ?? DateTime.Today).Date);
         var uptimeHours = await GetModelUptimeHoursAsync(uptimeReportDate);
         var uptimeHoursWithData = uptimeHours.Where(x => x.HasData).ToList();
@@ -71,9 +73,13 @@ public class ReportsController : Controller
                 ? "Issues detected"
                 : "OK";
 
-        var yearStart = new DateTimeOffset(generatedAt.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
-        var monthStart = new DateTimeOffset(generatedAt.Year, generatedAt.Month, 1, 0, 0, 0, TimeSpan.Zero);
-        var dayStart = new DateTimeOffset(generatedAt.UtcDateTime.Date, TimeSpan.Zero);
+        var localYearStart = new DateTime(generatedAt.Year, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
+        var localMonthStart = new DateTime(generatedAt.Year, generatedAt.Month, 1, 0, 0, 0, DateTimeKind.Unspecified);
+        var localDayStart = generatedAt.Date;
+
+        var yearStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localYearStart, singaporeZone), TimeSpan.Zero);
+        var monthStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localMonthStart, singaporeZone), TimeSpan.Zero);
+        var dayStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localDayStart, singaporeZone), TimeSpan.Zero);
         var dayEnd = dayStart.AddDays(1);
 
         var totalSessions = await _dbContext.ChatSessions.CountAsync(x =>
@@ -204,8 +210,8 @@ public class ReportsController : Controller
                 : configuredModelStatus,
             UptimeReportDate = uptimeReportDate,
             ModelUptimePercent = uptimePercent,
-            ErrorLogsThisYear = await CountErrorLogsAsync(yearStart, generatedAt),
-            ErrorLogsThisMonth = await CountErrorLogsAsync(monthStart, generatedAt),
+            ErrorLogsThisYear = await CountErrorLogsAsync(yearStart, generatedAtUtc),
+            ErrorLogsThisMonth = await CountErrorLogsAsync(monthStart, generatedAtUtc),
             ErrorLogsToday = await CountErrorLogsAsync(dayStart, dayEnd),
             GeneratedBy = User.Identity?.Name ?? "Administrator",
             GeneratedAt = generatedAt,
