@@ -11,6 +11,9 @@ public class ReportsViewModel
     public int TotalSessions { get; set; }
     public int TotalMessages { get; set; }
     public int TotalArModels { get; set; }
+    public decimal ActiveAccountPercent { get; set; }
+    public decimal? SessionChangePercent { get; set; }
+    public decimal? MessageChangePercent { get; set; }
     public string ModelStatus { get; set; } = "Operational";
     public string ModelProvider { get; set; } = "Not configured";
     public string? ModelUrl { get; set; }

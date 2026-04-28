@@ -22,23 +22,42 @@ public class ReportsController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(DateTime? fromDate, DateTime? toDate, string? search, int page = 1)
     {
+        var model = await BuildReportViewModelAsync(fromDate, toDate, search, page);
+        return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Print(DateTime? fromDate, DateTime? toDate, string? search)
+    {
+        var model = await BuildReportViewModelAsync(fromDate, toDate, search, 1, 5);
+        return View(model);
+    }
+
+    private async Task<ReportsViewModel> BuildReportViewModelAsync(DateTime? fromDate, DateTime? toDate, string? search, int page, int pageSize = 10)
+    {
         page = Math.Max(page, 1);
-        const int pageSize = 10;
+
         var fromUtc = fromDate.HasValue
             ? new DateTimeOffset(DateTime.SpecifyKind(fromDate.Value.Date, DateTimeKind.Utc))
             : new DateTimeOffset(DateTime.UtcNow.Date.AddDays(-30), TimeSpan.Zero);
         var toUtc = toDate.HasValue
             ? new DateTimeOffset(DateTime.SpecifyKind(toDate.Value.Date.AddDays(1), DateTimeKind.Utc))
             : new DateTimeOffset(DateTime.UtcNow, TimeSpan.Zero);
+
         var nonAdminProfiles = _dbContext.Profiles.Where(x => !EF.Functions.ILike(x.UserType ?? string.Empty, "admin"));
 
         var totalAccounts = await nonAdminProfiles.CountAsync();
         var activeAccounts = await nonAdminProfiles.CountAsync(x => x.IsActive);
         var inactiveAccounts = totalAccounts - activeAccounts;
+        var activeAccountPercent = totalAccounts == 0
+            ? 0
+            : Math.Round(activeAccounts * 100m / totalAccounts, 1);
+
         var totalArModels = await CountRowsIfTableExistsAsync("ar_models");
         var configuredModelUrl = _configuration["ModelAssets:ArModelUrl"];
         var configuredModelProvider = _configuration["ModelAssets:ArModelProvider"] ?? "Hugging Face";
         var configuredModelStatus = _configuration["ModelAssets:Status"];
+
         var generatedAt = DateTimeOffset.UtcNow;
         var uptimeReportDate = DateOnly.FromDateTime((toDate ?? DateTime.Today).Date);
         var uptimeHours = await GetModelUptimeHoursAsync(uptimeReportDate);
@@ -51,6 +70,7 @@ public class ReportsController : Controller
             : uptimeHoursWithData.Any(x => !x.IsUp)
                 ? "Issues detected"
                 : "OK";
+
         var yearStart = new DateTimeOffset(generatedAt.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
         var monthStart = new DateTimeOffset(generatedAt.Year, generatedAt.Month, 1, 0, 0, 0, TimeSpan.Zero);
         var dayStart = new DateTimeOffset(generatedAt.UtcDateTime.Date, TimeSpan.Zero);
@@ -65,6 +85,20 @@ public class ReportsController : Controller
             x.CreatedAt.HasValue &&
             x.CreatedAt.Value >= fromUtc &&
             x.CreatedAt.Value < toUtc);
+
+        var periodLength = Math.Max(1, (toUtc.UtcDateTime.Date - fromUtc.UtcDateTime.Date).Days);
+        var previousFromUtc = fromUtc.AddDays(-periodLength);
+        var previousToUtc = fromUtc;
+
+        var previousSessions = await _dbContext.ChatSessions.CountAsync(x =>
+            x.CreatedAt.HasValue &&
+            x.CreatedAt.Value >= previousFromUtc &&
+            x.CreatedAt.Value < previousToUtc);
+
+        var previousMessages = await _dbContext.ChatMessages.CountAsync(x =>
+            x.CreatedAt.HasValue &&
+            x.CreatedAt.Value >= previousFromUtc &&
+            x.CreatedAt.Value < previousToUtc);
 
         var sessionGroups = await _dbContext.ChatSessions
             .AsNoTracking()
@@ -133,7 +167,7 @@ public class ReportsController : Controller
 
         if (!string.IsNullOrWhiteSpace(search))
         {
-            var term = search.Trim().ToLower();
+            var term = search.Trim().ToLowerInvariant();
             topUsersQuery = topUsersQuery.Where(x =>
                 x.UserName.ToLower().Contains(term) ||
                 x.Email.ToLower().Contains(term));
@@ -149,7 +183,7 @@ public class ReportsController : Controller
 
         var messageTypes = await GetMessageTypeBreakdownAsync(fromUtc, toUtc);
 
-        var model = new ReportsViewModel
+        return new ReportsViewModel
         {
             FromDate = fromDate,
             ToDate = toDate,
@@ -160,6 +194,9 @@ public class ReportsController : Controller
             TotalSessions = totalSessions,
             TotalMessages = totalMessages,
             TotalArModels = totalArModels,
+            ActiveAccountPercent = activeAccountPercent,
+            SessionChangePercent = CalculateTrendPercent(totalSessions, previousSessions),
+            MessageChangePercent = CalculateTrendPercent(totalMessages, previousMessages),
             ModelProvider = string.IsNullOrWhiteSpace(configuredModelUrl) ? "Not configured" : configuredModelProvider,
             ModelUrl = configuredModelUrl,
             ModelStatus = uptimeHoursWithData.Count > 0 || string.IsNullOrWhiteSpace(configuredModelStatus)
@@ -178,7 +215,7 @@ public class ReportsController : Controller
             MessageTypes = messageTypes,
             TopUsersPagination = new PaginationViewModel
             {
-                Action = "Index",
+                Action = nameof(Index),
                 Controller = "Reports",
                 ItemLabel = "records",
                 PageNumber = page,
@@ -192,8 +229,6 @@ public class ReportsController : Controller
                 }
             }
         };
-
-        return View(model);
     }
 
     private async Task<IReadOnlyList<ModelUptimeHourViewModel>> GetModelUptimeHoursAsync(DateOnly date)
@@ -446,5 +481,15 @@ public class ReportsController : Controller
         await using var command = new NpgsqlCommand($@"select count(*) from public.""{tableName}"";", connection);
         var result = await command.ExecuteScalarAsync();
         return Convert.ToInt32(result);
+    }
+
+    private static decimal? CalculateTrendPercent(int currentValue, int previousValue)
+    {
+        if (previousValue <= 0)
+        {
+            return null;
+        }
+
+        return Math.Round((currentValue - previousValue) * 100m / previousValue, 1);
     }
 }
