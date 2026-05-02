@@ -126,7 +126,7 @@ public class HandLandmarkBridge : MonoBehaviour
         {
             _latestLandmarks2D = new Vector2[21];
             for (int i = 0; i < 21; i++)
-                _latestLandmarks2D[i] = new Vector2(1f - firstHand[i].x, firstHand[i].y);
+                _latestLandmarks2D[i] = new Vector2(firstHand[i].x, firstHand[i].y);
 
             _handDetected = true;
         }

@@ -27,7 +27,7 @@ public class ASLManager : MonoBehaviour
 {
     [Header("API")]
     [Tooltip("Your Hugging Face Space URL, no trailing slash")]
-    public string apiBaseUrl = "https://kennn14-sign-language-recognition-api.hf.space";
+    public string apiBaseUrl = "https://kumpas-model-sign-language-recognition-api.hf.space";
 
     [Header("Camera")]
     [Tooltip("The WebCamTexture feeding the camera canvas")]
@@ -52,8 +52,8 @@ public class ASLManager : MonoBehaviour
 
     // ── Frame capture ─────────────────────────────────────────
     [Header("Frame Capture")]
-    public int sendWidth = 320;
-    public int sendHeight = 240;
+    public int sendWidth = 640;
+    public int sendHeight = 480;
     private const int TARGET_FRAMES = 60;
 
     // ── State machine ─────────────────────────────────────────
@@ -340,7 +340,7 @@ public class ASLManager : MonoBehaviour
             if (response.detected && !string.IsNullOrEmpty(response.result))
             {
                 _consecutiveFailedClassifications = 0;
-                AppendToSentence(response.result);
+                AppendToSentence(response.result, response.result_type);
 
                 if (response.result_type == "letter")
                 {
@@ -371,11 +371,18 @@ public class ASLManager : MonoBehaviour
     // =========================================================
     // Sentence
     // =========================================================
-    void AppendToSentence(string word)
+    void AppendToSentence(string word, string resultType)
     {
-        if (_sentence.Length > 0 && !_sentence.EndsWith(" "))
-            _sentence += " ";
-        _sentence += word;
+        if (resultType == "letter")
+        {
+            _sentence += word;
+        }
+        else
+        {
+            if (_sentence.Length > 0 && !_sentence.EndsWith(" "))
+                _sentence += " ";
+            _sentence += word;
+        }
         Debug.Log($"[ASL] Sentence so far: '{_sentence}'");
     }
 
