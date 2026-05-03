@@ -37,7 +37,7 @@
                 <h1>SYSTEM REPORT</h1>
             </div>
             <div class="pdf-report-meta">
-                <div><span>Generated</span><strong>@Model.GeneratedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</strong></div>
+                <div><span>Generated</span><strong>@Model.GeneratedAt.ToString("MMM dd, yyyy hh:mm tt")</strong></div>
                 <div><span>Report Period</span><strong>@(Model.FromDate?.ToString("MMM dd, yyyy") ?? "Last 30 days") - @(Model.ToDate?.ToString("MMM dd, yyyy") ?? "Today")</strong></div>
             </div>
         </header>

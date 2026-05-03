@@ -58,10 +58,10 @@ public class ReportsController : Controller
         var configuredModelProvider = _configuration["ModelAssets:ArModelProvider"] ?? "Hugging Face";
         var configuredModelStatus = _configuration["ModelAssets:Status"];
 
-        var singaporeZone = GetSingaporeTimeZone();
+        var philippineZone = GetPhilippineTimeZone();
         var generatedAtUtc = DateTimeOffset.UtcNow;
-        var generatedAt = TimeZoneInfo.ConvertTime(generatedAtUtc, singaporeZone);
-        var uptimeReportDate = DateOnly.FromDateTime((toDate ?? DateTime.Today).Date);
+        var generatedAt = TimeZoneInfo.ConvertTime(generatedAtUtc, philippineZone);
+        var uptimeReportDate = DateOnly.FromDateTime((toDate ?? generatedAt.Date).Date);
         var uptimeHours = await GetModelUptimeHoursAsync(uptimeReportDate);
         var uptimeHoursWithData = uptimeHours.Where(x => x.HasData).ToList();
         var uptimePercent = uptimeHoursWithData.Count == 0
@@ -77,9 +77,9 @@ public class ReportsController : Controller
         var localMonthStart = new DateTime(generatedAt.Year, generatedAt.Month, 1, 0, 0, 0, DateTimeKind.Unspecified);
         var localDayStart = generatedAt.Date;
 
-        var yearStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localYearStart, singaporeZone), TimeSpan.Zero);
-        var monthStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localMonthStart, singaporeZone), TimeSpan.Zero);
-        var dayStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localDayStart, singaporeZone), TimeSpan.Zero);
+        var yearStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localYearStart, philippineZone), TimeSpan.Zero);
+        var monthStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localMonthStart, philippineZone), TimeSpan.Zero);
+        var dayStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localDayStart, philippineZone), TimeSpan.Zero);
         var dayEnd = dayStart.AddDays(1);
 
         var totalSessions = await _dbContext.ChatSessions.CountAsync(x =>
@@ -266,14 +266,14 @@ public class ReportsController : Controller
                 }
             }
 
-            var singaporeZone = GetSingaporeTimeZone();
+            var philippineZone = GetPhilippineTimeZone();
             var localStart = date.ToDateTime(TimeOnly.MinValue);
             var localEnd = localStart.AddDays(1);
-            var utcStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localStart, singaporeZone), TimeSpan.Zero);
-            var utcEnd = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localEnd, singaporeZone), TimeSpan.Zero);
+            var utcStart = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localStart, philippineZone), TimeSpan.Zero);
+            var utcEnd = new DateTimeOffset(TimeZoneInfo.ConvertTimeToUtc(localEnd, philippineZone), TimeSpan.Zero);
 
             const string sql = """
-                select extract(hour from recorded_at at time zone 'Asia/Singapore')::int as hour,
+                select extract(hour from recorded_at at time zone 'Asia/Manila')::int as hour,
                        count(*)::int as total_checks,
                        count(*) filter (where upper(coalesce(status, '')) = 'OK')::int as up_checks
                 from public.model_status_logs
@@ -319,11 +319,11 @@ public class ReportsController : Controller
             .ToList();
     }
 
-    private static TimeZoneInfo GetSingaporeTimeZone()
+    private static TimeZoneInfo GetPhilippineTimeZone()
     {
         try
         {
-            return TimeZoneInfo.FindSystemTimeZoneById("Asia/Singapore");
+            return TimeZoneInfo.FindSystemTimeZoneById("Asia/Manila");
         }
         catch (TimeZoneNotFoundException)
         {

@@ -137,7 +137,7 @@
         </div>
         <div class="report-print-stamp">
             <span class="detail-label">Prepared On</span>
-            <strong>@Model.GeneratedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</strong>
+            <strong>@Model.GeneratedAt.ToString("MMM dd, yyyy hh:mm tt")</strong>
         </div>
     </div>
 
@@ -242,7 +242,7 @@
             </div>
             <div>
                 <span class="detail-label">Generated Date</span>
-                <strong>@Model.GeneratedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</strong>
+                <strong>@Model.GeneratedAt.ToString("MMM dd, yyyy hh:mm tt")</strong>
             </div>
         </article>
 
